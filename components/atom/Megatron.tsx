@@ -9,7 +9,7 @@ const Megatron = () => {
       <h1 className="main-heading">Megatron HMS</h1>
       <h1 className="main-desc">World class HMS</h1>
 
-      <div className="w-full flex flex-col md:flex-row items-center gap-6">
+      <div className="service-text-heading">
         {/* Top */}
         <div className="p-4 flex-[0.4] ">
           <Image
@@ -36,7 +36,7 @@ const Megatron = () => {
       </div>
 
       {/* Bottom */}
-      <div>
+      <div className="service-text-content">
         <p className="p-text lg:text-justify">
           1. <strong className={cn("poppins")}>Customizable Casenotes: </strong>
           MegatronHMS empowers healthcare professionals with a robust system for

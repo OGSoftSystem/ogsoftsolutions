@@ -6,24 +6,24 @@ import { notFound } from "next/navigation";
 import React from "react";
 
 export const metadata: Metadata = {
-  title: "et A Quotation.",
+  title: "Get A Quotation.",
 };
 
-const getCountries = async () => {
-  const data = await fetch(
-    process.env.URL as string,
-    {
-      method: "GET",
-      headers: {
-        "X-RapidAPI-Key": process.env.KEY as string,
-        "X-RapidAPI-Host": process.env.HOST as string,
-      },
-    }
-  );
-  if(!data) return notFound();
-  const res = data.json();
-  return res
-};
+// const getCountries = async () => {
+//   const data = await fetch(
+//     process.env.URL as string,
+//     {
+//       method: "GET",
+//       headers: {
+//         "X-RapidAPI-Key": process.env.KEY as string,
+//         "X-RapidAPI-Host": process.env.HOST as string,
+//       },
+//     }
+//   );
+//   if(!data) return notFound();
+//   const res = data.json();
+//   return res
+// };
 
 const PricingPage = async() => {
 

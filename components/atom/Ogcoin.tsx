@@ -11,7 +11,7 @@ const Ogcoin = () => {
       <h1 className="main-heading">OGCoin E-Health Africa</h1>
       <h1 className="main-desc">Our secure unified payment system</h1>
 
-      <div className="w-full flex flex-col md:flex-row items-center gap-6">
+      <div className="service-text-heading">
         {/* Top */}
         <div className="p-4 flex-[0.4] ">
           <Image
@@ -35,7 +35,7 @@ const Ogcoin = () => {
       </div>
 
       {/* Bottom */}
-      <div>
+      <div className="service-text-content">
         <p className="p-text lg:text-justify">
           1. Spearhead the healthcare revolution in Africa with a unique
           opportunity for the advancement of a unified HealthCare System through

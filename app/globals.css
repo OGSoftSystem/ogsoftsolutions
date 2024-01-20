@@ -183,6 +183,14 @@ body {
   .main-desc {
     @apply text-center p-text subheading-text mt-2 mb-6;
   }
+
+  .service-text-heading{
+    @apply w-full flex flex-col md:flex-row items-center gap-6 mb-6 lg:mb-0
+  }
+  .service-text-content{
+    @apply md:max-w-[80ch] mx-auto
+  }
+
 }
 @layer base {
   :root {
