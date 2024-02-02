@@ -48,7 +48,7 @@ export const makeAdmin = async (id: string) => {
       { _id: id.toString() },
       {
         $set: {
-          role: user?.role === "user" ? "admin" : "user",
+          role: user.role === "user" ? "admin" : "user",
         },
       },
       { new: true }

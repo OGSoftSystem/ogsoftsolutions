@@ -15,27 +15,26 @@ const BlogPage = async () => {
 
   return (
     <>
-      <section className="bg-APP_ASH dark:bg-zinc-950">
+      <section className="bg-APP_ASH dark:bg-zinc-950 h-[250px] lg:h-[300px]">
         <MaxWidthContainer>
           {/* Admin bar */}
           <BlogAdminBar />
           {/* Banner */}
           <div className="w-full h-[300px] flex justify-between items-center mb-6 ">
             <div className="flex-[0.3] leading-tight hidden md:block mr-4">
-              <p className={cn("main-heading text-right text-7xl")}>
+              <p className={cn("main-heading text-7xl")}>
                 OGSoft <br />
                 Blog
               </p>
-              <p className="main-desc text-left ">stay up to date!.</p>
+              <p className="main-desc">stay up to date!.</p>
             </div>
 
-            <div className="flex-1 w-full h-[300px] flex items-center justify-end relative">
+            <div className="flex-1 w-full h-[200px] lg:h-[300px] flex items-center justify-end relative">
               <Image
-                src="/banner.jpg"
+                src="/banner.png"
                 fill
-                priority
-                alt="company-logo"
-                className="object-cover"
+                alt="blog-logo"
+                className="object-cover lg:object-contain object-center"
               />
             </div>
           </div>

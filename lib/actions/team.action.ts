@@ -21,7 +21,6 @@ export const fetchTeamMembers = async () => {
   try {
     await connectDb();
     const members = await TeamMember.find();
-    revalidatePath("/about");
     return JSON.parse(JSON.stringify(members));
   } catch (error) {
     throw error;

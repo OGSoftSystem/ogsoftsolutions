@@ -2,12 +2,10 @@ import MaxWidthContainer from "@/components/MaxWidthContainer";
 import AuthorProfile from "@/components/atom/AuthorProfile";
 import BlogAdminBar from "@/components/atom/BlogAdminBar";
 import CommentForm from "@/components/atom/CommentForm";
-// import EditTab from "@/components/atom/EditTab";
 import ExpressButtons from "@/components/atom/ExpressButtons";
 import SingleComment from "@/components/atom/SingleComment";
 import SkeletonComp from "@/components/atom/SkeletonComp";
 import { buttonVariants } from "@/components/ui/button";
-// import { blogPost } from "@/constants/blog";
 import {
   fetchPosts,
   findCommentsByPostId,
@@ -15,19 +13,55 @@ import {
   getRelatedPosts,
 } from "@/lib/actions/post.action";
 import { cn } from "@/lib/utils";
-import { PostType } from "@/type/type";
+import { CommentType, PostType } from "@/type/type";
 import moment from "moment";
 import Image from "next/image";
 import Link from "next/link";
-import { Suspense } from "react";
+import { Suspense, cache } from "react";
 import parse from "html-react-parser";
+import { Metadata } from "next";
+import { notFound } from "next/navigation";
 
-const PostPage = async ({ params }: { params: { id: string } }) => {
-  const post: PostType = await findPostById(params.id);
+type ParamsType = {
+  params: { id: string };
+};
+
+const getPostById = cache(async (id: string): Promise<PostType> => {
+  return await findPostById(id);
+});
+
+// Dynamic metadata
+export async function generateMetadata({
+  params: { id },
+}: ParamsType): Promise<Metadata> {
+  const post: PostType = await getPostById(id);
+
+  return {
+    title: post.title,
+    description: post.subTitle,
+    openGraph: {
+      images: [{ url: post.photo }],
+    },
+  };
+}
+
+// Fetches data at compile time and serves static html (prerender)
+export const generateStaticParams = async () => {
+  const posts: PostType[] = await fetchPosts();
+
+  return posts.map((post) => ({ id: post._id }));
+};
+
+const PostPage = async ({ params }: ParamsType) => {
+  if (!/^[0-9a-fA-F]{24}$/.test(params.id)) {
+    return notFound(); // ID is not in the correct format
+  }
+
+  const post: PostType = await getPostById(params.id);
 
   const authorsPost: PostType[] = await fetchPosts();
 
-  const comments = await findCommentsByPostId(params.id);
+  const comments: CommentType[] = await findCommentsByPostId(params.id);
 
   const author = authorsPost.find((p) => p.author)?.author;
 
@@ -37,7 +71,7 @@ const PostPage = async ({ params }: { params: { id: string } }) => {
     <MaxWidthContainer>
       <BlogAdminBar />
       <div className="w-full min-h-[calc(100vh-10vh)]">
-        <div className="w-full h-[300px] lg:h-[600px] relative mb-6">
+        <div className="w-full h-[300px] lg:h-[500px] relative mb-6">
           <Image
             src={post!.photo}
             fill
@@ -89,8 +123,8 @@ const PostPage = async ({ params }: { params: { id: string } }) => {
 
             {/* Other comments*/}
             <div>
-              {comments.map((comment: any) => {
-                const id = comment._id.toString();
+              {comments.map((comment: CommentType) => {
+                const id = comment.id.toString();
 
                 return <SingleComment key={id} id={id} text={comment.text} />;
               })}
@@ -109,7 +143,7 @@ const PostPage = async ({ params }: { params: { id: string } }) => {
                 Other Posts from this author:
               </p>
 
-              <div className="flex flex-col mt-2">
+              <div className="flex flex-col">
                 {relatedPosts.map((p: any) => {
                   const id = p._id.toString();
                   return (
@@ -117,7 +151,7 @@ const PostPage = async ({ params }: { params: { id: string } }) => {
                       href={`/blog/post/${id}`}
                       key={p.title}
                       className={cn(
-                        "p-text capitalize text-left ",
+                        "text-sm leading-[0.5] capitalize text-left ",
                         buttonVariants({ variant: "link" })
                       )}
                     >

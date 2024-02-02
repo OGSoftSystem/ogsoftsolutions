@@ -6,7 +6,8 @@ export const findCommentById = async (id: string) => {
   try {
     await connectDb();
 
-    await Comment.findOne({ _id: id });
+    const foundComment = await Comment.findOne({ _id: id });
+    return JSON.parse(JSON.stringify(foundComment));
   } catch (error) {
     throw error;
   }

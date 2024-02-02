@@ -23,6 +23,7 @@ const SingleComment = ({ text, id }: { text: string; id: string }) => {
   return (
     <div className="bg-white dark:bg-transparent shadow-sm rounded-md p-4 my-4 w-fit relative">
       <p className="text-sm text-muted-foreground">{parse(text)}</p>
+      
       {canDelete ? (
         <XCircle
           className="text-gray-700 absolute top-0 right-2 w-4 h-4 hover:text-red-500 cursor-pointer"

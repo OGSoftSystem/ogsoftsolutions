@@ -11,7 +11,7 @@ import {
 import { PostType } from "@/type/type";
 import { revalidatePath } from "next/cache";
 import Comment from "../database/model/Comment.model";
-import { timeStamp } from "console";
+import mongoose from "mongoose";
 
 type Prop = Omit<PostType, "date" | "likes" | "disLikes" | "comments">;
 
@@ -56,20 +56,10 @@ export const fetchPosts = async () => {
 export const findPostById = async (id: string): Promise<any> => {
   try {
     await connectDb();
+    if (!mongoose.Types.ObjectId.isValid(id))
+      return new Error(`Post with ${id} does not exist`);
+
     const post = await Post.findOne({ _id: id });
-    // return {
-    //   id: post!._id.toString(),
-    //   author: post!.author,
-    //   title: post!.title,
-    //   subTitle: post!.subTitle,
-    //   body: post!.body,
-    //   category: post!.category,
-    //   photo: post!.photo,
-    //   date: post!.date,
-    //   likes: post!.likes,
-    //   disLikes: post!.disLikes,
-    //   comments: post!.comments,
-    // };
 
     return JSON.parse(JSON.stringify(post));
   } catch (error) {

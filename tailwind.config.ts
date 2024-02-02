@@ -93,6 +93,7 @@ module.exports = withUt({
         "accordion-up": "accordion-up 0.2s ease-out",
         slideDown: "slideDown 1s ease-in-out",
         slideLeft: "slideLeft 0.3s ease-in-out",
+        slideRight: "slideRight 0.3s ease-in-out",
       },
     },
   },

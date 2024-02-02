@@ -47,7 +47,7 @@ const AuthorProfile = ({
         <p className="poppins text-gray-700 dark:text-gray-400">Author: {currentUser?.fullName}</p>
         <p
           className={cn(
-            "text-justify  p-text text-base leading-tight tracking-tight "
+            "text-base text-muted-foreground leading-tight -tracking-normal "
           )}
         >
           {currentUser?.detail}

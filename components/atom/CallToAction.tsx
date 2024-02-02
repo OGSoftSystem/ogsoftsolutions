@@ -6,10 +6,10 @@ import { cn } from "@/lib/utils";
 
 const CallToAction = () => {
   const style =
-    "rounded-md uppercase w-full xxs:w-[475px] sm:w-[220px] md:w-[230] lg:w-[240px] cursor-pointer text-white";
+    "rounded-md uppercase w-full xxs:w-[220px] sm:w-[220px] md:w-[230] lg:w-[240px] cursor-pointer text-white";
 
   return (
-    <div className="flex flex-col sm:flex-row gap-4 items-center xxs:self-start">
+    <div className="flex flex-col xxs:flex-row gap-4 items-center xxs:self-start">
       <Link
         className={cn(
           style,

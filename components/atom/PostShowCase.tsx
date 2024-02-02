@@ -14,12 +14,10 @@ import SkeletonComp from "./SkeletonComp";
 const PostShowCase = ({ blogPost }: { blogPost: any[] }) => {
   const [selectedCat, setSelectedCat] = useState("general");
 
-  let filteredPost;
-  if (selectedCat === "general") {
-    filteredPost = blogPost;
-  } else {
-    filteredPost = blogPost.filter((post) => post.category === selectedCat);
-  }
+  let filteredPost =
+    selectedCat === "general"
+      ? blogPost
+      : blogPost.filter((post) => post.category === selectedCat);
 
   return (
     <div>
@@ -66,28 +64,29 @@ export const SelectComp = ({
   value: string;
   onValueChange: (v: string) => void;
 }) => {
-  // const selectOptions = [
-  //   { title: "All", value: "all" },
-  //   { title: "Tech", value: "tech" },
-  //   { title: "Business", value: "business" },
-  //   { title: "Health", value: "health" },
-  // ];
+  const selectOptions = [
+    { title: "General", value: "general" },
+    { title: "Tech", value: "tech" },
+    { title: "Business", value: "business" },
+    { title: "Health", value: "health" },
+  ];
   return (
     <Select
       name="selected_cat"
       value={value}
       onValueChange={onValueChange}
-      defaultValue="all"
+      defaultValue="general"
     >
       <SelectTrigger className="w-[180px]">
         <SelectValue placeholder="Category" />
       </SelectTrigger>
 
       <SelectContent>
-        <SelectItem value="general">General</SelectItem>
-        <SelectItem value="tech">Tech</SelectItem>
-        <SelectItem value="business">Business</SelectItem>
-        <SelectItem value="health">Health</SelectItem>
+        {selectOptions.map((item) => (
+          <SelectItem key={item.value} value={item.value}>
+            {item.title}
+          </SelectItem>
+        ))}
       </SelectContent>
     </Select>
   );

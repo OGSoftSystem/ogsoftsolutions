@@ -115,47 +115,17 @@ body {
 .nunito-font {
   font-family: "Nunito Sans";
 }
-.bg-image-1 {
-  background-image: url("/logo.png");
-  background-position: center right;
-  background-repeat: no-repeat;
-  background-size: contain;
-  /* max-height: 100vh; */
-}
-.faq {
-  background-image: url("/faq.png");
-  background-position: center right;
-  background-repeat: no-repeat;
-  background-size: contain;
-}
+
 .pricing {
   background-image: url("/pricing.png");
   background-position: center left;
   background-repeat: no-repeat;
   background-size: "20%";
-}
-.partner {
-  position: relative;
-  background-image: url("/partner.png");
-  background-position: center right;
-  background-repeat: no-repeat;
-  background-size: 50%;
-  color: inherit; /* Set text color to contrast with the overlay */
+  object-fit: contain;
 }
 
-.partner::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  /*background: rgba( 0, 0, 0, 0.1 );  Adjust the last value for the overlay opacity */
-  z-index: -1;
-  backdrop-filter: blur(15px);
-}
 
-@layer components {
+@layer utilities {
   .p-text {
     @apply nunito leading-8 text-gray-600 dark:text-gray-300 lg:text-[1.15rem] lg:leading-9;
   }
@@ -163,10 +133,10 @@ body {
     @apply bg-gradient-to-r from-[#3057F4] via-blue-900 to-blue-400 bg-clip-text text-transparent;
   }
   .paddingX {
-    @apply px-4 md:px-6 lg:px-8 mx-auto max-w-screen-xl;
+    @apply px-4 md:px-6 lg:px-12 mx-auto max-w-screen-xl;
   }
   .paddingY {
-    @apply py-8 md:py-12 lg:py-[3rem];
+    @apply py-10 md:py-12 lg:py-[3rem];
   }
   .white-gradient {
     @apply bg-gradient-to-tr from-zinc-200 via-blue-50/80 to-zinc-100;

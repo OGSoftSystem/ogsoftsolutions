@@ -10,7 +10,7 @@ const AnimatedReviews = async () => {
   );
 
   return (
-    <div className="sm:absolute right-5 bottom-10 rounded-md w-full xxs:w-[400px] xxs:self-end sm:w-[300px] flex-col space-x-2 p-2  bg-gradient-to-tr from-zinc-200 via-blue-50/80 to-zinc-100 dark:bg-gradient-to-tr dark:from-[#020817] dark:via-blue-900/80 dark:to-zinc-900">
+    <div className="rounded-md w-full xxs:self-end xxs:w-[300px] flex-col space-x-2 p-2  bg-gradient-to-tr from-zinc-200 via-blue-50/80 to-zinc-100 dark:bg-gradient-to-tr dark:from-[#020817] dark:via-blue-900/80 dark:to-zinc-900">
       {customerReview.length > 0 ? (
         <CarouselDiv
           autoPlay={true}

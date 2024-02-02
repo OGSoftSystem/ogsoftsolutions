@@ -5,35 +5,42 @@ import AnimatedReviews from "./atom/AnimatedReview";
 import { Suspense } from "react";
 import TextSkeleton from "./atom/TextSkeleton";
 import MaxWidthContainer from "./MaxWidthContainer";
+import Image from "next/image";
 
 /**
  * This component renders the hero page
  * @returns
  */
+
+// pt-[25px] sm:pt-[50px] md:pt-0
 const Hero = async () => {
   return (
-    <MaxWidthContainer className="flex flex-col md:flex-row h-[calc(100vh-56px)] 2xl:h-[calc(100vh-60vh)] w-full items-center pt-[30px] mb-12 sm:pt-[50px] md:pt-0 paddingY relative">
-      {/* Left */}
-      <div className="w-full flex-1 flex flex-col md:items-start gap-5 md:pr-8">
-        {/* Major title */}
+    <MaxWidthContainer className="flex flex-col md:flex-row xxs:h-[calc(100vh-150px)] md:mt-[60px] md:mb-[40px] 2xl:h-[calc(100vh-70vh)] lg:h-[calc(100vh-56px)] lg:mt-0 w-full lg:items-center relative paddingY xxs:mb-5">
+      <div className="w-full flex flex-col md:items-start gap-8 md:pr-8 z-10">
+        
+        <div className="w-full lg:-mt-24">
+          <DynamicText />
+        </div>
 
-        <DynamicText />
-
-        {/* A brief about text */}
         <Suspense fallback={<TextSkeleton />}>
           <Introduction />
         </Suspense>
 
-        {/* Call to action button */}
         <CallToAction />
 
-        {/* Customer alert */}
         <Suspense fallback={<TextSkeleton />}>
-          <AnimatedReviews />
+          <div className="xxs:absolute xxs:right-5 xxs:bottom-5  xxs:mt-10 md:mt-0">
+            <AnimatedReviews />
+          </div>
         </Suspense>
       </div>
 
-      {/* <div className='gradient absolute inset-0'/> */}
+      <Image
+        src="/logo.png"
+        fill
+        alt="ogsoft-logo"
+        className="object-contain object-right  absolute"
+      />
     </MaxWidthContainer>
   );
 };

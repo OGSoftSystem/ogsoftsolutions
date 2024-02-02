@@ -10,7 +10,7 @@ const HomePage = async () => {
     <section>
       <div className="bg-APP_ASH dark:bg-transparent">
         
-        <div className="bg-image-1 border-b">
+        <div className="border-b">
           <Hero />
         </div>
       </div>

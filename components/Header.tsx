@@ -6,13 +6,14 @@ import { useCallback, useEffect, useState } from "react";
 import Image from "next/image";
 import ThemeSwitch from "./ThemeSwitch";
 import { cn } from "@/lib/utils";
-import { XIcon, MessageCircle } from "lucide-react";
+import { XIcon, Mail } from "lucide-react";
 
 import JiraForm from "./atom/JiraForm";
 import MaxWidthContainer from "./MaxWidthContainer";
 import NavItems from "./NavItems";
 import MobileNav from "./MobileNav";
 import { useDashboardContext } from "@/context";
+import WhatsappWidget from "./atom/WhatsappWidget";
 
 const Header = () => {
   const { toggled, setToggled } = useDashboardContext();
@@ -96,27 +97,42 @@ const Header = () => {
 
       <div
         className={cn("hidden", {
-          "block fixed bottom-[80px] left-[20px] z-50 animate-slideLeft duration-300 w-9/12 ":
+          "block fixed bottom-[110px] left-[20px] z-50 animate-slideLeft duration-300 w-9/12 ":
             showForm,
         })}
       >
         <JiraForm />
       </div>
 
+      {/* Toggle form icon */}
       <div
-        className="fixed bottom-[20px] left-[20px] w-12 h-12 rounded-full bg-APP_BTN_BLUE hover:bg-blue-700 flex items-center justify-center animate-slideLeft z-30 opacity-[0.9] cursor-pointer"
+        className={cn("hidden", {
+          "fixed bottom-[65px] left-[15px] w-10 h-10 rounded-full bg-APP_BTN_BLUE hover:bg-blue-700 flex items-center justify-center animate-slideLeft z-30 opacity-[0.9] cursor-pointer":
+            showNav,
+        })}
         onClick={() => setShowForm((prev) => !prev)}
       >
         {showForm ? (
           <XIcon className="w-6  text-white" />
         ) : (
-          <MessageCircle className="w-6  text-white" />
+          <Mail className="w-6  text-white" />
         )}
       </div>
 
       <div
         className={cn("hidden", {
-          " fixed bottom-[20px] right-[20px] w-12 h-12 rounded-full bg-APP_BTN_BLUE hover:bg-blue-700 flex items-center justify-center animate-slideLeft z-30 opacity-[0.9] cursor-pointer":
+          "fixed bottom-[20px] right-[15px] w-10 h-10 flex items-center justify-center animate-slideRight z-30 ":
+            showNav,
+        })}
+        onClick={() => backToTop()}
+      >
+        {/* WhatsApp */}
+        <WhatsappWidget />
+      </div>
+
+      <div
+        className={cn("hidden", {
+          "fixed bottom-[20px] left-[15px] w-10 h-10 rounded-full bg-APP_BTN_BLUE hover:bg-blue-700 flex items-center justify-center animate-slideLeft z-30 opacity-[0.9] cursor-pointer":
             showNav,
         })}
         onClick={() => backToTop()}
