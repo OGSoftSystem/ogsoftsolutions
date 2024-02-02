@@ -3,11 +3,12 @@ import { FloatingWhatsApp } from "react-floating-whatsapp";
 const WhatsappWidget = () => {
   return (
     <FloatingWhatsApp
-      phoneNumber="8038888192"
+      phoneNumber="+2348062526947"
       accountName="OGSoft Support"
       avatar="/logo.png"
       statusMessage="typing..."
-      // allowClickAway
+      allowEsc={true}
+      className="text-black"
     />
   );
 };
