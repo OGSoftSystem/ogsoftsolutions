@@ -64,7 +64,7 @@ const Footer = () => {
                   key={service.desc}
                   href={`/services?id=#${service.title}`}
                 >
-                  <p className={cn("p-text leading-6 hover:text-blue-700 ")}>
+                  <p className={cn("footer-link-text hover:text-blue-700 ")}>
                     {service.title}
                   </p>
                 </Link>
@@ -80,7 +80,7 @@ const Footer = () => {
                 <Link key={link.id} href={link.path}>
                   <p
                     className={cn(
-                      "p-text leading-6 hover:text-blue-700 capitalize"
+                      "footer-link-text hover:text-blue-700 capitalize"
                     )}
                   >
                     {link.id}
@@ -94,7 +94,7 @@ const Footer = () => {
               <h3 className="poppins gradient-text font-bold mb-2 text-2xl">
                 Reach Us
               </h3>
-              <p className="p-text cursor-pointer hover:text-blue-700 leading-6">
+              <p className="footer-link-text cursor-pointer hover:text-blue-700">
                 Nigeria +2348139549853
               </p>
               <p className="p-text cursor-pointer hover:text-blue-700 leading-6">
@@ -118,7 +118,7 @@ const Footer = () => {
                   <span
                     key={address}
                     className={cn(
-                      "p-text capitalize leading-6  flex space-x-2 items-center"
+                      "footer-link-text capitalize flex space-x-2 items-center"
                     )}
                   >
                     <MapPin className="text-blue-700 hidden lg:block" />{" "}

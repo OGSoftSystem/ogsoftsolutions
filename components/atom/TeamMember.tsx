@@ -27,7 +27,7 @@ const TeamMember = async ({
 
         <p
           className={cn(
-            "hidden group-hover:block text-zinc-100 p-text text-[1rem] leading-4 font-light group-hover:text-zinc-100 "
+            "hidden group-hover:block text-zinc-100 text-light nunito text-[1rem] leading-6 font-light group-hover:text-zinc-100 "
           )}
         >
           {detail}

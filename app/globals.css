@@ -124,10 +124,12 @@ body {
   object-fit: contain;
 }
 
-
 @layer utilities {
   .p-text {
     @apply nunito leading-8 text-gray-600 dark:text-gray-300 lg:text-[1.15rem] lg:leading-9;
+  }
+  .footer-link-text {
+    @apply nunito leading-7 text-gray-600 dark:text-gray-300 lg:text-[1.15rem];
   }
   .gradient-text {
     @apply bg-gradient-to-r from-[#3057F4] via-blue-900 to-blue-400 bg-clip-text text-transparent;
@@ -154,13 +156,12 @@ body {
     @apply text-center p-text subheading-text mt-2 mb-6;
   }
 
-  .service-text-heading{
-    @apply w-full flex flex-col md:flex-row items-center gap-6 mb-6 lg:mb-0
+  .service-text-heading {
+    @apply w-full flex flex-col md:flex-row items-center gap-6 mb-6 lg:mb-0;
   }
-  .service-text-content{
-    @apply md:max-w-[80ch] mx-auto
+  .service-text-content {
+    @apply md:max-w-[80ch] mx-auto;
   }
-
 }
 @layer base {
   :root {
