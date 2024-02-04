@@ -17,7 +17,6 @@ const Hero = async () => {
   return (
     <MaxWidthContainer className="flex flex-col md:flex-row xxs:h-[calc(100vh-150px)] md:mt-[60px] md:mb-[40px] 2xl:h-[calc(100vh-70vh)] lg:h-[calc(100vh-56px)] lg:mt-0 w-full lg:items-center relative paddingY xxs:mb-5">
       <div className="w-full flex flex-col md:items-start gap-8 md:pr-8 z-10">
-        
         <div className="w-full lg:-mt-24">
           <DynamicText />
         </div>
@@ -39,7 +38,9 @@ const Hero = async () => {
         src="/logo.png"
         fill
         alt="ogsoft-logo"
-        className="object-contain object-right  absolute"
+        priority
+        sizes="(min-width: 1360px) 1280px, calc(94.23vw + 17px)"
+        className="object-contain object-right absolute"
       />
     </MaxWidthContainer>
   );

@@ -22,7 +22,11 @@ const NotFoundPage = () => {
           </p>
         </div>
         <Button variant="ghost">
-          <Link href="/" className="p-2 text-black dark:text-white rounded-md">
+          <Link
+            href="/"
+            aria-label="Home link"
+            className="p-2 text-black dark:text-white rounded-md"
+          >
             Go Back
           </Link>
         </Button>

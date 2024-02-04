@@ -76,7 +76,8 @@ const PostPage = async ({ params }: ParamsType) => {
             src={post!.photo}
             fill
             alt="post-image"
-            className="object-fill object-center"
+            priority
+            className="object-fill object-center w-full h-auto" 
           />
         </div>
         <p className="poppins uppercase font-semibold text-gray-700 dark:text-gray-200">

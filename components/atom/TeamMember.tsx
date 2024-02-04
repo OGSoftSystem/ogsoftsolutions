@@ -3,7 +3,13 @@ import Image from "next/image";
 import EditTab from "./EditTab";
 import { TeamMemberProps } from "@/type/type";
 
-const TeamMember = async ({ _id, photo, fullName, position, detail }: TeamMemberProps) => {
+const TeamMember = async ({
+  _id,
+  photo,
+  fullName,
+  position,
+  detail,
+}: TeamMemberProps) => {
   return (
     <div className="relative cursor-pointer group overflow-hidden rounded-md max-h-[310px] min-h-[310px] shadow-lg">
       <Image
@@ -21,13 +27,13 @@ const TeamMember = async ({ _id, photo, fullName, position, detail }: TeamMember
 
         <p
           className={cn(
-            "hidden group-hover:block text-zinc-100 p-text text-[1rem] leading-6 font-light"
+            "hidden group-hover:block text-zinc-100 p-text text-[1rem] leading-4 font-light group-hover:text-zinc-100 "
           )}
         >
           {detail}
         </p>
 
-        <p className="text-[12px] leading-[1rem] p-text text-muted-foreground group-hover:text-zinc-100 group-hover:hidden">
+        <p className="text-[12px] leading-[1rem] text-muted-foreground group-hover:text-zinc-100 group-hover:hidden">
           {position}
         </p>
       </div>
