@@ -33,6 +33,8 @@ const SignInForm = () => {
     const { email, password } = data;
 
     try {
+      if(!email || !password) return;
+
       const res = await signIn("credentials", {
         email,
         password,
@@ -97,7 +99,13 @@ const SignInForm = () => {
             )}
             href="/auth/sign-up"
           >
-            <p className="text-zinc-950 dark:text-white">Sign up</p>
+            <p
+              className={cn("text-zinc-950 dark:text-white", {
+                "cursor-not-allowed": submitting,
+              })}
+            >
+              Sign up
+            </p>
           </Link>
         </form>
       </Form>

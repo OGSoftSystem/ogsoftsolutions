@@ -20,7 +20,7 @@ const Footer = () => {
   return (
     <>
       <footer className="bg-APP_ASH dark:bg-zinc-950 dark:border-t-gray-700 border-t ">
-        <div id="footer" className={cn("paddingX py-6 lg:relative")}>
+        <MaxWidthContainer id="footer" className=" py-6 lg:relative">
           {/* Top row */}
           <div className="flex flex-col space-y-2 md:space-y-0 md:flex-row md:justify-between mb-8">
             <Link href="/" className="flex items-center gap-5 poppins-heading">
@@ -131,7 +131,7 @@ const Footer = () => {
             <div>{/* TODO: Add map */}</div>
           </div>
           {/* Bottom */}
-        </div>
+        </MaxWidthContainer>
       </footer>
 
       {/* Last footer part */}

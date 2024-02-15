@@ -13,7 +13,7 @@ export default function RootLayout({
     <div className="min-h-screen flex flex-col">
       <ContextProvider>
         <Header />
-        <main className="flex-1 flex-grow">{children}</main>
+        <main className="flex-1">{children}</main>
         <Footer />
       </ContextProvider>
     </div>

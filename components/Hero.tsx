@@ -15,7 +15,7 @@ import Image from "next/image";
 // pt-[25px] sm:pt-[50px] md:pt-0
 const Hero = async () => {
   return (
-    <MaxWidthContainer className="flex flex-col md:flex-row xxs:h-[calc(100vh-80px)] md:mt-[60px] md:mb-[40px]  lg:h-[calc(100vh-56px)] lg:mt-0 w-full lg:items-center relative paddingY xxs:mb-5">
+    <MaxWidthContainer className="flex flex-col md:flex-row xxs:h-[calc(100vh-80px)] md:mt-[60px] md:mb-[40px] lg:mt-0 w-full lg:items-center relative paddingY xxs:mb-5">
       <div className="w-full flex flex-col md:items-start gap-8 md:pr-8 z-10">
         <div className="w-full lg:-mt-24">
           <DynamicText />

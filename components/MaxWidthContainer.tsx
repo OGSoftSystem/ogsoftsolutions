@@ -4,12 +4,15 @@ import React from "react";
 const MaxWidthContainer = ({
   children,
   className,
+  id,
 }: {
   children: React.ReactNode;
   className?: string;
+  id?: string;
 }) => {
   return (
     <div
+      id={id}
       className={cn("px-4 md:px-6 lg:px-8 mx-auto max-w-screen-xl", className)}
     >
       {children}

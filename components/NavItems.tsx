@@ -29,7 +29,7 @@ const NavItems = () => {
             <li
               key={link.id}
               className={cn(
-                "capitalize p-text px-4 py-2 rounded-md relative no-underline duration-300 ease-in",
+                "capitalize p-text p-[0.75rem] rounded-md relative no-underline duration-300 ease-in",
                 {
                   "text-blue-700 font-bold dark:text-zinc-300":
                     pathname === link.path,
@@ -69,7 +69,7 @@ const NavItems = () => {
             session?.user.role === "super-admin") && (
             <li
               className={cn(
-                "cursor-pointer hover:text-blue-700 capitalize p-text text-muted-foreground px-4 "
+                "cursor-pointer hover:text-blue-700 capitalize p-text text-muted-foreground px-2 "
               )}
             >
               <Link href="/dashboard" onClick={() => setToggled(false)}>
@@ -80,7 +80,7 @@ const NavItems = () => {
         {status === "authenticated" && (
           <li
             className={cn(
-              "cursor-pointer hover:text-blue-700 capitalize p-text text-muted-foreground px-4 py-2"
+              "cursor-pointer hover:text-blue-700 capitalize p-text text-muted-foreground p-2"
             )}
             onClick={() => {
               signOut();

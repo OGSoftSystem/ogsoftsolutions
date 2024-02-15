@@ -37,6 +37,7 @@ export const authOptions: NextAuthOptions = {
           email: string;
           password: string;
         };
+
         try {
           await connectDb();
 
@@ -62,6 +63,9 @@ export const authOptions: NextAuthOptions = {
   // Callback action happens after a successful login
   callbacks: {
     session: ({ token, session }) => {
+      if (!session.user) {
+        throw new Error("No session found");
+      }
       //   if (session.user) {
       //     (session.user as { id: string }).id = token.id as string;
       //     (session.user as { role: string }).role = token.role as string;

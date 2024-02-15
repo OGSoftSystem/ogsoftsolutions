@@ -5,7 +5,7 @@ import EditTab from "./EditTab";
 
 const CustomerRemark = ({ _id, logo, info, remark }: ClientType) => {
   return (
-    <section className="flex flex-col space-y-1 cursor-pointer h-fit lg:h-[200px] lg:relative p-2">
+    <section className="flex flex-col space-y-1 cursor-pointer h-fit lg:h-[190px] lg:relative p-2">
       <div className="w-full flex items-center space-x-2">
         <div className="w-8 h-8 md:w-12 md:h-12 rounded-full overflow-hidden relative bg-white dark:bg-gray-800">
           <Image
@@ -23,12 +23,12 @@ const CustomerRemark = ({ _id, logo, info, remark }: ClientType) => {
         </div>
       </div>
 
-      <p className="text-2xl font-bold text-muted-foreground leading-tight">
+      <p className="text-xl font-bold text-muted-foreground leading-tight">
         “
       </p>
       <p
         className={cn(
-          "nunito-font text-muted-foreground leading-tight tracking-tight text-left text-base self-start"
+          "nunito-font text-muted-foreground leading-tight tracking-tight text-left text-[0.9rem] self-start"
         )}
       >
         {remark}

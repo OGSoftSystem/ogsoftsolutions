@@ -2,7 +2,7 @@
 const nextConfig = {
   // output: "export",
   images: {
-    // loader: "imageLoader",
+    // loader: "custom",
     // loaderFile: "./loader.ts",
     remotePatterns: [
       {

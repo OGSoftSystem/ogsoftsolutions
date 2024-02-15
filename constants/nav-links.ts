@@ -23,4 +23,8 @@ export const navLinks = [
     id: "blog",
     path: "/blog",
   },
+  {
+    id: "career",
+    path: "/career",
+  },
 ];
