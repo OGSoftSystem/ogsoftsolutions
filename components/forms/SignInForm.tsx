@@ -12,7 +12,6 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
-import Toast from "@/components/shared/Toast";
 import { signIn } from "next-auth/react";
 
 const SignInForm = () => {
@@ -33,7 +32,7 @@ const SignInForm = () => {
     const { email, password } = data;
 
     try {
-      if(!email || !password) return;
+      if (!email || !password) throw new Error("Provide your credentials");
 
       const res = await signIn("credentials", {
         email,
@@ -42,7 +41,7 @@ const SignInForm = () => {
       });
 
       if (res?.error) {
-        toast.error("Could not sign-in. Check your network and try again");
+        toast.error(res.error);
         setSubmitting(false);
         return;
       }
@@ -109,8 +108,6 @@ const SignInForm = () => {
           </Link>
         </form>
       </Form>
-
-      <Toast />
     </>
   );
 };

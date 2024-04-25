@@ -12,7 +12,6 @@ import {
 } from "../ui/card";
 import { Button } from "../ui/button";
 import { toast } from "react-toastify";
-import Toast from "../shared/Toast";
 import Spinner from "./Spinner";
 import { useDashboardContext } from "@/context";
 
@@ -111,7 +110,6 @@ const OpenIssue = () => {
       ) : (
         <p className="poppins text-center">No open issues</p>
       )}
-      <Toast />
     </div>
   );
 };

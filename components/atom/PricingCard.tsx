@@ -21,7 +21,6 @@ import { createPricingQuotation } from "@/lib/actions/pricing.action";
 import Spinner from "./Spinner";
 import { Countries, CountryProps } from "@/type/type";
 import InputField from "./InputField";
-import Toast from "../shared/Toast";
 
 const PricingCard = () => {
   const [submitting, setSubmitting] = useState(false);
@@ -195,7 +194,6 @@ const PricingCard = () => {
           </Card>
         </form>
       </Form>
-      <Toast position="top-right" theme="colored" duration={5000} />
     </>
   );
 };

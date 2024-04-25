@@ -6,6 +6,8 @@ import "./globals.css";
 import { ThemeProvider } from "@/components/NextThemeProvider";
 import AuthProvider from "@/components/AuthProvider";
 import { GoogleTagManager } from "@next/third-parties/google";
+import Toast from "@/components/shared/Toast";
+import { siteConfig } from "@/config/site";
 
 // const poppins = Poppins({
 //   subsets: ["latin"],
@@ -20,13 +22,17 @@ import { GoogleTagManager } from "@next/third-parties/google";
 // });
 
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_BASE_URL as string),
+  metadataBase: new URL(siteConfig.baseUrl),
   title: {
-    template: `%s | Ogsoftsolutions`,
-    default: "Ogsoft Solutions. HMS at it's best.",
+    template: `%s | ${siteConfig.name}`,
+    default: siteConfig.defaultDescription,
   },
-  description:
-    "We are an integrated IT Software Company providing comprehensive end-to-end B2B software solutions to the entire healthcare industry.",
+  authors: {
+    name: siteConfig.name,
+    url: siteConfig.baseUrl,
+  },
+  keywords: siteConfig.keywords,
+  description: siteConfig.description,
 };
 
 export default function RootLayout({
@@ -52,6 +58,7 @@ export default function RootLayout({
           </ThemeProvider>
         </body>
         <GoogleTagManager gtmId={process.env.NEXT_PUBLIC_GTM_ID as string} />
+        <Toast />
       </html>
     </AuthProvider>
   );

@@ -4,7 +4,7 @@ import connectDb from "@/lib/database";
 import NewsLetterEmail from "@/lib/database/model/NewsLetter.model";
 import { EmailFormFieldType, newsLetterSchema } from "@/lib/validation";
 import { revalidatePath } from "next/cache";
-import { NextResponse } from "next/server";
+import { handleError } from "../utils";
 
 // type Success = {
 //   success: boolean,
@@ -32,16 +32,17 @@ export const addEmailAddress = async (email: EmailFormFieldType) => {
     await NewsLetterEmail.create({ email: validatedEmail.data });
     revalidatePath("/");
   } catch (error) {
-    throw error;
+    return { error: handleError(error) };
   }
 };
 
 export const fetchNewLetters = async () => {
   try {
     await connectDb();
-    const newsLetterSchema = await NewsLetterEmail.find();
-    return JSON.parse(JSON.stringify(newsLetterSchema));
+    const letter = await NewsLetterEmail.find();
+    if (!letter) throw new Error("No news letter found.");
+    return JSON.parse(JSON.stringify(letter));
   } catch (error) {
-    throw error;
+    return { error: handleError(error) };
   }
 };

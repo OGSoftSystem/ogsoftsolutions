@@ -24,7 +24,6 @@ import {
 } from "../ui/form";
 import Spinner from "./Spinner";
 import InputField from "./InputField";
-import Toast from "../shared/Toast";
 import { Textarea } from "../ui/textarea";
 import { createIssue } from "@/lib/actions/issue.action";
 import { useRouter } from "next/navigation";
@@ -137,7 +136,6 @@ const JiraForm = () => {
           </Card>
         </form>
       </Form>
-      <Toast position="top-right" theme="colored" duration={5000} />
     </>
   );
 };

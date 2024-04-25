@@ -24,12 +24,16 @@ const FaQAccordion = () => {
               setSelected(ques);
             }}
           >
-            <p className={cn("p-text font-semibold")}>{ques.question}</p>
+            <p className={cn("text-3xl font-[700]")}>{ques.question}</p>
           </AccordionTrigger>
           {/* If the current question is selected, show its answer */}
           {selected === ques && (
             <AccordionContent>
-              <p className={cn("nunito text-blue-600 font-light leading-8")}>{ques.answer}</p>
+              <p
+                className={cn("font-cambay text-blue-600 font-[400] leading-8")}
+              >
+                {ques.answer}
+              </p>
             </AccordionContent>
           )}
         </AccordionItem>

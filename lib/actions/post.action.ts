@@ -12,6 +12,7 @@ import { PostType } from "@/type/type";
 import { revalidatePath } from "next/cache";
 import Comment from "../database/model/Comment.model";
 import mongoose from "mongoose";
+import { handleError } from "../utils";
 
 type Prop = Omit<PostType, "date" | "likes" | "disLikes" | "comments">;
 
@@ -38,7 +39,9 @@ export const createPost = async (data: PostProps): Promise<PostType | any> => {
       comments: post.comments,
     };
   } catch (error) {
-    throw error;
+    return {
+      error: handleError(error),
+    };
   }
 };
 
@@ -46,10 +49,13 @@ export const fetchPosts = async () => {
   try {
     await connectDb();
     const posts = await Post.find();
+    if (!posts) throw new Error("No post found.");
     revalidatePath("/blog");
     return JSON.parse(JSON.stringify(posts));
   } catch (error) {
-    throw error;
+    return {
+      error: handleError(error),
+    };
   }
 };
 
@@ -63,7 +69,9 @@ export const findPostById = async (id: string): Promise<any> => {
 
     return JSON.parse(JSON.stringify(post));
   } catch (error) {
-    throw error;
+    return {
+      error: handleError(error),
+    };
   }
 };
 
@@ -85,7 +93,9 @@ export const updatePost = async (data: Prop) => {
     );
     revalidatePath("/blog");
   } catch (error) {
-    throw error;
+    return {
+      error: handleError(error),
+    };
   }
 };
 
@@ -115,7 +125,9 @@ export const deletePost = async (id: string) => {
 
     revalidatePath("/blog");
   } catch (error) {
-    throw error;
+    return {
+      error: handleError(error),
+    };
   }
 };
 
@@ -144,26 +156,14 @@ export const addComment = async (data: CommentProps) => {
       },
       { new: true }
     );
-    revalidatePath("/blog/post");
+    revalidatePath(`/blog/post/${data.postId}`);
   } catch (error) {
-    throw error;
+    return {
+      error: handleError(error),
+    };
   }
 };
 
-export const findCommentsByPostId = async (postId: string) => {
-  try {
-    await connectDb();
-
-    const comments = (await Comment.find().sort({ createdAt: "desc" })).filter(
-      (comment) =>
-        comment ? comment.postId.toString() === postId.toString() : null
-    );
-
-    return comments;
-  } catch (error) {
-    throw error;
-  }
-};
 
 export const getRelatedPosts = async (author: string) => {
   try {
@@ -177,6 +177,8 @@ export const getRelatedPosts = async (author: string) => {
 
     return JSON.parse(JSON.stringify(relatedPost));
   } catch (error) {
-    throw error;
+    return {
+      error: handleError(error),
+    };
   }
 };

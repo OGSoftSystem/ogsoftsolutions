@@ -14,7 +14,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 
 import "easymde/dist/easymde.min.css";
 import { createIntroText } from "@/lib/actions/intro.action";
-import Toast from "@/components/shared/Toast";
 import { toast } from "react-toastify";
 import { IntroTextField, IntroTextSchema } from "@/lib/validation";
 import Spinner from "./Spinner";
@@ -116,8 +115,6 @@ const IntroEditForm = () => {
               </Card>
             </form>
           </Form>
-
-          <Toast duration={5000} position="top-right" theme="colored" />
         </>
       ) : (
         <div className="w-full flex items-center justify-center ">

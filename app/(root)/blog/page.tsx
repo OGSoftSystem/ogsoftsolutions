@@ -34,6 +34,7 @@ const BlogPage = async () => {
                 src="/banner.png"
                 fill
                 alt="blog-logo"
+                priority
                 className="object-cover lg:object-contain object-center"
               />
             </div>

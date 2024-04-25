@@ -106,13 +106,14 @@ const Footer = () => {
             </div>
           </div>
 
-          {/* Address */}
+          {/* OFFICE ADDRESSES */}
           <div className="w-full flex flex-col md:flex-row md:items-center md:justify-between">
             {/* Left */}
             <div className="flex flex-col">
               <h3 className="poppins gradient-text font-bold mb-2 text-2xl">
                 Our Offices
               </h3>
+
               <div>
                 {ADDRESSES.map((address) => (
                   <span
@@ -135,8 +136,8 @@ const Footer = () => {
       </footer>
 
       {/* Last footer part */}
-      <section className="bg-zinc-100 dark:border-t-gray-700 border-t border-t-gray-200 dark:bg-zinc-950 py-6">
-        <MaxWidthContainer>
+      <section className="bg-zinc-100 dark:border-t-gray-700 border-t border-t-gray-200 dark:bg-zinc-950">
+        <MaxWidthContainer className="py-10">
           <p
             className={cn(
               "text-center dark:text-muted-foreground p-text gradient-text text-base py-2"

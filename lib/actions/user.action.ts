@@ -4,6 +4,8 @@ import connectDb from "@/lib/database";
 import { UserType, userSchema } from "@/lib/validation";
 import User from "@/lib/database/model/User.model";
 import { revalidatePath } from "next/cache";
+import { handleError } from "../utils";
+import { isValidObjectId } from "mongoose";
 
 export const createUser = async (data: UserType) => {
   const validatedUser = userSchema.safeParse(data);
@@ -19,30 +21,40 @@ export const createUser = async (data: UserType) => {
     if (isExist) throw new Error("Email already exists");
 
     const user = await User.create(data);
-
+    if (!user) throw new Error("Could not create user.");
     return {
       id: user._id.toString(),
       email: user.email,
       name: user.name,
       role: user.role,
     };
-  } catch (e) {
-    throw e;
+  } catch (error) {
+    return {
+      error: handleError(error),
+    };
   }
 };
 
 export const getUsers = async () => {
-  const users = await User.find();
+  try {
+    const users = await User.find();
+    if (!users) throw new Error("No user found.");
 
-  return JSON.parse(JSON.stringify(users));
+    return JSON.parse(JSON.stringify(users));
+  } catch (error) {
+    return {
+      error: handleError(error),
+    };
+  }
 };
 
 export const makeAdmin = async (id: string) => {
+  if (!isValidObjectId(id)) throw new Error("Invalid object id");
   try {
     await connectDb();
 
     const user = await User.findById(id);
-    if (!user) return;
+    if (!user) throw new Error("No user found.");
 
     const updatedUser = await User.findOneAndUpdate(
       { _id: id.toString() },
@@ -56,6 +68,8 @@ export const makeAdmin = async (id: string) => {
     revalidatePath("/dashboard");
     return JSON.parse(JSON.stringify(updatedUser));
   } catch (error) {
-    throw error;
+    return {
+      error: handleError(error),
+    };
   }
 };

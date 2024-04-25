@@ -5,7 +5,6 @@ import { Checkbox } from "../ui/checkbox";
 import { getUsers, makeAdmin } from "@/lib/actions/user.action";
 import { useSession } from "next-auth/react";
 import { toast } from "react-toastify";
-import Toast from "../shared/Toast";
 
 type UserProps = {
   id?: string;
@@ -86,7 +85,6 @@ const EditUser = () => {
           />
         );
       })}
-      <Toast />
     </div>
   );
 };

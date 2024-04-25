@@ -4,6 +4,8 @@ import Link from "next/link";
 import React from "react";
 import { buttonVariants } from "../ui/button";
 import Iframe from "react-iframe";
+import { videoLinks } from "@/constants/services";
+import VideoPlayer from "../shared/VideoPlayer";
 
 const Ogcoin = () => {
   return (
@@ -52,17 +54,9 @@ const Ogcoin = () => {
           3. Aid in the advancement of a universal Health Care Management System
         </p>
 
+        {/* VIDEO PLAYER */}
         <div className="w-full mt-2">
-          <Iframe
-            url="https://www.youtube.com/embed/Z17umAvfEBE"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            width="400"
-            allowFullScreen
-            // height="300"
-            display="block"
-            position="relative"
-            className="w-full md:w-[500px] h-[350px]"
-          />
+          <VideoPlayer url={videoLinks.ogcoin} />
         </div>
       </div>
       <Link

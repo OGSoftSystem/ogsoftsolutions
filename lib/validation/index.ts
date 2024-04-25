@@ -138,3 +138,16 @@ export const issueSchema = z.object({
 });
 
 export type IssueType = z.infer<typeof issueSchema>;
+
+// CAREER
+export const careerSchema = z.object({
+  title: z
+    .string()
+    .min(4, { message: "name should be at least 2 characters long" }),
+
+  description: z.string(),
+  createdAt: z.date(),
+  updatedAt: z.date(),
+});
+
+export type CareerType = z.infer<typeof careerSchema>;

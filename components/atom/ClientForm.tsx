@@ -26,7 +26,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useUploadThing } from "@/lib/uploadthing";
 import { Button } from "../ui/button";
 import { toast } from "react-toastify";
-import Toast from "../shared/Toast";
 import Spinner from "./Spinner";
 import {
   addClient,
@@ -96,15 +95,17 @@ const ClientForm = ({ client, type }: ClientActionProps) => {
         data.logo = imgRes[0].url;
 
         try {
-          await addClient({
+          const newClient = await addClient({
             logo: data.logo,
             info: data.info,
             remark: data.remark,
           });
 
-          toast.success("Client added successfully");
-          setSubmitting(false);
-          router.replace("/");
+          if (newClient) {
+            toast.success("Client added successfully");
+            setSubmitting(false);
+            router.replace("/");
+          }
         } catch (error) {
           toast.error("Failed to add Client");
           setSubmitting(false);
@@ -245,7 +246,6 @@ const ClientForm = ({ client, type }: ClientActionProps) => {
           </CardFooter>
         </Card>
       </form>
-      <Toast />
     </Form>
   );
 };

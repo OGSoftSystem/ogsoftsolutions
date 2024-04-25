@@ -1,10 +1,5 @@
-import { PostType } from "@/type/type";
 import { type ClassValue, clsx } from "clsx";
-import { cache } from "react";
 import { twMerge } from "tailwind-merge";
-import { findPostById } from "./actions/post.action";
-import { findTeamMember } from "./actions/issue.action";
-import { findClient } from "./actions/client.action";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -23,3 +18,18 @@ export function sliceText(text: string, endValue: number): string {
   }
 }
 
+export const handleError = (error: unknown): string => {
+  let message: string;
+
+  if (error instanceof Error) {
+    message = error.message;
+  } else if (error && typeof error === "object" && "message" in error) {
+    message = String(error.message);
+  } else if (typeof error === "string") {
+    message = error;
+  } else {
+    message = "Something went wrong, please try again";
+  }
+
+  return message;
+};

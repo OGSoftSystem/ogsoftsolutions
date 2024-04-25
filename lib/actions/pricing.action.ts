@@ -5,6 +5,7 @@ import Pricing from "@/lib/database/model/Pricing.model";
 import { revalidatePath } from "next/cache";
 import connectDb from "@/lib/database";
 import sendEmail from "../mail";
+import { handleError } from "../utils";
 
 export const createPricingQuotation = async (data: PricingType) => {
   const validate = pricingSchema.safeParse(data);
@@ -31,6 +32,6 @@ export const createPricingQuotation = async (data: PricingType) => {
     await Pricing.create(validate.data);
     revalidatePath("/pricing");
   } catch (error) {
-    throw error;
+    return {error: handleError(error)}
   }
 };

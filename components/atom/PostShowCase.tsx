@@ -57,7 +57,7 @@ const PostShowCase = ({ blogPost }: { blogPost: any[] }) => {
 
 export default PostShowCase;
 
-export const SelectComp = ({
+const SelectComp = ({
   value,
   onValueChange,
 }: {

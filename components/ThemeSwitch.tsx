@@ -10,23 +10,10 @@ const ThemeSwitch = () => {
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
 
-  // const [switchTheme, setSwitchTheme] = useState<Theme>("dark");
-
-  // const handleSwitch = () => {
-  //   if (switchTheme === "dark") {
-  //     setSwitchTheme("light");
-  //     setTheme('light');
-
-  //   } else  {
-  //     setSwitchTheme("dark");
-  //     setTheme("dark");
-
-  //   }
-  // };
-
   useEffect(() => {
     setMounted(true);
   }, []);
+
   if (!mounted) return null;
 
   return (

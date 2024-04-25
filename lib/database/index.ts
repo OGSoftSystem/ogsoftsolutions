@@ -1,8 +1,17 @@
-import mongoose from "mongoose";
+import mongoose, { Mongoose } from "mongoose";
 
 const url = process.env.MONGO_URI as string;
 
-let cached = (global as any).mongoose || { conn: null, promise: null };
+type CachedType = {
+  conn: Mongoose;
+  promise: Promise<Mongoose>;
+};
+
+let cached: CachedType = (global as any).mongoose;
+
+if (!cached) {
+  cached = (global as any).mongoose || { conn: null, promise: null };
+}
 
 const connectDb = async () => {
   if (cached.conn) return cached.conn;
@@ -13,7 +22,7 @@ const connectDb = async () => {
     mongoose.connect(url, {
       dbName: "ogsoft-solutions",
       bufferCommands: false,
-    });
+    } as mongoose.ConnectOptions);
 
   // cached.conn is always what cached.promise returns
   cached.conn = await cached.promise;

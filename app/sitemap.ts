@@ -1,3 +1,4 @@
+import { siteConfig } from "@/config/site";
 import { fetchPosts } from "@/lib/actions/post.action";
 import { PostType } from "@/type/type";
 import { MetadataRoute } from "next";
@@ -6,23 +7,23 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const posts: PostType[] = await fetchPosts();
 
   const postEntries: MetadataRoute.Sitemap = posts.map(({ _id }) => ({
-    url: `${process.env.NEXT_PUBLIC_BASE_URL}/blog/post/${_id}`,
+    url: `${siteConfig.baseUrl}/blog/post/${_id}`,
   }));
   return [
     {
-      url: `${process.env.NEXT_PUBLIC_BASE_URL}`,
+      url: `${siteConfig.baseUrl}`,
     },
     {
-      url: `${process.env.NEXT_PUBLIC_BASE_URL}/about`,
+      url: `${siteConfig.baseUrl}/about`,
     },
     {
-      url: `${process.env.NEXT_PUBLIC_BASE_URL}/services`,
+      url: `${siteConfig.baseUrl}/services`,
     },
     {
-      url: `${process.env.NEXT_PUBLIC_BASE_URL}/faq`,
+      url: `${siteConfig.baseUrl}/faq`,
     },
     {
-      url: `${process.env.NEXT_PUBLIC_BASE_URL}/pricing`,
+      url: `${siteConfig.baseUrl}/pricing`,
     },
     ...postEntries,
   ];

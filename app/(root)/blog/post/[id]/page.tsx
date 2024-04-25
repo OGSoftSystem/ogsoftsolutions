@@ -8,7 +8,6 @@ import SkeletonComp from "@/components/atom/SkeletonComp";
 import { buttonVariants } from "@/components/ui/button";
 import {
   fetchPosts,
-  findCommentsByPostId,
   findPostById,
   getRelatedPosts,
 } from "@/lib/actions/post.action";
@@ -21,6 +20,7 @@ import { Suspense, cache } from "react";
 import parse from "html-react-parser";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { findCommentsByPostId } from "@/lib/actions/comment.action";
 
 type ParamsType = {
   params: { id: string };
@@ -52,12 +52,14 @@ export const generateStaticParams = async () => {
   return posts.map((post) => ({ id: post._id }));
 };
 
+// Main container
 const PostPage = async ({ params }: ParamsType) => {
   if (!/^[0-9a-fA-F]{24}$/.test(params.id)) {
     return notFound(); // ID is not in the correct format
   }
 
   const post: PostType = await getPostById(params.id);
+  if (!post) return null;
 
   const authorsPost: PostType[] = await fetchPosts();
 
@@ -73,38 +75,38 @@ const PostPage = async ({ params }: ParamsType) => {
       <div className="w-full min-h-[calc(100vh-10vh)]">
         <div className="w-full h-[300px] lg:h-[500px] relative mb-6">
           <Image
-            src={post!.photo}
+            src={post.photo}
             fill
             alt="post-image"
             priority
-            className="object-fill object-center w-full h-auto" 
+            className="object-fill object-center w-full h-auto"
           />
         </div>
         <p className="poppins uppercase font-semibold text-gray-700 dark:text-gray-200">
-          {post!.title}
+          {post.title}
         </p>
         <p className="p-text text-gray-700 dark:text-gray-500">
-          {post!.subTitle}
+          {post.subTitle}
         </p>
         <div className="flex items-center space-x-2">
           <p className={cn("poppins text-[12px] font-light text-gray-500")}>
-            {post!.author}
+            {post.author}
           </p>
           <p className="text-[12px] font-light text-gray-400">|</p>
           <p className={cn("poppins text-[12px] font-light text-gray-400")}>
-            {moment(post!.date.toString(), "YYYYMMDD").fromNow()}
+            {moment(post.date.toString(), "YYYYMMDD").fromNow()}
           </p>
         </div>
         <div className="md:flex flex-1 w-full">
           {/* Post body */}
           <div className="md:flex-1 py-4">
             <div className="pr-2 dark:text-gray-300 lg:text-justify">
-              {parse(post!.body)}
+              {parse(post.body)}
             </div>
 
             {/* category badge */}
             <p className="my-2 px-2 py-1 rounded-2xl bg-gray-200  text-gray-700 dark:bg-zinc-800 dark:text-gray-500 w-fit text-[12px]">
-              {post!.category}
+              {post.category}
             </p>
 
             {/* Like disLike Comment */}
@@ -112,8 +114,8 @@ const PostPage = async ({ params }: ParamsType) => {
               <ExpressButtons
                 likes={post.likes}
                 disLikes={post.disLikes}
-                comments={post.comments.length}
-                title={post!.title}
+                comments={comments.length}
+                title={post.title}
               />
             </div>
 
@@ -124,9 +126,8 @@ const PostPage = async ({ params }: ParamsType) => {
 
             {/* Other comments*/}
             <div>
-              {comments.map((comment: CommentType) => {
-                const id = comment.id.toString();
-
+              {comments.map((comment: any) => {
+                const id = comment._id.toString();
                 return <SingleComment key={id} id={id} text={comment.text} />;
               })}
             </div>

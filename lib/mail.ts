@@ -1,6 +1,5 @@
 import { IMailOption } from "@/type/type";
 import nodemailer from "nodemailer";
-import { text } from "stream/consumers";
 
 const sendEmail = async (options: IMailOption) => {
   const transporter = nodemailer.createTransport({

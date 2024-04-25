@@ -2,6 +2,8 @@ import { cn } from "@/lib/utils";
 import Image from "next/image";
 import Link from "next/link";
 import { buttonVariants } from "../ui/button";
+import VideoPlayer from "../shared/VideoPlayer";
+import { videoLinks } from "@/constants/services";
 
 const Megatron = () => {
   return (
@@ -112,6 +114,10 @@ const Megatron = () => {
           high-quality patient care. Join us on the journey towards a smarter
           and more efficient healthcare ecosystem.
         </p>
+
+        <div className="w-full mt-2">
+          <VideoPlayer url={videoLinks.megatron}/>
+        </div>
       </div>
       <Link
         href="https://megatronhms.com/#!/home/aboutus"

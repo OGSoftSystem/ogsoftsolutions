@@ -17,7 +17,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import Spinner from "./Spinner";
 import { useState } from "react";
 import { toast } from "react-toastify";
-import Toast from "../shared/Toast";
 import dynamic from "next/dynamic";
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 
@@ -85,7 +84,6 @@ const CommentForm = ({ postId }: { postId: string }) => {
           </Button>
         </div>
       </form>
-      <Toast />
     </Form>
   );
 };

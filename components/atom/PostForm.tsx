@@ -26,7 +26,6 @@ import { isBase64Image } from "@/lib/utils";
 import { useUploadThing } from "@/lib/uploadthing";
 import { Button } from "../ui/button";
 import { toast } from "react-toastify";
-import Toast from "../shared/Toast";
 import Spinner from "./Spinner";
 import { useRouter } from "next/navigation";
 import { createPost, deletePost, updatePost } from "@/lib/actions/post.action";
@@ -282,7 +281,6 @@ const PostForm = ({ type, post }: PostFormProps) => {
           </CardFooter>
         </Card>
       </form>
-      <Toast />
     </Form>
   );
 };

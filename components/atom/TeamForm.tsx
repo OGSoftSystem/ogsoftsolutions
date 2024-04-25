@@ -32,7 +32,6 @@ import { isBase64Image } from "@/lib/utils";
 import { useUploadThing } from "@/lib/uploadthing";
 import { Button } from "../ui/button";
 import { toast } from "react-toastify";
-import Toast from "../shared/Toast";
 import Spinner from "./Spinner";
 import { useRouter } from "next/navigation";
 import { FormType, teamInitialValues } from "@/constants/defualtValues";
@@ -256,7 +255,6 @@ const TeamForm = ({ type, member }: TeamProps) => {
           </CardFooter>
         </Card>
       </form>
-      <Toast />
     </Form>
   );
 };

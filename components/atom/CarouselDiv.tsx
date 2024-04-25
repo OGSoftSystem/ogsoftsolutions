@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import { Carousel } from "react-responsive-carousel";
 

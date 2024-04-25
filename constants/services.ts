@@ -20,3 +20,9 @@ export const services: ServiceProps[] = [
     // url: "http://ogcoin.online",
   },
 ];
+
+export const videoLinks = {
+  // megatron: "https://youtu.be/Hg4hpKEuqP4?si=jSdzq-bpQjphADv8",
+  megatron: "https://www.youtube.com/watch?v=Hg4hpKEuqP4&t=11s",
+  ogcoin: "https://www.youtube.com/embed/Z17umAvfEBE",
+};

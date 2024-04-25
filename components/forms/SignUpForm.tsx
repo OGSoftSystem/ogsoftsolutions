@@ -12,7 +12,6 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
-import Toast from "@/components/shared/Toast";
 import { createUser } from "@/lib/actions/user.action";
 
 const SignUpForm = () => {
@@ -32,11 +31,14 @@ const SignUpForm = () => {
     setSubmitting(true);
 
     try {
-      await createUser(data);
-      toast.success("User successfully created");
-      setSubmitting(false);
-      form.reset();
-      router.replace("/auth/sign-in");
+      const newUser = await createUser(data);
+      
+      if (newUser) {
+        toast.success("User successfully created");
+        setSubmitting(false);
+        form.reset();
+        router.replace("/auth/sign-in");
+      }
     } catch (e) {
       toast.error("creating user unsuccessful");
 
@@ -100,8 +102,6 @@ const SignUpForm = () => {
           </Link>
         </form>
       </Form>
-
-      <Toast duration={5000} position="top-right" theme="colored" />
     </>
   );
 };

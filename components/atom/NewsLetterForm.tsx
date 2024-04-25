@@ -15,7 +15,6 @@ import { newsLetterSchema, EmailFormFieldType } from "@/lib/validation";
 import { useState } from "react";
 import Spinner from "./Spinner";
 import { addEmailAddress } from "@/lib/actions/news-letter.action";
-import Toast from "../shared/Toast";
 import { toast } from "react-toastify";
 import { MotionForm } from "./Motion";
 
@@ -79,7 +78,6 @@ const NewsLetterForm = () => {
           </Button>
         </MotionForm>
       </Form>
-      <Toast />
     </>
   );
 };

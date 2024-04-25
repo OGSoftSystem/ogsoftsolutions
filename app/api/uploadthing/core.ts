@@ -1,5 +1,3 @@
-import { authOptions } from "@/lib/authOptions";
-import { getServerSession } from "next-auth";
 import { createUploadthing, type FileRouter } from "uploadthing/next";
 
 const f = createUploadthing();

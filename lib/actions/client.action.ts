@@ -5,6 +5,7 @@ import client from "@/lib/database/model/Client.model";
 import { ClientField, AddClientSchema } from "@/lib/validation";
 import { ClientType } from "@/type/type";
 import { revalidatePath } from "next/cache";
+import { handleError } from "../utils";
 
 export const addClient = async (data: ClientField) => {
   const parsedData = AddClientSchema.safeParse(data);
@@ -14,7 +15,9 @@ export const addClient = async (data: ClientField) => {
     await client.create({ ...data });
     revalidatePath("/");
   } catch (error) {
-    throw error;
+    return {
+      error: handleError(error),
+    }
   }
 };
 export const fetchClients = async () => {
@@ -23,7 +26,9 @@ export const fetchClients = async () => {
     const clients = await client.find();
     return JSON.parse(JSON.stringify(clients));
   } catch (error) {
-    throw error;
+    return {
+      error: handleError(error),
+    };
   }
 };
 
@@ -33,7 +38,9 @@ export const findClient = async (id: string) => {
     const singleClient = await client.findById(id);
     return JSON.parse(JSON.stringify(singleClient));
   } catch (error) {
-    throw error;
+    return {
+      error: handleError(error),
+    };
   }
 };
 
