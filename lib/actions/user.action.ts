@@ -21,13 +21,7 @@ export const createUser = async (data: UserType) => {
     if (isExist) throw new Error("Email already exists");
 
     const user = await User.create(data);
-    if (!user) throw new Error("Could not create user.");
-    return {
-      id: user._id.toString(),
-      email: user.email,
-      name: user.name,
-      role: user.role,
-    };
+    if (user) return JSON.parse(JSON.stringify(user));
   } catch (error) {
     return {
       error: handleError(error),

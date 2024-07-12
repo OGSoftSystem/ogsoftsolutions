@@ -20,7 +20,7 @@ const GlobalError = ({
           className="bg-APP_BTN_BLUE hover:bg-blue-700 dark:text-white"
           onClick={() => reset()}
         >
-          Reset
+          Retry
         </Button>
       </div>
     </div>

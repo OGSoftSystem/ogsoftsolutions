@@ -17,3 +17,5 @@ export const siteConfig = {
     "Solution",
   ],
 };
+
+export type SiteConfig = typeof siteConfig;

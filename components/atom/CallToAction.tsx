@@ -16,7 +16,7 @@ const CallToAction = () => {
           buttonVariants({
             variant: "default",
             size: "lg",
-            className: "bg-APP_BTN_BLUE hover:bg-blue-700 dark:text-white",
+            className: "btn bg-APP_BTN_BLUE hover:bg-blue-700 dark:text-white",
           })
         )}
         href="https://megatronhms.com/#!/home/start"
@@ -32,7 +32,7 @@ const CallToAction = () => {
           buttonVariants({
             variant: "default",
             size: "lg",
-            className: "bg-blue-500 hover:bg-blue-400 dark:text-white",
+            className: "btn bg-blue-500 hover:bg-blue-400 dark:text-white",
           })
         )}
       >

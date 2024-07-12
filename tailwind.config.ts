@@ -1,5 +1,5 @@
 /** @type {import('tailwindcss').Config} */
-import {withUt} from 'uploadthing/tw'
+import { withUt } from "uploadthing/tw";
 
 module.exports = withUt({
   darkMode: ["class"],
@@ -22,6 +22,10 @@ module.exports = withUt({
         xxs: "530px",
         mmd: "1077px",
         xlg: "1281px",
+      },
+      boxShadow: {
+        shinny:
+          "0 0 5px rgba(49, 86, 242, 0.5), 0 0 10px rgba(49, 86, 242, 0.3),0 0 20px rgba(49, 86, 242, 0.4)",
       },
       colors: {
         APP_BTN_BLUE: "#1D40A3",
@@ -68,24 +72,24 @@ module.exports = withUt({
       },
       keyframes: {
         "accordion-down": {
-          from: { height: '0' },
+          from: { height: "0" },
           to: { height: "var(--radix-accordion-content-height)" },
         },
         "accordion-up": {
           from: { height: "var(--radix-accordion-content-height)" },
-          to: { height: '0' },
+          to: { height: "0" },
         },
         slideDown: {
-          from: { opacity: '0', transform: "translateY(-100%)" },
-          to: { opacity: '1', transform: "translateY(0)" },
+          from: { opacity: "0", transform: "translateY(-100%)" },
+          to: { opacity: "1", transform: "translateY(0)" },
         },
         slideLeft: {
-          from: { opacity: '0', transform: "translateX(-100%)" },
-          to: { opacity: '1', transform: "translateX(0)" },
+          from: { opacity: "0", transform: "translateX(-100%)" },
+          to: { opacity: "1", transform: "translateX(0)" },
         },
         slideRight: {
-          from: { opacity: '0', transform: "translateX(100%)" },
-          to: { opacity: '1', transform: "translateX(0)" },
+          from: { opacity: "0", transform: "translateX(100%)" },
+          to: { opacity: "1", transform: "translateX(0)" },
         },
       },
       animation: {

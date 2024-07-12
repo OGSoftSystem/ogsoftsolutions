@@ -5,13 +5,13 @@ import { MotionDiv } from "./Motion";
 const MissionComp = ({ imgPath, title, desc }: MissionProps) => {
   return (
     <MotionDiv
-      className="w-full flex flex-col bg-white border-zinc-100 shadow-md dark:bg-transparent dark:border-blue-900 dark:hover:bg-gradient-to-br from-black to-zinc-900 hover:border-[0.5px] space-y-8 p-4 h-[330px] rounded-md cursor-pointer mb-6"
+      className="w-full flex flex-col bg-white border-zinc-100 shadow-shinny dark:bg-transparent dark:border-blue-900 dark:hover:bg-gradient-to-br from-black to-zinc-900 hover:border-[0.5px] space-y-8 p-4 h-[330px] rounded-md cursor-pointer mb-6"
       whileInView={{
         y: [-100, 0],
         opacity: [0, 1],
       }}
       whileHover={{
-        scale: 1.07,
+        scale: 1.03,
       }}
       transition={{
         duration: 0.5,

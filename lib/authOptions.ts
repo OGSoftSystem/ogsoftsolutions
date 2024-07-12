@@ -8,10 +8,15 @@ import {
 import CredentialsProvider from "next-auth/providers/credentials";
 
 declare module "next-auth" {
+  interface User {
+    id: string;
+    name: string;
+    email: string;
+    role: string;
+  }
+
   interface Session {
-    user: ReturnedUser & {
-      role: string;
-    };
+    user: User;
   }
 }
 
@@ -49,7 +54,7 @@ export const authOptions: NextAuthOptions = {
 
           // If no issues with credentials
           return {
-            id: user._id,
+            id: user._id as string,
             name: user.name,
             email: user.email,
             role: user.role,
@@ -90,7 +95,7 @@ export const authOptions: NextAuthOptions = {
 
       if (fetchedUser) {
         token.role = fetchedUser?.role;
-        token.id = fetchedUser._id;
+        token.id = fetchedUser._id as string;
       }
 
       return token;

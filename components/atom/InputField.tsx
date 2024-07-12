@@ -9,7 +9,7 @@ import {
   FormMessage,
 } from "../ui/form";
 import { cn } from "@/lib/utils";
-import { Eye, EyeOff} from "lucide-react";
+import { Eye, EyeOff } from "lucide-react";
 import { useState } from "react";
 
 type Props = {
@@ -72,9 +72,9 @@ const InputField = ({
                   />
                 )}
               </div>
-              <FormMessage />
             </div>
           </FormControl>
+          <FormMessage />
         </FormItem>
       )}
     />

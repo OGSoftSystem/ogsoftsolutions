@@ -1,6 +1,5 @@
 "use client";
 
-import { cn } from "@/lib/utils";
 import { ThumbsUp, ThumbsDown, MessageSquare, Share2 } from "lucide-react";
 import { ShareButton } from "./ShareButton";
 import { useState } from "react";

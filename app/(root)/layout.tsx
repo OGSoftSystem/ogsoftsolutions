@@ -10,12 +10,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="min-h-screen flex flex-col">
-      <ContextProvider>
+    <ContextProvider>
+      <div className="min-h-screen size-full flex flex-col justify-between">
         <Header />
-        <main className="flex-1">{children}</main>
+        <main className="flex-1 h-full">{children}</main>
         <Footer />
-      </ContextProvider>
-    </div>
+      </div>
+    </ContextProvider>
   );
 }

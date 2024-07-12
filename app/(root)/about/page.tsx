@@ -1,8 +1,6 @@
 import { fetchTeamMembers } from "@/lib/actions/team.action";
-import SkeletonComp from "@/components/atom/SkeletonComp";
-import TeamMember from "@/components/atom/TeamMember";
+import TeamMember, { TeamSkeleton } from "@/components/atom/TeamMember";
 import Link from "next/link";
-// import { team } from "@/constants/team";
 import { Suspense } from "react";
 import MaxWidthContainer from "@/components/MaxWidthContainer";
 import { Metadata } from "next";
@@ -11,8 +9,8 @@ export const metadata: Metadata = {
   title: "About",
 };
 
-const About = async () => {
-  const team = await fetchTeamMembers();
+const About = () => {
+  // const team = await fetchTeamMembers();
 
   return (
     <section>
@@ -67,30 +65,22 @@ const About = async () => {
           <h3 className="main-desc">
             We are team of experts in business and tech.
           </h3>
-          {team.length > 0 ? (
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cole-5 gap-4 my-8">
-              {team.map((member: any) => {
-                return (
-                  <Suspense fallback={<SkeletonComp />} key={member.fullName}>
-                    <TeamMember
-                      _id={member._id}
-                      photo={member.photo}
-                      fullName={member.fullName}
-                      position={member.position}
-                      detail={member.detail}
-                    />
-                  </Suspense>
-                );
-              })}
-            </div>
-          ) : (
-            <Link
-              href="/dashboard"
-              className="p-text text-center hover:text-blue-900"
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cole-5 gap-4 my-8">
+            <Suspense
+              fallback={
+                <>
+                  <TeamSkeleton />
+                  <TeamSkeleton />
+                  <TeamSkeleton />
+                  <TeamSkeleton />
+                  <TeamSkeleton />
+                  <TeamSkeleton />
+                </>
+              }
             >
-              <p>No team member. Click to add.</p>
-            </Link>
-          )}
+              <TeamSuspense />
+            </Suspense>
+          </div>
         </div>
       </MaxWidthContainer>
     </section>
@@ -98,3 +88,28 @@ const About = async () => {
 };
 
 export default About;
+
+async function TeamSuspense() {
+  const teamMembers = await fetchTeamMembers();
+  if (teamMembers.length <= 0) {
+    return (
+      <Link
+        href="/dashboard"
+        className="p-text text-center hover:text-blue-900"
+      >
+        <p>No team member. Click to add.</p>
+      </Link>
+    );
+  }
+
+  return teamMembers.map((member: any) => (
+    <TeamMember
+      key={member.fullName}
+      _id={member._id}
+      photo={member.photo}
+      fullName={member.fullName}
+      position={member.position}
+      detail={member.detail}
+    />
+  ));
+}

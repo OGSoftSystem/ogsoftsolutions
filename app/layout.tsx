@@ -41,8 +41,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <AuthProvider>
-      <html lang="en" suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning>
+      <AuthProvider>
         <head />
         <body>
           <ThemeProvider
@@ -59,7 +59,7 @@ export default function RootLayout({
         </body>
         <GoogleTagManager gtmId={process.env.NEXT_PUBLIC_GTM_ID as string} />
         <Toast />
-      </html>
-    </AuthProvider>
+      </AuthProvider>
+    </html>
   );
 }

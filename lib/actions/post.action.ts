@@ -24,20 +24,9 @@ export const createPost = async (data: PostProps): Promise<PostType | any> => {
     await connectDb();
 
     const post = await Post.create(parsedData.data);
-    revalidatePath("/blog");
-    return {
-      id: post._id.toString(),
-      author: post.author,
-      photo: post.photo,
-      title: post.title,
-      subTitle: post.subTitle,
-      body: post.body,
-      date: post.date,
-      likes: post.likes,
-      disLikes: post.disLikes,
-      category: post.category,
-      comments: post.comments,
-    };
+    if (post) revalidatePath("/blog");
+
+    return JSON.parse(JSON.stringify(post));
   } catch (error) {
     return {
       error: handleError(error),
@@ -50,7 +39,7 @@ export const fetchPosts = async () => {
     await connectDb();
     const posts = await Post.find();
     if (!posts) throw new Error("No post found.");
-    revalidatePath("/blog");
+
     return JSON.parse(JSON.stringify(posts));
   } catch (error) {
     return {
@@ -163,7 +152,6 @@ export const addComment = async (data: CommentProps) => {
     };
   }
 };
-
 
 export const getRelatedPosts = async (author: string) => {
   try {

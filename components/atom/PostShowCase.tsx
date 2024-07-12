@@ -7,11 +7,11 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Suspense, useState } from "react";
+import { useState } from "react";
 import PostThumbnail from "../PostThumbnail";
-import SkeletonComp from "./SkeletonComp";
+import { PostType } from "@/type/type";
 
-const PostShowCase = ({ blogPost }: { blogPost: any[] }) => {
+const PostShowCase = ({ blogPost }: { blogPost: PostType[] }) => {
   const [selectedCat, setSelectedCat] = useState("general");
 
   let filteredPost =
@@ -33,16 +33,15 @@ const PostShowCase = ({ blogPost }: { blogPost: any[] }) => {
         <div className="flex-1 w-full grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 md:gap-8 mb-6">
           {filteredPost.map((post: any) => {
             return (
-              <Suspense fallback={<SkeletonComp />} key={post.title}>
-                <PostThumbnail
-                  _id={post._id}
-                  author={post.author}
-                  photo={post.photo}
-                  title={post.title}
-                  date={post.date.toString()}
-                  category={post.category}
-                />
-              </Suspense>
+              <PostThumbnail
+                key={post.title}
+                _id={post._id}
+                author={post.author}
+                photo={post.photo}
+                title={post.title}
+                date={post.date.toString()}
+                category={post.category}
+              />
             );
           })}
         </div>
@@ -91,3 +90,18 @@ const SelectComp = ({
     </Select>
   );
 };
+
+export function PostSkeleton() {
+  return (
+    <div className="animate-pulse">
+      <div className="flex items-center justify-between mt-12 mb-6 ">
+        <div className=" w-full bg-gray-300" />
+        <div className=" w-full bg-gray-300" />
+      </div>
+
+      <div className="flex-1 w-full grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 md:gap-8 mb-6">
+        <div className="w-full h-full" />
+      </div>
+    </div>
+  );
+}

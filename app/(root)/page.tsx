@@ -5,15 +5,15 @@ import Partnership from "@/components/Partnership";
 import Services from "@/components/Services";
 import Vision from "@/components/Vision";
 
-const HomePage = async () => {
+const HomePage = () => {
   return (
-    <section>
-      <div className="bg-APP_ASH dark:bg-transparent">
+    <>
+      <section className="bg-APP_ASH dark:bg-transparent">
         
         <div className="border-b">
           <Hero />
         </div>
-      </div>
+      </section>
 
       <Vision />
 
@@ -28,7 +28,7 @@ const HomePage = async () => {
       <div className="bg-APP_ASH dark:bg-transparent border-t-1 border-t">
         <NewsLetter />
       </div>
-    </section>
+    </>
   );
 };
 

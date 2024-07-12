@@ -8,7 +8,7 @@ const Partnership = () => {
         Forge Strategic Partnerships with OGSoft Solutions Limited.
       </p>
       <MotionP
-        className="p-text md:max-w-[85ch] "
+        className="p-text md:max-w-[85ch] text-center"
         whileInView={{
           x: [-200, 0],
         }}

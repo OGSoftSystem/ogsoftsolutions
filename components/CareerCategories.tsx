@@ -19,7 +19,7 @@ const CareerCategories = () => {
         <Button
           onClick={() => setShowModal(true)}
           size="lg"
-          className="bg-APP_BTN_BLUE text-white"
+          className="bg-APP_BTN_BLUE text-white btn"
         >
           Explore
         </Button>

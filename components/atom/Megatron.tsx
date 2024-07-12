@@ -7,7 +7,7 @@ import { videoLinks } from "@/constants/services";
 
 const Megatron = () => {
   return (
-    <div id="Megatron HMS">
+    <section id="Megatron HMS">
       <h1 className="main-heading">Megatron HMS</h1>
       <h1 className="main-desc">World class HMS</h1>
 
@@ -116,7 +116,7 @@ const Megatron = () => {
         </p>
 
         <div className="w-full mt-2">
-          <VideoPlayer url={videoLinks.megatron}/>
+          <VideoPlayer url={videoLinks.megatron} />
         </div>
       </div>
       <Link
@@ -129,7 +129,7 @@ const Megatron = () => {
       >
         Check out MegatronHMS
       </Link>
-    </div>
+    </section>
   );
 };
 

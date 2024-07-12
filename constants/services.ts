@@ -23,6 +23,7 @@ export const services: ServiceProps[] = [
 
 export const videoLinks = {
   // megatron: "https://youtu.be/Hg4hpKEuqP4?si=jSdzq-bpQjphADv8",
-  megatron: "https://www.youtube.com/watch?v=Hg4hpKEuqP4&t=11s",
+  megatron: "https://www.youtube.com/embed/Hg4hpKEuqP4?si=Yk0jVjRXdSgphBmV"
+  ,
   ogcoin: "https://www.youtube.com/embed/Z17umAvfEBE",
 };

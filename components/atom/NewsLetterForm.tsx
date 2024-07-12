@@ -72,7 +72,7 @@ const NewsLetterForm = () => {
             disabled={submitting}
             variant="default"
             type="submit"
-            className="bg-APP_BTN_BLUE  text-white hover:bg-APP_BTN_BLUE/90 w-full md:w-[200px] h-[45px]"
+            className="bg-APP_BTN_BLUE  text-white hover:bg-APP_BTN_BLUE/90 w-full md:w-[200px] btn"
           >
             Sign up {submitting && <Spinner />}
           </Button>

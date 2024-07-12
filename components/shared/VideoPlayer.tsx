@@ -1,8 +1,9 @@
-import React from 'react'
-import Iframe from 'react-iframe';
+import React from "react";
+import Iframe from "react-iframe";
 
-const VideoPlayer = ({url}:{url:string}) => {
+const VideoPlayer = ({ url }: { url: string }) => {
   return (
+    <>
       <Iframe
         url={url}
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -13,7 +14,8 @@ const VideoPlayer = ({url}:{url:string}) => {
         position="relative"
         className="w-full md:w-[500px] h-[350px]"
       />
+    </>
   );
-}
+};
 
-export default VideoPlayer
+export default VideoPlayer;
