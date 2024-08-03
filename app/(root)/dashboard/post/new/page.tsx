@@ -7,7 +7,9 @@ const NewPublicationPage = () => {
     <MaxWidthContainer className="paddingY">
       <PageHeadingText title="Post" description="Share a post" />
 
-      <PostForm type="Create" />
+      <div className="w-full flex justify-center">
+        <PostForm type="Create" />
+      </div>
     </MaxWidthContainer>
   );
 };

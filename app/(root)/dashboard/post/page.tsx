@@ -20,7 +20,7 @@ const PublicationsPage = () => {
     <MaxWidthContainer className="paddingY">
       <PageHeadingText title="Blog Post" description="View Posts" />
 
-      <Link href={"/dashboard/publication/new"}>
+      <Link href={"/dashboard/post/new"}>
         <PlusCircledIcon className="size-16 text-APP_BTN_BLUE" />
       </Link>
 

@@ -51,7 +51,7 @@ const Hero = () => {
 
           <CallToAction />
 
-          {/* <Suspense fallback={<ReviewSkeleton />}>
+          <Suspense fallback={<ReviewSkeleton />}>
             <div className="xxs:absolute xxs:right-5 xxs:bottom-5 xxs:mt-10 md:mt-0">
               <div className="rounded-md w-full xxs:self-end xxs:w-[300px] md:w-[250px] flex-col space-x-2 p-2 bg-gradient-to-tr from-zinc-200 via-blue-50/80 to-zinc-100 dark:bg-gradient-to-tr dark:from-[#020817] dark:via-blue-900/80 dark:to-zinc-900">
                 <CarouselDiv
@@ -68,7 +68,7 @@ const Hero = () => {
                 </CarouselDiv>
               </div>
             </div>
-          </Suspense> */}
+          </Suspense>
           
         </div>
 

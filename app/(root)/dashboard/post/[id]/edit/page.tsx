@@ -14,9 +14,9 @@ const PostEditPage = async ({ params: { id } }: { params: { id: string } }) => {
 
   return (
     <MaxWidthContainer className="paddingY">
-      <div className="w-full sm:w-9/12 md:w-7/12 lg:w-6/12 mx-auto flex flex-col space-y-2">
-        <PageHeadingText title="Edit Post" description="Edit A Post" />
+      <PageHeadingText title="Edit Post" description="Edit A Post" />
 
+      <div className="w-full flex justify-center">
         <PostForm post={post} type="Update" />
       </div>
     </MaxWidthContainer>

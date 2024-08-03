@@ -47,7 +47,6 @@ const PostForm = ({ type, post }: PostFormProps) => {
   });
 
   const [files, setFiles] = useState<File[]>([]);
-  const [submitting, setSubmitting] = useState(false);
   const router = useRouter();
 
   const handleImage = (
@@ -74,7 +73,6 @@ const PostForm = ({ type, post }: PostFormProps) => {
   };
 
   const onSubmit = async (data: PostProps) => {
-    setSubmitting(true);
 
     if (type === "Create") {
       const imgRes = await startUpload(files);
@@ -93,11 +91,9 @@ const PostForm = ({ type, post }: PostFormProps) => {
           });
 
           toast.success("Post added successfully");
-          setSubmitting(false);
           router.push("/blog");
         } catch (error) {
           toast.error("Failed to add post");
-          setSubmitting(false);
           throw error;
         }
       }
@@ -135,20 +131,11 @@ const PostForm = ({ type, post }: PostFormProps) => {
     return;
   };
 
-  const handleDelete = async () => {
-    if (type === "Update") {
-      await deletePost(post?._id as string);
-      toast.success("Post deleted");
-      router.push("/blog");
-    }
-    form.reset();
-  };
-
   return (
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="flex flex-col space-y-2 md:w-10/12"
+        className="w-full md:w-10/12"
       >
         <Card className="flex flex-col space-y-2">
           <CardHeader>
@@ -262,21 +249,12 @@ const PostForm = ({ type, post }: PostFormProps) => {
           </CardContent>
           <CardFooter className="flex items-center justify-between">
             <Button
-              disabled={submitting}
+              disabled={form.formState.isSubmitting}
               type="submit"
               variant="secondary"
               className="bg-APP_BTN_BLUE hover:bg-blue-700 text-white"
             >
-              {type} {submitting ? <Spinner /> : null}
-            </Button>
-
-            <Button
-              disabled={submitting}
-              type="reset"
-              variant="ghost"
-              onClick={handleDelete}
-            >
-              {type === "Create" ? "Cancel" : "Delete"}
+              {type} {form.formState.isSubmitting ? <Spinner /> : null}
             </Button>
           </CardFooter>
         </Card>

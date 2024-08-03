@@ -11,8 +11,9 @@ import {
   DeleteItem,
   EditItem,
   ToggleItemLive,
-} from "../client/_components/ClientActions";
+} from "../intro-text/_components/IntroTextActions";
 import { cachedIntroText } from "@/lib/cache";
+import { fetchIntroText } from "@/lib/actions/intro.action";
 
 const IntroTextPage = () => {
   return (
@@ -22,11 +23,11 @@ const IntroTextPage = () => {
         description="View landing page introduction text"
       />
 
-      <Link href={"/dashboard/publication/new"}>
+      <Link href={"/dashboard/intro-text/new"}>
         <PlusCircledIcon className="size-16 text-APP_BTN_BLUE" />
       </Link>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 mt-4">
+      <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 space-y-4 md:space-y-0 mt-4 md:gap-4">
         <Suspense
           fallback={
             <>
@@ -44,16 +45,16 @@ const IntroTextPage = () => {
 export default IntroTextPage;
 
 async function GetIntroText() {
-  const introText: IntoTextSchemaType[] = await cachedIntroText();
+  const introText: IntoTextSchemaType[] = await fetchIntroText();
 
   if (!introText.length) return "No Introduction Text.";
 
   return introText.map((item) => (
     <Card className="w-full p-4" key={item._id}>
       {/* <CardTitle className="mb-4 text-center">{item.title}</CardTitle> */}
-      <CardContent className="min-h-fit">{item.text}</CardContent>
+      <CardContent className="line-clamp-5 text-xs">{item.text}</CardContent>
 
-      <CardFooter className="flex space-x-2 items-center">
+      <CardFooter className="flex space-x-2 items-center pt-4">
         <ToggleItemLive id={item._id} live={item.live} />
         <EditItem id={item._id} />
         <DeleteItem id={item._id} />

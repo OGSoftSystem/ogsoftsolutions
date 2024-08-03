@@ -1,8 +1,8 @@
 import MaxWidthContainer from "@/components/MaxWidthContainer";
 import PageHeadingText from "@/components/shared/PageHeadingText";
 import { IntoTextSchemaType } from "@/type/type";
-import IntroEditForm from "@/components/atom/IntroEditForm";
 import { findIntroTextById } from "@/lib/actions/intro.action";
+import IntroForm from "@/app/(root)/dashboard/intro-text/_components/IntroForm";
 
 const EditPage = async ({ params: { id } }: { params: { id: string } }) => {
   const text: IntoTextSchemaType = await findIntroTextById(id);
@@ -14,7 +14,9 @@ const EditPage = async ({ params: { id } }: { params: { id: string } }) => {
         description="Edit Introduction Text"
       />
 
-      <IntroEditForm />
+      <div className="w-full flex justify-center">
+        <IntroForm type="Update" introText={text} />
+      </div>
     </MaxWidthContainer>
   );
 };

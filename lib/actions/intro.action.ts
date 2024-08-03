@@ -49,7 +49,7 @@ export const updateIntroText = async (id: string, text: IntroTextField) => {
   try {
     await connectDb();
 
-    await IntroText.findByIdAndUpdate(
+    const updatedText = await IntroText.findByIdAndUpdate(
       id,
       {
         $set: {
@@ -58,7 +58,12 @@ export const updateIntroText = async (id: string, text: IntroTextField) => {
       },
       { new: true }
     );
-    revalidatePath("/");
+    if (updatedText) {
+      revalidatePath("/dashboard/intro-text");
+      revalidateTag("intro-text");
+    }
+
+    return JSON.parse(JSON.stringify(updatedText));
   } catch (error) {
     return { error: handleError(error) };
   }
@@ -87,13 +92,12 @@ export const toggleIntroText = async (textId: string, live: boolean) => {
   }
 };
 
-
 export const deleteIntroText = async (id: string) => {
   try {
     await connectDb();
 
     await IntroText.findByIdAndDelete(id);
-    
+
     revalidatePath("/dashboard/intro-text");
     revalidateTag("intro-text");
   } catch (error) {
