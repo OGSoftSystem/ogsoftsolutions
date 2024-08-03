@@ -7,54 +7,43 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "../ui/form";
-import { useForm } from "react-hook-form";
-import InputField from "./InputField";
+} from "@/components/ui/form";
+import { Controller, useForm } from "react-hook-form";
+import InputField from "@/components/atom/InputField";
 import {
   Card,
   CardContent,
   CardFooter,
   CardHeader,
   CardTitle,
-} from "../ui/card";
-import { Textarea } from "../ui/textarea";
-import { Input } from "../ui/input";
+} from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
 import Image from "next/image";
 import { ChangeEvent, useState } from "react";
-import { AddClientSchema, ClientField } from "@/lib/validation";
+import { PostProps, PostSchema } from "@/lib/validation";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useUploadThing } from "@/lib/uploadthing";
-import { Button } from "../ui/button";
-import { toast } from "react-toastify";
-import Spinner from "./Spinner";
-import {
-  addClient,
-  deleteClient,
-  updateClient,
-} from "@/lib/actions/client.action";
-import { useRouter } from "next/navigation";
-import { FormType, clientInitialValues } from "@/constants/defualtValues";
 import { isBase64Image } from "@/lib/utils";
-import { ClientType } from "@/type/type";
+import { useUploadThing } from "@/lib/uploadthing";
+import { Button } from "@/components/ui/button";
+import { toast } from "react-toastify";
+import Spinner from "@/components/atom/Spinner";
+import { useRouter } from "next/navigation";
+import { createPost, deletePost, updatePost } from "@/lib/actions/post.action";
+import { FormType, postInitialValues } from "@/constants/defualtValues";
+import { PostType } from "@/type/type";
+import dynamic from "next/dynamic";
+const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 
-type ClientActionProps = {
-  client?: ClientType;
+type PostFormProps = {
   type: FormType;
+  post?: PostType;
 };
-
-const ClientForm = ({ client, type }: ClientActionProps) => {
+const PostForm = ({ type, post }: PostFormProps) => {
   const { startUpload } = useUploadThing("imageUploader");
 
-  const form = useForm<ClientField>({
-    resolver: zodResolver(AddClientSchema),
-    defaultValues: client
-      ? {
-          ...client,
-          logo: client.logo,
-          info: client.info,
-          remark: client.remark,
-        }
-      : clientInitialValues,
+  const form = useForm<PostProps>({
+    resolver: zodResolver(PostSchema),
+    defaultValues: post ? { ...post } : postInitialValues,
   });
 
   const [files, setFiles] = useState<File[]>([]);
@@ -84,71 +73,73 @@ const ClientForm = ({ client, type }: ClientActionProps) => {
     }
   };
 
-  const onSubmit = async (data: ClientField) => {
+  const onSubmit = async (data: PostProps) => {
     setSubmitting(true);
 
-    // CREATE CLIENT
     if (type === "Create") {
       const imgRes = await startUpload(files);
 
       if (imgRes && imgRes[0].url) {
-        data.logo = imgRes[0].url;
+        data.photo = imgRes[0].url;
 
         try {
-          const newClient = await addClient({
-            logo: data.logo,
-            info: data.info,
-            remark: data.remark,
+          await createPost({
+            photo: data.photo,
+            author: data.author,
+            title: data.title,
+            subTitle: data.subTitle,
+            category: data.category,
+            body: data.body,
           });
 
-          if (newClient) {
-            toast.success("Client added successfully");
-            setSubmitting(false);
-            router.replace("/");
-          }
+          toast.success("Post added successfully");
+          setSubmitting(false);
+          router.push("/blog");
         } catch (error) {
-          toast.error("Failed to add Client");
+          toast.error("Failed to add post");
           setSubmitting(false);
           throw error;
         }
       }
     }
 
-    // UPDATE CLIENT
     if (type === "Update") {
-      const blob = data.logo;
+      const blob = data.photo;
 
       const hasImageChanged = isBase64Image(blob);
       if (hasImageChanged) {
         const imgRes = await startUpload(files);
 
         if (imgRes && imgRes[0].url) {
-          data.logo = imgRes[0].url;
+          data.photo = imgRes[0].url;
         }
       }
 
       try {
-        await updateClient({
-          _id: client?._id as string,
-          logo: data.logo,
-          info: data.info,
-          remark: data.remark,
+        await updatePost({
+          _id: post?._id as string,
+          photo: data.photo,
+          title: data.title,
+          subTitle: data.subTitle,
+          category: data.category,
+          author: data.author,
+          body: data.body,
         });
 
-        toast.success("Info updated");
-        router.push("/");
+        toast.success("Post updated");
+        router.push("/blog");
       } catch (error) {
         throw error;
       }
-      // return;
     }
+    return;
   };
 
-  const deleteHospital = async () => {
+  const handleDelete = async () => {
     if (type === "Update") {
-      await deleteClient(client?._id as string);
-      toast.success("Client deleted");
-      router.push("/");
+      await deletePost(post?._id as string);
+      toast.success("Post deleted");
+      router.push("/blog");
     }
     form.reset();
   };
@@ -157,23 +148,23 @@ const ClientForm = ({ client, type }: ClientActionProps) => {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="flex flex-col space-y-2"
+        className="flex flex-col space-y-2 md:w-10/12"
       >
         <Card className="flex flex-col space-y-2">
           <CardHeader>
-            <CardTitle className="py-2">{type} Client</CardTitle>
+            <CardTitle className="py-2">{type} Post</CardTitle>
           </CardHeader>
           <CardContent className="flex flex-col items-center space-y-2">
             <FormField
               control={form.control}
-              name="logo"
+              name="photo"
               render={({ field }) => (
                 <FormItem className="flex flex-col items-center">
                   <FormLabel>
                     {field.value ? (
                       <Image
                         src={field.value}
-                        alt="client_logo"
+                        alt="team_photo"
                         width={40}
                         height={40}
                         priority
@@ -193,8 +184,7 @@ const ClientForm = ({ client, type }: ClientActionProps) => {
                     <Input
                       type="file"
                       accept="image/*"
-                      placeholder="Client Logo"
-                      className="account-form_image-input"
+                      placeholder="Add post cover"
                       onChange={(e) => handleImage(e, field.onChange)}
                     />
                   </FormControl>
@@ -203,27 +193,67 @@ const ClientForm = ({ client, type }: ClientActionProps) => {
             />
 
             <InputField
-              name="info"
-              label="Info"
+              name="title"
+              label="Title"
               control={form.control}
-              placeholder="Enter hospital name and city."
+              placeholder="Enter post title"
               type="text"
             />
 
+            <InputField
+              name="subTitle"
+              label="Sub title"
+              control={form.control}
+              placeholder="Enter post subtitle"
+              type="text"
+            />
+            <InputField
+              name="author"
+              label="Author"
+              control={form.control}
+              placeholder="Enter name of author"
+              type="text"
+            />
+
+            <Controller
+              control={form.control}
+              name="category"
+              render={({ field }) => {
+                return (
+                  <div className="w-full flex space-x-2">
+                    <p className="text-muted-foreground p-text">Category</p>
+                    <select
+                      onChange={field.onChange}
+                      className="border-none w-[100px] text-sm text-white bg-blue-800 rounded-full px-2"
+                    >
+                      <option value="general">General</option>
+                      <option value="tech">Tech</option>
+                      <option value="business">Business</option>
+                      <option value="health">Health</option>
+                    </select>
+                  </div>
+                );
+              }}
+            />
+
             <FormField
-              name="remark"
+              name="body"
               control={form.control}
               render={({ field }) => (
                 <FormItem className="w-full">
-                  <FormLabel className="p-tex text-muted-foreground">
-                    Remark
+                  <FormLabel className="p-text text-muted-foreground">
+                    Body
                   </FormLabel>
                   <FormControl>
-                    <Textarea
-                      placeholder="Enter client's remark"
-                      {...field}
-                      rows={4}
-                    />
+                    <div className="h-[300px]">
+                      <ReactQuill
+                        theme="snow"
+                        value={field.value}
+                        onChange={field.onChange}
+                        placeholder="Write your post."
+                        className="h-[250px]"
+                      />
+                    </div>
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -240,7 +270,12 @@ const ClientForm = ({ client, type }: ClientActionProps) => {
               {type} {submitting ? <Spinner /> : null}
             </Button>
 
-            <Button type="reset" variant="ghost" onClick={deleteHospital}>
+            <Button
+              disabled={submitting}
+              type="reset"
+              variant="ghost"
+              onClick={handleDelete}
+            >
               {type === "Create" ? "Cancel" : "Delete"}
             </Button>
           </CardFooter>
@@ -250,4 +285,4 @@ const ClientForm = ({ client, type }: ClientActionProps) => {
   );
 };
 
-export default ClientForm;
+export default PostForm;

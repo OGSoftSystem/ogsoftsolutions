@@ -25,6 +25,8 @@ const PostThumbnail = ({
   const { data: session } = useSession();
 
   const canEdit = session?.user.name === author;
+  console.log(session);
+
   return (
     <div className="w-full sm:w-[200px] md:w-[280px] p-4 group relative">
       <div className="w-full h-28 relative mb-6">
@@ -61,7 +63,7 @@ const PostThumbnail = ({
 
       {canEdit && (
         <div className="absolute top-16 right-2">
-          <EditTab href={`/blog/edit/${_id}`} />
+          <EditTab href={`/dashboard/post/${_id}/edit`} />
         </div>
       )}
     </div>

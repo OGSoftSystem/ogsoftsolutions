@@ -11,16 +11,16 @@ import {
   findPostById,
   getRelatedPosts,
 } from "@/lib/actions/post.action";
-import { cn } from "@/lib/utils";
+import { cleanText, cn } from "@/lib/utils";
 import { CommentType, PostType } from "@/type/type";
 import moment from "moment";
 import Image from "next/image";
 import Link from "next/link";
-import { Suspense, cache } from "react";
-import parse from "html-react-parser";
+import { Suspense } from "react";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { findCommentsByPostId } from "@/lib/actions/comment.action";
+import { cache } from "@/lib/cache";
 
 type ParamsType = {
   params: { id: string };
@@ -72,6 +72,7 @@ const PostPage = async ({ params }: ParamsType) => {
   return (
     <MaxWidthContainer>
       <BlogAdminBar />
+      
       <div className="w-full min-h-[calc(100vh-10vh)]">
         <div className="w-full h-[300px] lg:h-[500px] relative mb-6">
           <Image
@@ -101,7 +102,7 @@ const PostPage = async ({ params }: ParamsType) => {
           {/* Post body */}
           <div className="md:flex-1 py-4">
             <div className="pr-2 dark:text-gray-300 lg:text-justify">
-              {parse(post.body)}
+              {cleanText(post.body)}
             </div>
 
             {/* category badge */}

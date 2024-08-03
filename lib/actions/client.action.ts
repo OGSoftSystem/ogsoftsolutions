@@ -4,7 +4,7 @@ import connectDb from "@/lib/database";
 import client from "@/lib/database/model/Client.model";
 import { ClientField, AddClientSchema } from "@/lib/validation";
 import { ClientType } from "@/type/type";
-import { revalidatePath } from "next/cache";
+import { revalidatePath, revalidateTag } from "next/cache";
 import { handleError } from "../utils";
 
 export const addClient = async (data: ClientField) => {
@@ -13,11 +13,12 @@ export const addClient = async (data: ClientField) => {
   try {
     await connectDb();
     await client.create({ ...data });
-    revalidatePath("/");
+    revalidatePath("/dashboard/client");
+    revalidateTag("client-review");
   } catch (error) {
     return {
       error: handleError(error),
-    }
+    };
   }
 };
 export const fetchClients = async () => {
@@ -44,7 +45,7 @@ export const findClient = async (id: string) => {
   }
 };
 
-export const updateClient = async (data: ClientType) => {
+export const updateClient = async (data: Omit<ClientType, "live">) => {
   try {
     await connectDb();
     await client.findByIdAndUpdate(
@@ -58,7 +59,27 @@ export const updateClient = async (data: ClientType) => {
       },
       { new: true }
     );
-    revalidatePath("/");
+    revalidatePath("/dashboard/client");
+    revalidateTag("client-review");
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const toggleClient = async (clientId: string, live: boolean) => {
+  try {
+    await connectDb();
+    await client.findByIdAndUpdate(
+      clientId,
+      {
+        $set: {
+          live,
+        },
+      },
+      { new: true }
+    );
+    revalidatePath("/dashboard/client");
+    revalidateTag("client-review");
   } catch (error) {
     throw error;
   }
@@ -68,7 +89,8 @@ export const deleteClient = async (id: string) => {
   try {
     await connectDb();
     await client.findByIdAndDelete(id);
-    revalidatePath("/");
+    revalidatePath("/dashboard/client");
+    revalidateTag("client-review");
   } catch (error) {
     throw error;
   }

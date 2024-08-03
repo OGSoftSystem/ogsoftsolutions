@@ -25,7 +25,7 @@ module.exports = withUt({
       },
       boxShadow: {
         shinny:
-          "0 0 5px rgba(49, 86, 242, 0.5), 0 0 10px rgba(49, 86, 242, 0.3),0 0 20px rgba(49, 86, 242, 0.4)",
+          "0 0 5px rgba(49, 86, 242, 0.1), 0 0 10px rgba(49, 86, 242, 0.2),0 0 15px rgba(49, 86, 242, 0.3)",
       },
       colors: {
         APP_BTN_BLUE: "#1D40A3",

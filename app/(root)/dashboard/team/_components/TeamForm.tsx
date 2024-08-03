@@ -7,18 +7,17 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "../ui/form";
+} from "@/components/ui/form";
 import { useForm } from "react-hook-form";
-import InputField from "./InputField";
 import {
   Card,
   CardContent,
   CardFooter,
   CardHeader,
   CardTitle,
-} from "../ui/card";
-import { Textarea } from "../ui/textarea";
-import { Input } from "../ui/input";
+} from "@/components/ui/card";
+import { Textarea } from "@/components/ui/textarea";
+import { Input } from "@/components/ui/input";
 import Image from "next/image";
 import { ChangeEvent, useState } from "react";
 import { TeamField, TeamSchema } from "@/lib/validation";
@@ -30,13 +29,14 @@ import {
 import { zodResolver } from "@hookform/resolvers/zod";
 import { isBase64Image } from "@/lib/utils";
 import { useUploadThing } from "@/lib/uploadthing";
-import { Button } from "../ui/button";
+import { Button } from "@/components/ui/button";
 import { toast } from "react-toastify";
-import Spinner from "./Spinner";
 import { useRouter } from "next/navigation";
 import { FormType, teamInitialValues } from "@/constants/defualtValues";
 import { ITeam } from "@/lib/database/model/Team.model";
 import { TeamMemberProps } from "@/type/type";
+import InputField from "@/components/atom/InputField";
+import Spinner from "@/components/atom/Spinner";
 
 type TeamProps = {
   type: FormType;
@@ -55,6 +55,7 @@ const TeamForm = ({ type, member }: TeamProps) => {
           photo: member.photo,
           position: member.position,
           detail: member.detail,
+          // live:member.live
         }
       : teamInitialValues,
   });
@@ -132,6 +133,7 @@ const TeamForm = ({ type, member }: TeamProps) => {
         fullName: data.fullName,
         position: data.position,
         detail: data.detail,
+        
       });
 
       toast.success("Info updated");

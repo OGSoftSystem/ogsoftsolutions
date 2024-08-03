@@ -14,6 +14,14 @@ import NavItems from "./NavItems";
 import MobileNav from "./MobileNav";
 import { useDashboardContext } from "@/context";
 import WhatsappWidget from "./atom/WhatsappWidget";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "./ui/dropdown-menu";
+import { signOut, useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 const Header = () => {
   const { toggled, setToggled } = useDashboardContext();
@@ -48,6 +56,9 @@ const Header = () => {
 
   const backToTop = () => window.scrollTo({ top: 0, behavior: "smooth" });
 
+  const router = useRouter();
+  const { data: session, status } = useSession();
+
   return (
     <>
       <MaxWidthContainer
@@ -60,21 +71,49 @@ const Header = () => {
         )}
       >
         {/* Left */}
-        <div className="flex flex-1 items-center gap-5">
-          <Link href="/" className="flex gap-2 items-center">
-            <Image src="/logo.png" width={32} height={32} alt="company-logo" />
-            <span className="gradient-text poppins-heading hidden lg:block">
-              OGSoft Solutions
-            </span>
-          </Link>
+        <Link href="/" className="flex gap-2 items-center">
+          <Image src="/logo.png" width={32} height={32} alt="company-logo" />
+          <span className="gradient-text poppins-heading hidden lg:block">
+            OGSoft Solutions
+          </span>
+        </Link>
 
-          <div className="hidden mmd:flex">
-            <NavItems />
-          </div>
+        <div className="hidden mmd:flex">
+          <NavItems />
         </div>
 
         {/* Right */}
-        <div className="flex item-center gap-2">
+        <div className="flex item-center gap-4">
+          {status === "authenticated" &&
+            (session?.user.role === "admin" ||
+              session?.user.role === "super-admin") && (
+              <DropdownMenu>
+                <DropdownMenuTrigger className="size-10 flex items-center justify-center px-2 py-1 border rounded-full">
+                  A
+                </DropdownMenuTrigger>
+                <DropdownMenuContent>
+                  <DropdownMenuItem asChild>
+                    <Link
+                      href={"/dashboard"}
+                      className="font-normal text-gray-600 cursor-pointer"
+                    >
+                      Dashboard
+                    </Link>
+                  </DropdownMenuItem>
+
+                  <DropdownMenuItem
+                    className={cn("cursor-pointer font-normal text-gray-600")}
+                    onClick={() => {
+                      signOut();
+                      router.replace("/");
+                    }}
+                  >
+                    sign-out
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            )}
+
           {/* Theme Button */}
           <ThemeSwitch />
 

@@ -1,16 +1,15 @@
-import { fetchTeamMembers } from "@/lib/actions/team.action";
 import TeamMember, { TeamSkeleton } from "@/components/atom/TeamMember";
-import Link from "next/link";
 import { Suspense } from "react";
 import MaxWidthContainer from "@/components/MaxWidthContainer";
 import { Metadata } from "next";
+import { cachedTeamMembers } from "@/lib/cache";
+import { TeamMemberProps } from "@/type/type";
 
 export const metadata: Metadata = {
   title: "About",
 };
 
 const About = () => {
-  // const team = await fetchTeamMembers();
 
   return (
     <section>
@@ -90,26 +89,22 @@ const About = () => {
 export default About;
 
 async function TeamSuspense() {
-  const teamMembers = await fetchTeamMembers();
-  if (teamMembers.length <= 0) {
-    return (
-      <Link
-        href="/dashboard"
-        className="p-text text-center hover:text-blue-900"
-      >
-        <p>No team member. Click to add.</p>
-      </Link>
-    );
+  const teamMembers: TeamMemberProps[] = await cachedTeamMembers();
+
+  const currentTeam = teamMembers.filter((member) => member.live);
+  if (!currentTeam.length) {
+    return <p className="p-text">No team member</p>;
   }
 
-  return teamMembers.map((member: any) => (
+  return currentTeam.map((member: TeamMemberProps) => (
     <TeamMember
-      key={member.fullName}
+      key={member._id}
       _id={member._id}
       photo={member.photo}
       fullName={member.fullName}
       position={member.position}
       detail={member.detail}
+      live={member.live}
     />
   ));
 }

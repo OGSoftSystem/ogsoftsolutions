@@ -2,18 +2,18 @@ import { MotionP } from "./atom/Motion";
 
 const Partnership = () => {
   return (
-    <section className="paddingY paddingX flex flex-col items-center">
+    <section className="paddingY paddingX flex flex-col items-center ">
       <h1 className="main-heading text-justify">Collaborate with Us</h1>
       <p className="main-desc">
         Forge Strategic Partnerships with OGSoft Solutions Limited.
       </p>
       <MotionP
-        className="p-text md:max-w-[85ch] text-center"
+        className="p-text md:max-w-[85ch] text-center md:w-2/3 border p-4  rounded-md"
         whileInView={{
           x: [-200, 0],
         }}
         transition={{
-          duration: 0.85,
+          duration: 0.50,
           delay: 0.1,
         }}
       >

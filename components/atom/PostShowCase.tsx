@@ -14,10 +14,12 @@ import { PostType } from "@/type/type";
 const PostShowCase = ({ blogPost }: { blogPost: PostType[] }) => {
   const [selectedCat, setSelectedCat] = useState("general");
 
+  const livePost = blogPost.filter(post => post.live);
+
   let filteredPost =
     selectedCat === "general"
-      ? blogPost
-      : blogPost.filter((post) => post.category === selectedCat);
+      ? livePost
+      : livePost.filter((post) => post.category === selectedCat);
 
   return (
     <div>
@@ -29,7 +31,7 @@ const PostShowCase = ({ blogPost }: { blogPost: PostType[] }) => {
         />
       </div>
 
-      {blogPost.length > 0 ? (
+      {blogPost.length >  0 ? (
         <div className="flex-1 w-full grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 md:gap-8 mb-6">
           {filteredPost.map((post: any) => {
             return (

@@ -9,12 +9,12 @@ import {
   PostSchema,
 } from "@/lib/validation";
 import { PostType } from "@/type/type";
-import { revalidatePath } from "next/cache";
+import { revalidatePath, revalidateTag } from "next/cache";
 import Comment from "../database/model/Comment.model";
 import mongoose from "mongoose";
 import { handleError } from "../utils";
 
-type Prop = Omit<PostType, "date" | "likes" | "disLikes" | "comments">;
+type Prop = Omit<PostType, "date" | "likes" | "disLikes" | "comments" | "live">;
 
 export const createPost = async (data: PostProps): Promise<PostType | any> => {
   const parsedData = PostSchema.safeParse(data);
@@ -24,7 +24,10 @@ export const createPost = async (data: PostProps): Promise<PostType | any> => {
     await connectDb();
 
     const post = await Post.create(parsedData.data);
-    if (post) revalidatePath("/blog");
+    if (post) {
+         revalidatePath("/dashboard/post");
+         revalidateTag("posts");
+    }
 
     return JSON.parse(JSON.stringify(post));
   } catch (error) {
@@ -80,7 +83,8 @@ export const updatePost = async (data: Prop) => {
       },
       { new: true }
     );
-    revalidatePath("/blog");
+       revalidatePath("/dashboard/post");
+       revalidateTag("posts");
   } catch (error) {
     return {
       error: handleError(error),
@@ -88,6 +92,28 @@ export const updatePost = async (data: Prop) => {
   }
 };
 
+export const togglePost = async (id: string, live: boolean) => {
+  console.log(live);
+  
+  try {
+    await connectDb();
+    await Post.findByIdAndUpdate(
+      id,
+      {
+        $set: {
+          live,
+        },
+      },
+      { new: true }
+    );
+    revalidatePath("/dashboard/post");
+    revalidateTag("posts");
+  } catch (error) {
+    return {
+      error: handleError(error),
+    };
+  }
+};
 export const deletePost = async (id: string) => {
   try {
     await connectDb();
@@ -112,7 +138,8 @@ export const deletePost = async (id: string) => {
     // Delete the post itself
     await Post.findByIdAndDelete(id);
 
-    revalidatePath("/blog");
+       revalidatePath("/dashboard/post");
+       revalidateTag("posts");
   } catch (error) {
     return {
       error: handleError(error),

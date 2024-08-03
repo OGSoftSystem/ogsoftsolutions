@@ -5,7 +5,9 @@ export interface MissionProps {
   title: string;
   desc: string;
 }
-export interface ServiceProps extends MissionProps {}
+export interface ServiceProps extends MissionProps {
+  className?: string;
+}
 
 export type ReviewProps = {
   logo: StaticImageData | string;
@@ -40,6 +42,7 @@ export type TeamMemberProps = {
   fullName: string;
   position: string;
   detail: string;
+  live: boolean;
 };
 
 export type ClientType = {
@@ -48,6 +51,7 @@ export type ClientType = {
   info: string;
   remark?: string;
   hasLogo?: boolean;
+  live: boolean;
 };
 
 export type PostType = {
@@ -62,8 +66,8 @@ export type PostType = {
   disLikes: number;
   category: string;
   comments: any[];
+  live:boolean;
 };
-
 
 // EMAIL
 export interface IMailOption {
@@ -79,4 +83,20 @@ export type CommentType = {
   id: string;
   text: string;
   postId: string;
-}
+};
+
+export type PublicationSchemaType = {
+  _id: string;
+  imageUrl: string;
+  title: string;
+  detail: string;
+  live: boolean;
+};
+export type CustomReviewSchemaType = {
+  _id: string;
+  logo: string;
+  info: string;
+  remark: string;
+  hasLogo: boolean;
+};
+export type IntoTextSchemaType = { _id: string; text: string; live: boolean };

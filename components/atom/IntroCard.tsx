@@ -1,4 +1,3 @@
-import EditTab from "./EditTab";
 
 const IntroCard = ({ text }: { text: string }) => {
   return (
@@ -7,7 +6,6 @@ const IntroCard = ({ text }: { text: string }) => {
         {text}
       </h4>
 
-      <EditTab href="/dashboard"/>
     </div>
   );
 };

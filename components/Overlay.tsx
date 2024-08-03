@@ -4,8 +4,9 @@ import { cn } from "@/lib/utils";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { Button } from "./ui/button";
+import { PublicationProps } from "@/lib/validation";
 
-const Overlay = () => {
+const Overlay = ({imageUrl, title, detail}:PublicationProps) => {
   const [closeModal, setCloseModal] = useState(false);
 
   useEffect(() => {
@@ -23,7 +24,7 @@ const Overlay = () => {
     >
       <div className="w-full h-[500px] md:h-full lg:w-[800px] relative">
         <Image
-          src="/webinar.jpeg"
+          src={imageUrl}
           alt="banner"
           fill
           className="object-contain"
@@ -32,22 +33,10 @@ const Overlay = () => {
 
       <div className="p-6 lg:pr-20 md:p-0 z-50 flex flex-col items-center  -mt-28 sm:-mt-24 md:-mt-44">
         <h1 className="text-3xl text-APP_BTN_BLUE dark:text-white text-center font-bold mb-4">
-          Webinar
+          {title}
         </h1>
         <p className="p-text hidden lg:block">
-          Join us at the <strong>&quot;From Chaos to Control&quot;</strong>{" "}
-          seminar and unlock the full potential of your hospital&apos;s
-          efficiency with cutting-edge hospital management software. This
-          seminar will demonstrate how integrating a robust software solution
-          can streamline your workflow, reduce administrative burdens, and
-          enhance patient care. Learn how automated processes can minimize
-          errors, improve communication among staff, and ensure compliance with
-          healthcare regulations. Gain insights into optimizing appointment
-          scheduling, managing medical records securely, and handling billing
-          seamlessly. Don&apos;t miss this opportunity to transform your
-          hospital operations, elevate patient satisfaction, and stay ahead in
-          the ever-evolving healthcare landscape. Embrace the future of hospital
-          management and experience the transformative benefits firsthand.
+          {detail}
         </p>
         <Button
           onClick={() => setCloseModal(true)}

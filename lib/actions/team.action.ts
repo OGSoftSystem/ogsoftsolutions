@@ -4,7 +4,7 @@ import connectDb from "@/lib/database";
 import TeamMember from "@/lib/database/model/Team.model";
 import { TeamField, TeamSchema } from "@/lib/validation";
 import { TeamMemberProps } from "@/type/type";
-import { revalidatePath } from "next/cache";
+import { revalidatePath, revalidateTag } from "next/cache";
 import { handleError } from "../utils";
 
 export const addTeamMember = async (data: TeamField) => {
@@ -13,7 +13,8 @@ export const addTeamMember = async (data: TeamField) => {
   try {
     await connectDb();
     await TeamMember.create({ ...data });
-    revalidatePath("/about");
+    revalidatePath("/dashboard/team");
+    revalidateTag("team-members");
   } catch (error) {
     return {
       error: handleError(error),
@@ -43,7 +44,7 @@ export const findTeamMember = async (id: string): Promise<TeamMemberProps> => {
     throw error;
   }
 };
-export const updateTeamMember = async (data: TeamMemberProps) => {
+export const updateTeamMember = async (data: Omit<TeamMemberProps, "live">) => {
   try {
     await connectDb();
     await TeamMember.findByIdAndUpdate(
@@ -58,18 +59,41 @@ export const updateTeamMember = async (data: TeamMemberProps) => {
       },
       { new: true }
     );
-    revalidatePath("/about");
+     revalidatePath("/dashboard/team");
+     revalidateTag("team-members");
   } catch (error) {
-   return {
-     error: handleError(error),
-   };
+    return {
+      error: handleError(error),
+    };
+  }
+};
+
+export const toggleTeamMember = async (id: string, live: boolean) => {
+  try {
+    await connectDb();
+    await TeamMember.findByIdAndUpdate(
+      id,
+      {
+        $set: {
+          live,
+        },
+      },
+      { new: true }
+    );
+     revalidatePath("/dashboard/team");
+     revalidateTag("team-members");
+  } catch (error) {
+    return {
+      error: handleError(error),
+    };
   }
 };
 export const deleteTeamMember = async (id: string) => {
   try {
     await connectDb();
     await TeamMember.findByIdAndDelete(id);
-    revalidatePath("/about");
+     revalidatePath("/dashboard/team");
+     revalidateTag("team-members");
   } catch (error) {
     throw error;
   }

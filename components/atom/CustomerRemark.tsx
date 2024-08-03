@@ -1,9 +1,9 @@
 import { cn } from "@/lib/utils";
-import { ClientType } from "@/type/type";
+import { CustomReviewSchemaType } from "@/type/type";
 import Image from "next/image";
-import EditTab from "./EditTab";
+// import EditTab from "./EditTab";
 
-const CustomerRemark = ({ _id, logo, info, remark }: ClientType) => {
+const CustomerRemark = ({ _id, logo, info, remark }: CustomReviewSchemaType) => {
   return (
     <section className="flex flex-col space-y-1 cursor-pointer h-fit lg:h-[198px] lg:relative p-2">
       <div className="w-full flex items-center space-x-2">
@@ -32,7 +32,7 @@ const CustomerRemark = ({ _id, logo, info, remark }: ClientType) => {
         {remark}
       </p>
 
-      <EditTab href={`/dashboard/client/${_id}`} />
+      {/* <EditTab href={`/dashboard/client/${_id}`} /> */}
     </section>
   );
 };

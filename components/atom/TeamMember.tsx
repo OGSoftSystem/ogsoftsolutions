@@ -2,6 +2,7 @@ import { cn } from "@/lib/utils";
 import Image from "next/image";
 import EditTab from "./EditTab";
 import { TeamMemberProps } from "@/type/type";
+import Link from "next/link";
 
 const TeamMember = async ({
   _id,
@@ -11,7 +12,10 @@ const TeamMember = async ({
   detail,
 }: TeamMemberProps) => {
   return (
-    <div className="relative cursor-pointer group overflow-hidden rounded-md max-h-[310px] min-h-[310px] shadow-lg">
+    <Link
+      href={`/dashboard/team/${_id}/edit`}
+      className="relative cursor-pointer group overflow-hidden rounded-md max-h-[310px] min-h-[310px] shadow-lg"
+    >
       <Image
         src={photo}
         width={400}
@@ -37,8 +41,8 @@ const TeamMember = async ({
           {position}
         </p>
       </div>
-      <EditTab href={`/dashboard/team/${_id}`} />
-    </div>
+      {/* <EditTab href={`/dashboard/team/${_id}`} /> */}
+    </Link>
   );
 };
 

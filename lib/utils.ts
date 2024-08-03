@@ -1,5 +1,6 @@
 import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
+import parse from "html-react-parser";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -32,4 +33,8 @@ export const handleError = (error: unknown): string => {
   }
 
   return message;
+};
+
+export const cleanText = (text: string) => {
+  return text ? parse(text) : "";
 };

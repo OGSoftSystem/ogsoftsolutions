@@ -4,12 +4,13 @@ import Image from "next/image";
 import { ServiceProps } from "@/type/type";
 import { useRouter } from "next/navigation";
 import { MotionDiv } from "./Motion";
+import { cn } from "@/lib/utils";
 
-const Service = ({ imgPath, title, desc, }: ServiceProps) => {
+const Service = ({ imgPath, title, desc, className }: ServiceProps) => {
   const router = useRouter();
   return (
     <div
-      className="flex flex-col md:flex-row items-center justify-center my-10 space-y-4 md:space-x-4"
+      className={cn("flex flex-col md:flex-row items-center justify-center my-10 space-y-4 md:space-x-4", className)}
 
     >
       <MotionDiv

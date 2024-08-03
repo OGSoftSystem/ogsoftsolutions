@@ -1,3 +1,5 @@
+import { boolean } from "zod";
+
 export const clientInitialValues = {
   logo: "",
   info: "",
@@ -9,6 +11,7 @@ export const teamInitialValues = {
   fullName: "",
   position: "",
   detail: "",
+  // live: boolean,
 };
 
 export const postInitialValues = {
@@ -20,4 +23,10 @@ export const postInitialValues = {
   body: "",
 };
 
-export type FormType = 'Create' | 'Update';
+export type FormType = "Create" | "Update";
+
+export const initialPublication = {
+  title: "",
+  imageUrl: "",
+  detail: "",
+};

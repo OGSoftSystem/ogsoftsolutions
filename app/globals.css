@@ -125,14 +125,15 @@ body {
 }
 
 @layer utilities {
-  .btn{
-    @apply rounded-full h-12
+  .btn {
+    @apply rounded-full h-12;
   }
   .p-text {
-    @apply nunito leading-8 text-gray-600 dark:text-gray-300 lg:text-[1.07rem] lg:leading-8;
+    @apply nunito text-sm leading-6 text-gray-600 dark:text-gray-300 lg:text-[1.05rem] lg:leading-8;
   }
+
   .footer-link-text {
-    @apply nunito leading-7 text-gray-600 dark:text-gray-300 lg:text-[1.15rem];
+    @apply nunito text-sm leading-6 text-gray-600 dark:text-gray-300 lg:text-[1.1rem];
   }
   .gradient-text {
     @apply bg-gradient-to-r from-[#3057F4] via-blue-900 to-blue-400 bg-clip-text text-transparent;
@@ -155,8 +156,11 @@ body {
   .main-heading {
     @apply text-center gradient-text poppins-heading text-3xl md:text-3xl lg:text-4xl;
   }
+  .box-heading {
+    @apply gradient-text poppins-heading text-xl md:text-2xl lg:text-3xl;
+  }
   .main-desc {
-    @apply text-center p-text subheading-text mt-2 mb-6;
+    @apply text-center nunito text-sm md:text-lg text-gray-600 dark:text-gray-300 subheading-text mt-2 mb-6;
   }
 
   .service-text-heading {

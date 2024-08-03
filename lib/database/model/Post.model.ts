@@ -12,6 +12,7 @@ interface Post extends Document {
   comments?: any[];
   date?: Date;
   owner: Schema.Types.ObjectId;
+  live: boolean;
 }
 const PostSchema = new Schema<Post>(
   {
@@ -50,13 +51,14 @@ const PostSchema = new Schema<Post>(
     ],
     category: {
       type: String,
-      default: 'general'
+      default: "general",
     },
     date: {
       type: Date,
       default: Date.now,
     },
     owner: { type: Schema.Types.ObjectId, ref: "User" },
+    live: { type: Boolean, default: false },
   },
   { timestamps: true }
 );

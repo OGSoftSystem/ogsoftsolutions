@@ -24,7 +24,7 @@ const CareerCategories = () => {
           Explore
         </Button>
 
-        <Button
+        {/* <Button
           asChild
           variant="ghost"
           className={cn("hidden", {
@@ -34,7 +34,7 @@ const CareerCategories = () => {
           })}
         >
           <Link href="/career/create">Create</Link>
-        </Button>
+        </Button> */}
       </div>
       {showModal ? (
         <MotionDiv

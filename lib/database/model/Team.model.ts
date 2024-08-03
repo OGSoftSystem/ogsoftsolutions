@@ -6,6 +6,7 @@ export interface ITeam extends Document {
   fullName: string;
   position: string;
   detail: string;
+  live: boolean;
 }
 const TeamSchema = new Schema<ITeam>(
   {
@@ -24,6 +25,7 @@ const TeamSchema = new Schema<ITeam>(
       type: String,
       required: [true, "detail is required"],
     },
+    live: { type: Boolean, default: false },
   },
   { timestamps: true }
 );

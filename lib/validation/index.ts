@@ -151,3 +151,19 @@ export const careerSchema = z.object({
 });
 
 export type CareerType = z.infer<typeof careerSchema>;
+
+// PUBLICATION
+export const publicationSchema = z.object({
+  title: z
+    .string()
+    .min(4, { message: "title should be at least 4 characters long" }),
+
+  imageUrl: z.string(),
+
+  detail: z
+    .string()
+    .min(10, { message: "detail should be at least 10 characters long" })
+    // .max(300, {message: 'detail not more than 300 character'}),
+});
+
+export type PublicationProps = z.infer<typeof publicationSchema>;

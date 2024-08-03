@@ -1,9 +1,8 @@
 import MaxWidthContainer from "@/components/MaxWidthContainer";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
-import { cache } from "@/lib/cache";
+import { cache, cachedPosts } from "@/lib/cache";
 import BlogAdminBar from "@/components/atom/BlogAdminBar";
-import { fetchPosts } from "@/lib/actions/post.action";
 import PostShowCase from "@/components/atom/PostShowCase";
 import { Metadata } from "next";
 import { PostType } from "@/type/type";
@@ -12,13 +11,6 @@ export const metadata: Metadata = {
   title: "Blog",
 };
 
-const fetchAllPost = cache(
-  async () => {
-    return await fetchPosts();
-  },
-  ["fetchAllPost"],
-  { revalidate: 60 * 60 * 24 }
-);
 
 const BlogPage = () => {
 
@@ -62,7 +54,7 @@ const BlogPage = () => {
 export default BlogPage;
 
 async function RenderBlogPost() {
-  const blogPost: PostType[] = await fetchAllPost();
+  const blogPost: PostType[] = await cachedPosts();
 
   return <PostShowCase blogPost={blogPost} />;
 }

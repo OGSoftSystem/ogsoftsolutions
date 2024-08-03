@@ -5,6 +5,7 @@ interface IClient extends Document {
   info: string;
   remark: string;
   hasLogo: boolean;
+  live: boolean;
 }
 const clientSchema = new Schema<IClient>(
   {
@@ -20,6 +21,10 @@ const clientSchema = new Schema<IClient>(
       required: [true, "remark is required"],
     },
     hasLogo: {
+      type: Boolean,
+      default: false,
+    },
+    live: {
       type: Boolean,
       default: false,
     },
