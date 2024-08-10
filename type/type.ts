@@ -49,7 +49,7 @@ export type ClientType = {
   _id: string;
   logo: string;
   info: string;
-  remark?: string;
+  remark: string;
   hasLogo?: boolean;
   live: boolean;
 };
@@ -66,7 +66,7 @@ export type PostType = {
   disLikes: number;
   category: string;
   comments: any[];
-  live:boolean;
+  live: boolean;
 };
 
 // EMAIL
@@ -100,3 +100,20 @@ export type CustomReviewSchemaType = {
   hasLogo: boolean;
 };
 export type IntoTextSchemaType = { _id: string; text: string; live: boolean };
+
+export type IssueSchemaType = {
+  _id: string;
+  name: string;
+  email: string;
+  issue: string;
+  detail: string;
+  ongoing: boolean;
+  createdAt: Date;
+  updatedAt: Date;
+};
+export type UserSchemaType = {
+  _id: string;
+  name: string;
+  email: string;
+  role: string;
+};

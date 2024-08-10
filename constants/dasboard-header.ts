@@ -1,4 +1,3 @@
-import { fetchNewLetters } from "@/lib/actions/news-letter.action";
 import { customerReview } from "./customer-review";
 
 export const INFO = [

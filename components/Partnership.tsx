@@ -7,26 +7,29 @@ const Partnership = () => {
       <p className="main-desc">
         Forge Strategic Partnerships with OGSoft Solutions Limited.
       </p>
-      <MotionP
-        className="p-text md:max-w-[85ch] text-center md:w-2/3 border p-4  rounded-md"
-        whileInView={{
-          x: [-200, 0],
-        }}
-        transition={{
-          duration: 0.50,
-          delay: 0.1,
-        }}
-      >
-        Delve into the future of healthcare administration and financial
-        transactions by exploring partnership opportunities with OGSoft
-        Solutions Limited. Our Hospital Management System is designed to
-        streamline operations, enhance patient care, and optimize efficiency.
-        Additionally, we offer cutting-edge Crypto Payment Solutions to
-        facilitate secure and seamless financial transactions. Partner with us
-        to revolutionize healthcare services and financial transactions.
-        Discover the potential for collaborative success and innovation by
-        taking a step to partner with us.
-      </MotionP>
+
+      <div className="w-full bg-APP_BTN_BLUE/5 border p-4 rounded-md flex justify-center">
+        <MotionP
+          className="p-text md:max-w-[85ch] text-center md:w-2/3 "
+          whileInView={{
+            x: [-200, 0],
+          }}
+          transition={{
+            duration: 0.5,
+            delay: 0.1,
+          }}
+        >
+          Delve into the future of healthcare administration and financial
+          transactions by exploring partnership opportunities with OGSoft
+          Solutions Limited. Our Hospital Management System is designed to
+          streamline operations, enhance patient care, and optimize efficiency.
+          Additionally, we offer cutting-edge Crypto Payment Solutions to
+          facilitate secure and seamless financial transactions. Partner with us
+          to revolutionize healthcare services and financial transactions.
+          Discover the potential for collaborative success and innovation by
+          taking a step to partner with us.
+        </MotionP>
+      </div>
     </section>
   );
 };

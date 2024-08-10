@@ -70,7 +70,6 @@ export const updateIntroText = async (id: string, text: IntroTextField) => {
 };
 
 export const toggleIntroText = async (textId: string, live: boolean) => {
-  console.log(live);
 
   try {
     await connectDb();

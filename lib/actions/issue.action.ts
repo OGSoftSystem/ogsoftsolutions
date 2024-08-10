@@ -3,7 +3,7 @@
 import connectDb from "@/lib/database";
 import Issue from "@/lib/database/model/Issue.model";
 import { IssueType, issueSchema } from "@/lib/validation";
-import { revalidatePath } from "next/cache";
+import { revalidatePath, revalidateTag } from "next/cache";
 import sendEmail from "../mail";
 import { handleError } from "../utils";
 
@@ -23,7 +23,13 @@ export const createIssue = async (data: IssueType) => {
       text: parsedData.data.detail,
     });
 
-    await Issue.create({ ...parsedData.data });
+    const newIssue = await Issue.create({ ...parsedData.data });
+    if (newIssue) {
+      revalidatePath("/dashboard/issues");
+      revalidateTag("issues");
+    }
+
+    return JSON.parse(JSON.stringify(newIssue));
   } catch (error) {
     throw error;
   }
@@ -40,14 +46,37 @@ export const fetchIssues = async () => {
   }
 };
 
-export const findTeamMember = async (id: string) => {
+// export const findTeamMember = async (id: string) => {
+//   try {
+//     await connectDb();
+//     const issue = await Issue.findById(id);
+//     if (!issue) throw new Error("No issue found.");
+//     return JSON.parse(JSON.stringify(issue));
+//   } catch (error) {
+//     return { error: handleError(error) };
+//   }
+// };
+
+export const toggleOngoing = async (issueId: string, ongoing: boolean) => {
+  console.log(ongoing);
+
   try {
     await connectDb();
-    const issue = await Issue.findById(id);
-    if (!issue) throw new Error("No issue found.");
-    return JSON.parse(JSON.stringify(issue));
+    await Issue.findByIdAndUpdate(
+      issueId,
+      {
+        $set: {
+          ongoing,
+        },
+      },
+      { new: true }
+    );
+    revalidatePath("/dashboard/issues");
+    revalidateTag("issues");
   } catch (error) {
-    return { error: handleError(error) };
+    return {
+      error: handleError(error),
+    };
   }
 };
 
@@ -55,7 +84,9 @@ export const deleteIssue = async (id: string) => {
   try {
     await connectDb();
     await Issue.findByIdAndDelete(id);
-    revalidatePath("/dashboard");
+    
+    revalidatePath("/dashboard/issues");
+    revalidateTag("issues");
   } catch (error) {
     return { error: handleError(error) };
   }

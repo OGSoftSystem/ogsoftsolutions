@@ -3,7 +3,7 @@
 import connectDb from "@/lib/database";
 import NewsLetterEmail from "@/lib/database/model/NewsLetter.model";
 import { EmailFormFieldType, newsLetterSchema } from "@/lib/validation";
-import { revalidatePath } from "next/cache";
+import { revalidatePath, revalidateTag } from "next/cache";
 import { handleError } from "../utils";
 
 // type Success = {
@@ -29,14 +29,19 @@ export const addEmailAddress = async (email: EmailFormFieldType) => {
       throw new Error("Email already exits");
     }
 
-    await NewsLetterEmail.create({ email: validatedEmail.data });
-    revalidatePath("/");
+    const newEmail = await NewsLetterEmail.create({
+      email: validatedEmail.data,
+    });
+    if (newEmail) {
+      revalidatePath("/dashboard/emails");
+      revalidateTag("news-letter");
+    }
   } catch (error) {
     return { error: handleError(error) };
   }
 };
 
-export const fetchNewLetters = async () => {
+export const fetchNewLettersEmails = async () => {
   try {
     await connectDb();
     const letter = await NewsLetterEmail.find();

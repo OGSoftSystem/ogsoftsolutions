@@ -2,7 +2,7 @@
 
 import { fetchClients } from "@/lib/actions/client.action";
 import { fetchIssues } from "@/lib/actions/issue.action";
-import { fetchNewLetters } from "@/lib/actions/news-letter.action";
+import { fetchNewLettersEmails } from "@/lib/actions/news-letter.action";
 import {
   createContext,
   useContext,
@@ -11,6 +11,7 @@ import {
   ReactNode,
   Dispatch,
   SetStateAction,
+  useCallback,
 } from "react";
 
 type ContextType = {
@@ -40,61 +41,61 @@ export const ContextProvider = ({ children }: { children: ReactNode }) => {
 
   const [toggled, setToggled] = useState(false);
 
-  useEffect(() => {
-    async function getTotalClients() {
-      try {
-        const totalClients = await fetchClients();
-        setClients(totalClients.length);
-      } catch (error) {
-        throw error;
-      }
+  const getTotalClients = useCallback(async () => {
+    try {
+      const totalClients = await fetchClients();
+      setClients(totalClients.length);
+    } catch (error) {
+      throw error;
     }
+  }, []);
+  useEffect(() => {
     getTotalClients();
-  }, []);
+  }, [getTotalClients]);
 
-  useEffect(() => {
-    async function getTotalNewLetterSubscriptions() {
-      try {
-        const letters = await fetchNewLetters();
-        setNewsLetters(letters);
+  const getTotalNewsLetterSubscriptions = useCallback(async () => {
+    try {
+      const letters = await fetchNewLettersEmails();
+      setNewsLetters(letters);
 
-        setNewsLetterSubscriptions(letters.length);
-      } catch (error) {
-        throw error;
-      }
+      setNewsLetterSubscriptions(letters.length);
+    } catch (error) {
+      throw error;
     }
-    getTotalNewLetterSubscriptions();
   }, []);
-
   useEffect(() => {
-    async function getTotalActiveIssues() {
-      try {
-        const openIssues: any = await fetchIssues();
-        setTotalOpenIssues(openIssues.length);
-      } catch (error) {
-        throw error;
-      }
+    getTotalNewsLetterSubscriptions();
+  }, [getTotalNewsLetterSubscriptions]);
+
+  const getTotalActiveIssues = useCallback(async () => {
+    try {
+      const openIssues: any = await fetchIssues();
+      setTotalOpenIssues(openIssues.length);
+    } catch (error) {
+      throw error;
     }
+  }, []);
+  useEffect(() => {
     getTotalActiveIssues();
-  }, []);
+  }, [getTotalActiveIssues]);
 
-  useEffect(() => {
-    async function getTotalClosedIssues() {
-      try {
-        const closedIssues = await fetchIssues();
-        if (!closed) {
-          setTotalClosedIssues(closedIssues.length);
-        } else {
-          let res = closedIssues.length - closedIssues.length + 1;
-          setTotalClosedIssues(res++);
-          setClosed(false);
-        }
-      } catch (error) {
-        throw error;
+  const getTotalClosedIssues = useCallback(async () => {
+    try {
+      const closedIssues = await fetchIssues();
+      if (!closed) {
+        setTotalClosedIssues(closedIssues.length);
+      } else {
+        let res = closedIssues.length - closedIssues.length + 1;
+        setTotalClosedIssues(res++);
+        setClosed(false);
       }
+    } catch (error) {
+      throw error;
     }
-    getTotalClosedIssues();
   }, [closed]);
+  useEffect(() => {
+    getTotalClosedIssues();
+  }, [getTotalClosedIssues]);
 
   return (
     <DashboardContext.Provider
@@ -106,7 +107,7 @@ export const ContextProvider = ({ children }: { children: ReactNode }) => {
         setClosed,
         newsLetters,
         toggled,
-        setToggled
+        setToggled,
       }}
     >
       {children}

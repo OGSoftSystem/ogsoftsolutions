@@ -5,6 +5,7 @@ interface ITIssue extends Document {
   email: string;
   issue: string;
   detail: string;
+  ongoing: boolean;
 }
 const issueSchema = new Schema<ITIssue>(
   {
@@ -23,6 +24,7 @@ const issueSchema = new Schema<ITIssue>(
       type: String,
       required: [true, "detail is required"],
     },
+    ongoing: { type: Boolean, default: false },
   },
   { timestamps: true }
 );

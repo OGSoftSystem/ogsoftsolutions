@@ -5,6 +5,9 @@ import { fetchIntroText } from "./actions/intro.action";
 import { fetchClients } from "./actions/client.action";
 import { fetchTeamMembers } from "./actions/team.action";
 import { fetchPosts } from "./actions/post.action";
+import { getUsers } from "./actions/user.action";
+import { fetchIssues } from "./actions/issue.action";
+import { fetchNewLettersEmails } from "./actions/news-letter.action";
 
 type Callback = (...args: any[]) => Promise<any>;
 
@@ -58,4 +61,27 @@ export const cachedPosts = cache(
   },
   ["cachedPosts"],
   { revalidate: _1week, tags: ["posts"] }
+);
+
+export const cachedIssues = cache(
+  async () => {
+    return await fetchIssues();
+  },
+  ["cachedIssues"],
+  { revalidate: _1week, tags: ["issues"] }
+);
+
+export const cachedUsers = cache(
+  async () => {
+    return await getUsers();
+  },
+  ["cachedUsers"],
+  { revalidate: _1week, tags: ["users"] }
+);
+export const cachedNewLetterEmails = cache(
+  async () => {
+    return await fetchNewLettersEmails();
+  },
+  ["cachedNewLetterEmails"],
+  { revalidate: _1week, tags: ["news-letter"] }
 );

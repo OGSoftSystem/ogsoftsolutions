@@ -19,6 +19,7 @@ import {
 } from "@/lib/cache";
 import CustomerRemark from "./atom/CustomerRemark";
 import { CarouselDiv } from "./atom/CarouselDiv";
+import CustomCarousel from "./CustomCarousel";
 
 /**
  * This component renders the hero page
@@ -51,25 +52,15 @@ const Hero = () => {
 
           <CallToAction />
 
-          <Suspense fallback={<ReviewSkeleton />}>
-            <div className="xxs:absolute xxs:right-5 xxs:bottom-5 xxs:mt-10 md:mt-0">
-              <div className="rounded-md w-full xxs:self-end xxs:w-[300px] md:w-[250px] flex-col space-x-2 p-2 bg-gradient-to-tr from-zinc-200 via-blue-50/80 to-zinc-100 dark:bg-gradient-to-tr dark:from-[#020817] dark:via-blue-900/80 dark:to-zinc-900">
-                <CarouselDiv
-                  autoPlay={true}
-                  infiniteLoop={true}
-                  showArrows={false}
-                  showThumbs={false}
-                  stopOnHover={true}
-                  showIndicators={false}
-                  showStatus={false}
-                >
-                  <></>
+          <div className="xxs:absolute xxs:right-5 xxs:bottom-5 xxs:mt-10 md:mt-0">
+            <div className="rounded-md w-full xxs:self-end xxs:w-[300px] md:w-[250px] flex-col space-x-2 p-2 bg-gradient-to-tr from-zinc-200 via-blue-50/80 to-zinc-100 dark:bg-gradient-to-tr dark:from-[#020817] dark:via-blue-900/80 dark:to-zinc-900">
+              <Suspense fallback={<ReviewSkeleton />}>
+                <CustomCarousel>
                   <FetchAnimatedReviews />
-                </CarouselDiv>
-              </div>
+                </CustomCarousel>
+              </Suspense>
             </div>
-          </Suspense>
-          
+          </div>
         </div>
 
         <Image
@@ -116,8 +107,10 @@ async function FetchIntroductionText() {
 async function FetchAnimatedReviews() {
   const customerReview: ClientType[] = await cachedClientReview();
 
-  const eligibleClients = customerReview.filter((cus) => cus.hasLogo === true && cus.live);
-  
+  const eligibleClients = customerReview.filter(
+    (cus) => cus.hasLogo === true && cus.live
+  );
+
   if (!eligibleClients.length) return "No client review.";
 
   return eligibleClients.map((review: any) => (

@@ -5,7 +5,7 @@ interface IUser extends Document {
   name: string;
   email: string;
   password: string;
-  role: "user" | "admin" | "super-admin";
+  role: "user" | "admin";
 }
 
 interface Methods {
@@ -29,7 +29,7 @@ const userSchema = new Schema<IUser, {}, Methods>(
     },
     role: {
       type: String,
-      enum: ["user", "admin", "super-admin"],
+      enum: ["user", "admin"],
       default: "user",
     },
   },
