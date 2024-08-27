@@ -28,11 +28,10 @@ import { Button } from "@/components/ui/button";
 import { toast } from "react-toastify";
 import Spinner from "@/components/atom/Spinner";
 import { useRouter } from "next/navigation";
-import { createPost, deletePost, updatePost } from "@/lib/actions/post.action";
+import { createPost,updatePost } from "@/lib/actions/post.action";
 import { FormType, postInitialValues } from "@/constants/defualtValues";
 import { PostType } from "@/type/type";
-import dynamic from "next/dynamic";
-const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
+import RichTextEditor from "@/components/shared/RichTextEditor";
 
 type PostFormProps = {
   type: FormType;
@@ -233,12 +232,10 @@ const PostForm = ({ type, post }: PostFormProps) => {
                   </FormLabel>
                   <FormControl>
                     <div className="h-[300px]">
-                      <ReactQuill
-                        theme="snow"
-                        value={field.value}
+                      <RichTextEditor
+                        fieldValue={field.value}
                         onChange={field.onChange}
                         placeholder="Write your post."
-                        className="h-[250px]"
                       />
                     </div>
                   </FormControl>

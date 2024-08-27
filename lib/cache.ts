@@ -8,6 +8,7 @@ import { fetchPosts } from "./actions/post.action";
 import { getUsers } from "./actions/user.action";
 import { fetchIssues } from "./actions/issue.action";
 import { fetchNewLettersEmails } from "./actions/news-letter.action";
+import { fetchCareerPublications } from "./actions/career.actions";
 
 type Callback = (...args: any[]) => Promise<any>;
 
@@ -23,12 +24,21 @@ export function cache<T extends Callback>(
 }
 
 const _1week = 60 * 60 * 24 * 7;
+
 export const cachedPublication = cache(
   async () => {
     return await fetchPublications();
   },
   ["cachedPublication"],
   { revalidate: _1week, tags: ["publications"] }
+);
+
+export const cachedCareerPublication = cache(
+  async () => {
+    return await fetchCareerPublications();
+  },
+  ["cachedCareerPublication"],
+  { revalidate: _1week, tags: ["career-publication"] }
 );
 
 export const cachedIntroText = cache(
@@ -78,6 +88,7 @@ export const cachedUsers = cache(
   ["cachedUsers"],
   { revalidate: _1week, tags: ["users"] }
 );
+
 export const cachedNewLetterEmails = cache(
   async () => {
     return await fetchNewLettersEmails();

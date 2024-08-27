@@ -139,19 +139,6 @@ export const issueSchema = z.object({
 
 export type IssueType = z.infer<typeof issueSchema>;
 
-// CAREER
-export const careerSchema = z.object({
-  title: z
-    .string()
-    .min(4, { message: "name should be at least 2 characters long" }),
-
-  description: z.string(),
-  createdAt: z.date(),
-  updatedAt: z.date(),
-});
-
-export type CareerType = z.infer<typeof careerSchema>;
-
 // PUBLICATION
 export const publicationSchema = z.object({
   title: z
@@ -162,8 +149,24 @@ export const publicationSchema = z.object({
 
   detail: z
     .string()
-    .min(10, { message: "detail should be at least 10 characters long" })
-    // .max(300, {message: 'detail not more than 300 character'}),
+    .min(10, { message: "detail should be at least 10 characters long" }),
+  // .max(300, {message: 'detail not more than 300 character'}),
 });
 
 export type PublicationProps = z.infer<typeof publicationSchema>;
+
+// PUBLICATION
+export const careerPublicationSchema = z.object({
+  imageUrl: z.string(),
+  title: z
+    .string()
+    .min(4, { message: "title should be at least 4 characters long" }),
+
+  link: z.string(),
+  detail: z
+    .string()
+    .min(10, { message: "detail should be at least 10 characters long" }),
+  // .max(300, {message: 'detail not more than 300 character'}),
+});
+
+export type CareerPublicationProps = z.infer<typeof careerPublicationSchema>;

@@ -72,8 +72,6 @@ export const updatePublication = async (
   }
 };
 export const togglePublication = async (pubId: string, live: boolean) => {
-  console.log(live);
-
   try {
     await connectDb();
     await Publication.findByIdAndUpdate(

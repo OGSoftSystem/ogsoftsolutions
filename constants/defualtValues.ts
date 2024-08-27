@@ -30,3 +30,9 @@ export const initialPublication = {
   imageUrl: "",
   detail: "",
 };
+export const initialCareerPublication = {
+  title: "",
+  imageUrl: "",
+  detail: "",
+  link: "",
+};

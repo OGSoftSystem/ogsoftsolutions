@@ -1,10 +1,9 @@
 "use client";
 
 import {
-  deletePublication,
-  togglePublication,
-  updatePublication,
-} from "@/lib/actions/publication.actions";
+  deleteCareerPublication,
+  toggleCareerPublication,
+} from "@/lib/actions/career.actions";
 import { cn } from "@/lib/utils";
 import { Edit2Icon, PowerCircleIcon, Trash2Icon } from "lucide-react";
 import Link from "next/link";
@@ -22,7 +21,7 @@ export const DeleteItem = ({ id }: { id: string }) => {
         )}
         onClick={() =>
           startTransition(async () => {
-            await deletePublication(id);
+            await deleteCareerPublication(id);
           })
         }
       />
@@ -32,8 +31,8 @@ export const DeleteItem = ({ id }: { id: string }) => {
 
 export const ToggleItemLive = ({ id, live }: { id: string; live: boolean }) => {
   const [pending, startTransition] = useTransition();
+  console.log("This",live, id);
 
-  
   return (
     <div>
       <PowerCircleIcon
@@ -43,7 +42,7 @@ export const ToggleItemLive = ({ id, live }: { id: string; live: boolean }) => {
         })}
         onClick={() =>
           startTransition(async () => {
-            await togglePublication(id, !live);
+            await toggleCareerPublication(id, !live);
           })
         }
       />
@@ -53,7 +52,7 @@ export const ToggleItemLive = ({ id, live }: { id: string; live: boolean }) => {
 
 export const EditItem = ({ id }: { id: string }) => {
   return (
-    <Link href={`/dashboard/publication/${id}/edit`}>
+    <Link href={`/dashboard/career-publication/${id}/edit`}>
       <Edit2Icon className={cn("text-APP_BTN_BLUE cursor-pointer")} />
     </Link>
   );

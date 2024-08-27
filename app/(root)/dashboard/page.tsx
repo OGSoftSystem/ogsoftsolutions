@@ -14,8 +14,8 @@ const DashboardPage = () => {
       <DashboardTopItems />
 
       {/* Dashboard Icons */}
-      <div className="flex flex-1 flex-col md:flex-row gap-4 ">
-        <div className="grid items-center grid-cols-3 md:flex md:flex-wrap md:space-x-4 dark:bg-transparent">
+      <div className="flex flex-1 h-screen flex-col md:flex-row gap-4 ">
+        <div className="grid grid-cols-3 md:flex md:flex-wrap md:space-x-4 dark:bg-transparent">
           {DASHBOARD_NAVS.map((item) => {
             return (
               <Link

@@ -92,6 +92,14 @@ export type PublicationSchemaType = {
   detail: string;
   live: boolean;
 };
+export type CareerPublicationSchemaType = {
+  _id: string;
+  imageUrl: string;
+  title: string;
+  detail: string;
+  live: boolean;
+  link: string;
+};
 export type CustomReviewSchemaType = {
   _id: string;
   logo: string;

@@ -26,7 +26,7 @@ const Footer = () => {
             <div className="flex flex-col space-y-2 md:space-y-0 md:flex-row md:justify-between mb-8">
               <Link
                 href="/"
-                className="flex items-center gap-5 poppins-heading"
+                className="flex items-center gap-2 poppins-heading"
               >
                 <Image
                   src="/logo.png"
@@ -141,7 +141,7 @@ const Footer = () => {
       </footer>
 
       {/* Last footer part */}
-      <section className="bg-APP_BTN_BLUE/70 dark:border-t-gray-700 border-t border-t-gray-200 dark:bg-zinc-950">
+      <section className="bg-APP_BTN_BLUE dark:border-t-gray-700 border-t border-t-gray-200 dark:bg-zinc-950">
         <MaxWidthContainer className="py-10">
           <p
             className={cn(

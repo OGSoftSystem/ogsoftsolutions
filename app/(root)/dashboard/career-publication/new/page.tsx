@@ -1,13 +1,13 @@
-import PublicationForm from "../_components/PublicationForm";
+import CareerPublicationForm from "../_components/CareerPublicationForm";
 import MaxWidthContainer from "@/components/MaxWidthContainer";
 import PageHeadingText from "@/components/shared/PageHeadingText";
 
 const NewPublicationPage = () => {
   return (
     <MaxWidthContainer className="paddingY">
-      <PageHeadingText title="Publication" description="Make a publication" />
+      <PageHeadingText title="Career Publication" description="Make a career publication" />
 
-      <PublicationForm type="Create" />
+      <CareerPublicationForm type="Create" />
     </MaxWidthContainer>
   );
 };

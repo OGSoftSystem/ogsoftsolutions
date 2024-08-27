@@ -146,7 +146,7 @@ const Header = () => {
       {/* Toggle form icon */}
       <div
         className={cn("hidden", {
-          "fixed bottom-[65px] left-[15px] w-10 h-10 rounded-full bg-APP_BTN_BLUE hover:bg-blue-700 flex items-center justify-center animate-slideLeft z-30 opacity-[0.9] cursor-pointer":
+          "fixed bottom-[65px] left-[15px] w-10 h-10 rounded-full bg-[#3156F2] hover:bg-blue-700 flex items-center justify-center animate-slideLeft z-30 opacity-[0.9] cursor-pointer":
             showNav,
         })}
         onClick={() => setShowForm((prev) => !prev)}
@@ -171,7 +171,7 @@ const Header = () => {
 
       <div
         className={cn("hidden", {
-          "fixed bottom-[20px] left-[15px] w-10 h-10 rounded-full bg-APP_BTN_BLUE hover:bg-blue-700 flex items-center justify-center animate-slideLeft z-30 opacity-[0.9] cursor-pointer":
+          "fixed bottom-[20px] left-[15px] w-10 h-10 rounded-full bg-[#3156F2] hover:bg-blue-700 flex items-center justify-center animate-slideLeft z-30 opacity-[0.9] cursor-pointer":
             showNav,
         })}
         onClick={() => backToTop()}

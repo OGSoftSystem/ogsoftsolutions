@@ -1,16 +1,16 @@
 import MaxWidthContainer from "@/components/MaxWidthContainer";
 import PageHeadingText from "@/components/shared/PageHeadingText";
-import PublicationForm from "../../_components/PublicationForm";
-import { findPublicationById } from "@/lib/actions/publication.actions";
-import { PublicationSchemaType } from "@/type/type";
+import { CareerPublicationSchemaType } from "@/type/type";
+import CareerPublicationForm from "../../_components/CareerPublicationForm";
+import { findCareerPublicationById } from "@/lib/actions/career.actions";
 
 const EditPage = async ({ params: { id } }: { params: { id: string } }) => {
-  const publication: PublicationSchemaType = await findPublicationById(id);
+  const publication: CareerPublicationSchemaType = await findCareerPublicationById(id);
   return (
     <MaxWidthContainer className="paddingY">
-      <PageHeadingText title="Publication" description="Edit publication" />
+      <PageHeadingText title="Career Publication" description="Edit career publication" />
 
-      <PublicationForm type="Update" publication={publication} />
+      <CareerPublicationForm type="Update" publication={publication} />
     </MaxWidthContainer>
   );
 };

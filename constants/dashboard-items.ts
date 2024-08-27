@@ -7,6 +7,7 @@ import {
   Users,
   Newspaper,
   Speaker,
+  StepForward,
 } from "lucide-react";
 
 export const DASHBOARD_NAVS = [
@@ -58,5 +59,11 @@ export const DASHBOARD_NAVS = [
     Icon: Newspaper,
     value: "newsLetter" as const,
     href: "/dashboard/emails",
+  },
+  {
+    title: "Career",
+    Icon: StepForward,
+    value: "career" as const,
+    href: "/dashboard/career-publication",
   },
 ];

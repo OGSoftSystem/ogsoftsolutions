@@ -21,7 +21,12 @@ import { Textarea } from "@/components/ui/textarea";
 import { Input } from "@/components/ui/input";
 import Image from "next/image";
 import { ChangeEvent, useState } from "react";
-import { PublicationProps, publicationSchema } from "@/lib/validation";
+import {
+  CareerPublicationProps,
+  careerPublicationSchema,
+  PublicationProps,
+  publicationSchema,
+} from "@/lib/validation";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { isBase64Image } from "@/lib/utils";
@@ -29,34 +34,36 @@ import { useUploadThing } from "@/lib/uploadthing";
 import { Button } from "@/components/ui/button";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
-import { FormType, initialPublication } from "@/constants/defualtValues";
+import {
+  FormType,
+  initialCareerPublication,
+} from "@/constants/defualtValues";
 
 import Spinner from "@/components/atom/Spinner";
-import {
-  createPublication,
-  updatePublication,
-  deletePublication,
-} from "@/lib/actions/publication.actions";
-import { PublicationSchemaType } from "@/type/type";
+
+import { CareerPublicationSchemaType } from "@/type/type";
+import RichTextEditor from "@/components/shared/RichTextEditor";
+import { createCareerPublication, deleteCareerPublication, updateCareerPublication } from "@/lib/actions/career.actions";
 
 type Props = {
   type: FormType;
-  publication?: PublicationSchemaType;
+  publication?: CareerPublicationSchemaType;
 };
 
-const PublicationForm = ({ type, publication }: Props) => {
+const CareerPublicationForm = ({ type, publication }: Props) => {
   const { startUpload } = useUploadThing("imageUploader");
 
-  const form = useForm<PublicationProps>({
-    resolver: zodResolver(publicationSchema),
+  const form = useForm<CareerPublicationProps>({
+    resolver: zodResolver(careerPublicationSchema),
     defaultValues: publication
       ? {
           ...publication,
           title: publication.title,
           imageUrl: publication.imageUrl,
           detail: publication.detail,
+          link: publication.link,
         }
-      : initialPublication,
+      : initialCareerPublication,
   });
 
   const [files, setFiles] = useState<File[]>([]);
@@ -85,7 +92,7 @@ const PublicationForm = ({ type, publication }: Props) => {
     }
   };
 
-  const onSubmit = async (data: PublicationProps) => {
+  const onSubmit = async (data: CareerPublicationProps) => {
     if (type === "Create") {
       const imgRes = await startUpload(files);
 
@@ -93,10 +100,11 @@ const PublicationForm = ({ type, publication }: Props) => {
         data.imageUrl = imgRes[0].url;
 
         try {
-          await createPublication({
+          await createCareerPublication({
             title: data.title,
             imageUrl: data.imageUrl,
             detail: data.detail,
+            link: data.link,
           });
 
           toast.success("Publication added successfully");
@@ -120,25 +128,17 @@ const PublicationForm = ({ type, publication }: Props) => {
         }
       }
 
-      await updatePublication(publication?._id as string, {
+      await updateCareerPublication(publication?._id as string, {
         title: data.title,
         imageUrl: data.imageUrl,
         detail: data.detail,
+        link: data.link,
       });
 
-      toast.success("Publication updated");
+      toast.success("Career Publication updated");
       router.push("/");
     }
     return;
-  };
-
-  const handleDelete = async () => {
-    if (type === "Create") {
-      await deletePublication(publication?._id as string);
-      toast.success("Publication deleted");
-      router.push("/");
-    }
-    form.reset();
   };
 
   return (
@@ -149,7 +149,7 @@ const PublicationForm = ({ type, publication }: Props) => {
       >
         <Card className="flex flex-col space-y-2">
           <CardHeader>
-            <CardTitle className="py-2">{type} Publication</CardTitle>
+            <CardTitle className="py-2">{type} Career Publication</CardTitle>
           </CardHeader>
           <CardContent className="flex flex-col items-center space-y-2">
             <FormField
@@ -207,14 +207,39 @@ const PublicationForm = ({ type, publication }: Props) => {
                     Detail
                   </FormLabel>
                   <FormControl>
-                    <Textarea placeholder="Enter  detail" {...field} rows={6} />
+                    <div className="h-[300px]">
+                      <RichTextEditor
+                        fieldValue={field.value}
+                        onChange={field.onChange}
+                        placeholder="Write your publication."
+                      />
+                    </div>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              name="link"
+              control={form.control}
+              render={({ field }) => (
+                <FormItem className="w-full">
+                  <FormLabel className="p-tex text-muted-foreground">
+                    Link
+                  </FormLabel>
+                  <FormControl>
+                    <Input
+                      type="text"
+                      {...field}
+                      placeholder="Write your publication."
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
           </CardContent>
-          <CardFooter className="flex items-center justify-between">
+          <CardFooter>
             <Button
               disabled={form.formState.isSubmitting}
               type="submit"
@@ -223,15 +248,6 @@ const PublicationForm = ({ type, publication }: Props) => {
             >
               {type} {form.formState.isSubmitting ? <Spinner /> : null}
             </Button>
-
-            <Button
-              disabled={form.formState.isSubmitting}
-              type="reset"
-              variant="ghost"
-              onClick={handleDelete}
-            >
-              {type === "Create" ? "Cancel" : "Delete"}
-            </Button>
           </CardFooter>
         </Card>
       </form>
@@ -239,4 +255,4 @@ const PublicationForm = ({ type, publication }: Props) => {
   );
 };
 
-export default PublicationForm;
+export default CareerPublicationForm;

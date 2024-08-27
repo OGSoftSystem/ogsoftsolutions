@@ -1,19 +1,32 @@
 import { Schema, Document, Model, models, model } from "mongoose";
 
 interface ICareer extends Document {
+  imageUrl: string;
   title: string;
-  description: string;
+  detail: string;
+  link: string;
+  live: boolean;
   createdAt: Date;
   updatedAt: Date;
 }
 const careerSchema = new Schema<ICareer>(
   {
+    imageUrl: {
+      type: String,
+    },
     title: {
       type: String,
     },
-    description: {
+    detail: {
       type: String,
-      required: [true, "info is required"],
+      required: [true, "detail is required"],
+    },
+    link: {
+      type: String,
+    },
+    live: {
+      type: Boolean,
+      default: false,
     },
     createdAt: {
       type: Date,
