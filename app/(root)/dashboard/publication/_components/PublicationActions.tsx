@@ -1,7 +1,9 @@
 "use client";
 
-import { deleteAPublication, toggleAPublication } from "@/data-access";
-import { deletePublication, togglePublication } from "@/lib/actions/publication.actions";
+import {
+  deletePublication,
+  togglePublication,
+} from "@/lib/actions/publication.actions";
 import { cn } from "@/lib/utils";
 import { Edit2Icon, PowerCircleIcon, Trash2Icon } from "lucide-react";
 import Link from "next/link";
@@ -30,7 +32,6 @@ export const DeleteItem = ({ id }: { id: string }) => {
 export const ToggleItemLive = ({ id, live }: { id: string; live: boolean }) => {
   const [pending, startTransition] = useTransition();
 
-  
   return (
     <div>
       <PowerCircleIcon
