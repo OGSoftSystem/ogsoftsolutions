@@ -10,7 +10,7 @@ const Partnership = () => {
 
       <div className="w-full bg-APP_BTN_BLUE/5 border p-4 rounded-md flex justify-center">
         <MotionP
-          className="p-text md:max-w-[85ch] text-center md:w-2/3 "
+          className="p-text md:max-w-[80ch] lg:text-justify md:w-2/3 "
           whileInView={{
             x: [-200, 0],
           }}

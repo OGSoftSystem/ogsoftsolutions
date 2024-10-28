@@ -2,7 +2,7 @@ import { cn } from "@/lib/utils";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
-import { buttonVariants } from "../ui/button";
+import { buttonVariants } from "../../../../components/ui/button";
 
 const MegaCare = () => {
   return (
@@ -12,32 +12,32 @@ const MegaCare = () => {
         Extending Compassionate Healthcare Beyond Boundaries!
       </h1>
 
-      <div className="service-text-heading">
-        {/* Top */}
-        <div className="p-4 flex-[0.4] ">
-          <Image
-            src="/mega-logo.png"
-            width={200}
-            height={200}
-            alt="megatron logo"
-            className="object-contain object-center"
-          />
-        </div>
-
-        <div className="flex-1">
-          <p className={cn("p-text font-semibold lg:text-justify")}>
-            Welcome to MegaCare, an innovative offshoot of MegatronHMS,
-            dedicated to elevating patient-centric healthcare experiences.
-            MegaCare is designed with a focus on providing specialized tools and
-            features that empower healthcare providers to deliver unparalleled
-            patient care. Explore the unique capabilities that MegaCare brings
-            to the forefront of healthcare management.
-          </p>
-        </div>
-      </div>
-
-      {/* Bottom */}
       <div className="service-text-content">
+        <div className="service-text-heading">
+          {/* Top */}
+          <div className="p-4 flex-[0.4] ">
+            <Image
+              src="/mega-logo.png"
+              width={200}
+              height={200}
+              alt="megatron logo"
+              className="object-contain object-center"
+            />
+          </div>
+
+          <div className="flex-1">
+            <p className={cn("p-text font-semibold lg:text-justify")}>
+              Welcome to MegaCare, an innovative offshoot of MegatronHMS,
+              dedicated to elevating patient-centric healthcare experiences.
+              MegaCare is designed with a focus on providing specialized tools
+              and features that empower healthcare providers to deliver
+              unparalleled patient care. Explore the unique capabilities that
+              MegaCare brings to the forefront of healthcare management.
+            </p>
+          </div>
+        </div>
+
+        {/* Bottom */}
         <p className="p-text lg:text-justify">
           1. <strong className="poppins">Patient Engagement: </strong> MegaCare
           puts patients at the center of their healthcare journey. With
@@ -119,17 +119,18 @@ const MegaCare = () => {
           of patient-centered care with MegaCare, where technology meets
           compassion to create a healthier and more connected world.
         </p>
+
+        <Link
+          href="https://megatronhms.com/#!/home/aboutus"
+          target="_blank"
+          className={cn(
+            "hover:text-blue-900 font-bold text-3xl hover:no-underline",
+            buttonVariants({ variant: "link" })
+          )}
+        >
+          Check out MegaCare
+        </Link>
       </div>
-      <Link
-        href="https://megatronhms.com/#!/home/aboutus"
-        target="_blank"
-        className={cn(
-          "p-text hover:text-blue-900",
-          buttonVariants({ variant: "link" })
-        )}
-      >
-        Check out MegaCare
-      </Link>
     </div>
   );
 };

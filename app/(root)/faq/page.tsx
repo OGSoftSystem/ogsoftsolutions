@@ -1,7 +1,7 @@
 import MaxWidthContainer from "@/components/MaxWidthContainer";
-import FaQAccordion from "@/components/atom/FaQAccordion";
 import { Metadata } from "next";
 import Image from "next/image";
+import FaQAccordion from "./_components/FaQAccordion";
 // import QandA from "@/components/atom/QandA";
 
 export const metadata: Metadata = {

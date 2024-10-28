@@ -43,6 +43,7 @@ export type TeamMemberProps = {
   position: string;
   detail: string;
   live: boolean;
+  location: string;
 };
 
 export type ClientType = {

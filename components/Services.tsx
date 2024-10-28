@@ -4,6 +4,7 @@ import MaxWidthContainer from "./MaxWidthContainer";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
 import PageHeadingText from "./shared/PageHeadingText";
+import { CustomLink } from "./shared/CustomButton";
 
 const Services = () => {
   const cardStyle = "p-6 rounded-md border";
@@ -25,7 +26,7 @@ const Services = () => {
             />
 
             <h2 className="box-heading my-2">{services[0].title}</h2>
-            <p className="p-text text-justify">{services[0].desc}</p>
+            <p className="p-text lg:text-justify">{services[0].desc}</p>
           </div>
 
           <div className={cn("flex-[0.6] bg-APP_BTN_BLUE/10", cardStyle)}>
@@ -37,7 +38,7 @@ const Services = () => {
             />
 
             <h2 className="box-heading my-2">{services[1].title}</h2>
-            <p className="p-text text-justify">{services[1].desc}</p>
+            <p className="p-text lg:text-justify">{services[1].desc}</p>
           </div>
         </div>
 
@@ -55,8 +56,17 @@ const Services = () => {
           />
 
           <h2 className="box-heading my-2">{services[2].title}</h2>
-          <p className="p-text max-w-[65ch] text-justify">{services[2].desc}</p>
+          <p className="p-text max-w-[65ch] lg:text-justify">
+            {services[2].desc}
+          </p>
         </div>
+
+        <CustomLink
+          title="Request A Demo"
+          href="/contact-us"
+          variant="default"
+          className="bg-APP_BTN_BLUE flex self-center"
+        />
       </div>
     </MaxWidthContainer>
   );

@@ -29,7 +29,6 @@ export const DeleteItem = ({ id }: { id: string }) => {
 export const ToggleItemLive = ({ id, live }: { id: string; live: boolean }) => {
   const [pending, startTransition] = useTransition();
 
-  
   return (
     <div>
       <PowerCircleIcon

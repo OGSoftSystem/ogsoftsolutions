@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@/components/ui/button";
@@ -14,16 +14,13 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { PricingType, pricingSchema } from "@/lib/validation";
-import {
-  Form,
-} from "../ui/form";
+import { Form } from "@/components/ui/form";
 import { createPricingQuotation } from "@/lib/actions/pricing.action";
-import Spinner from "./Spinner";
 import { Countries, CountryProps } from "@/type/type";
-import InputField from "./InputField";
+import InputField from "@/components/atom/InputField";
+import Spinner from "@/components/atom/Spinner";
 
 const PricingCard = () => {
-  const [submitting, setSubmitting] = useState(false);
   const form = useForm<PricingType>({
     resolver: zodResolver(pricingSchema),
     defaultValues: {
@@ -37,18 +34,16 @@ const PricingCard = () => {
   });
 
   const submitForm = async (data: PricingType) => {
-    setSubmitting(true);
-
     try {
-      await createPricingQuotation(data);
-      toast.success("Request successful");
+      const err = await createPricingQuotation(data);
+      if (!err) {
+        toast.success("Request successful");
+      }
 
       form.reset();
-      setSubmitting(false);
     } catch (error) {
       toast.error("Request unsuccessful");
 
-      setSubmitting(false);
       throw error;
     }
   };
@@ -177,13 +172,13 @@ const PricingCard = () => {
             <CardFooter className="flex justify-between">
               <Button
                 type="submit"
-                disabled={submitting}
+                disabled={form.formState.isSubmitting}
                 className="bg-APP_BTN_BLUE text-white"
               >
-                Request {submitting && <Spinner />}
+                Request {form.formState.isSubmitting && <Spinner />}
               </Button>
               <Button
-                disabled={submitting}
+                disabled={form.formState.isSubmitting}
                 type="reset"
                 onClick={() => form.reset()}
                 variant="ghost"

@@ -1,10 +1,8 @@
 "use client";
 
-import { deleteIntroText, toggleIntroText } from "@/lib/actions/intro.action";
 import { deleteIssue, toggleOngoing } from "@/lib/actions/issue.action";
 import { cn } from "@/lib/utils";
-import { Edit2Icon, PowerCircleIcon, Trash2Icon } from "lucide-react";
-import Link from "next/link";
+import { PowerCircleIcon, Trash2Icon } from "lucide-react";
 import { useTransition } from "react";
 
 export const DeleteItem = ({ id }: { id: string }) => {

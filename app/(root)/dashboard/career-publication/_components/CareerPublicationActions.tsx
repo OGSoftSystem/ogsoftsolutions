@@ -1,9 +1,6 @@
 "use client";
 
-import {
-  deleteCareerPublication,
-  toggleCareerPublication,
-} from "@/lib/actions/career.actions";
+import { deleteCareerPublication, toggleCareerPublication } from "@/lib/actions/career.actions";
 import { cn } from "@/lib/utils";
 import { Edit2Icon, PowerCircleIcon, Trash2Icon } from "lucide-react";
 import Link from "next/link";

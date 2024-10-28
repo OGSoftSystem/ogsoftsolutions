@@ -1,9 +1,9 @@
 import MaxWidthContainer from "@/components/MaxWidthContainer";
-import PricingCard from "@/components/atom/PricingCard";
 import { Countries, CountryProps } from "@/type/type";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import React from "react";
+import PricingCard from "./_components/PricingCard";
 
 export const metadata: Metadata = {
   title: "Get A Quotation.",

@@ -1,10 +1,7 @@
 "use client";
 
-import {
-  deletePublication,
-  togglePublication,
-  updatePublication,
-} from "@/lib/actions/publication.actions";
+import { deleteAPublication, toggleAPublication } from "@/data-access";
+import { deletePublication, togglePublication } from "@/lib/actions/publication.actions";
 import { cn } from "@/lib/utils";
 import { Edit2Icon, PowerCircleIcon, Trash2Icon } from "lucide-react";
 import Link from "next/link";

@@ -1,16 +1,15 @@
-import TeamMember, { TeamSkeleton } from "@/components/atom/TeamMember";
-import { Suspense } from "react";
+import React, { Suspense } from "react";
 import MaxWidthContainer from "@/components/MaxWidthContainer";
 import { Metadata } from "next";
 import { cachedTeamMembers } from "@/lib/cache";
 import { TeamMemberProps } from "@/type/type";
+import TeamMember, { TeamSkeleton } from "@/components/shared/TeamMember";
 
 export const metadata: Metadata = {
   title: "About",
 };
 
 const About = () => {
-
   return (
     <section>
       <MaxWidthContainer className="paddingY">
@@ -64,7 +63,7 @@ const About = () => {
           <h3 className="main-desc">
             We are team of experts in business and tech.
           </h3>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cole-5 gap-4 my-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cole-5 gap-4 my-8">
             <Suspense
               fallback={
                 <>
@@ -105,6 +104,7 @@ async function TeamSuspense() {
       position={member.position}
       detail={member.detail}
       live={member.live}
+      location={member.location}
     />
   ));
 }

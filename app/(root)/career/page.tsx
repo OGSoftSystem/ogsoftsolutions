@@ -4,6 +4,7 @@ import { cleanText } from "@/lib/utils";
 import { CareerPublicationSchemaType } from "@/type/type";
 import Image from "next/image";
 import Link from "next/link";
+import React from "react";
 
 const CareerPage = async () => {
   return (

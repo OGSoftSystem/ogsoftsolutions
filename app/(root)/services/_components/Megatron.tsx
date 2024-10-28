@@ -1,9 +1,9 @@
 import { cn } from "@/lib/utils";
 import Image from "next/image";
 import Link from "next/link";
-import { buttonVariants } from "../ui/button";
-import VideoPlayer from "../shared/VideoPlayer";
+import { buttonVariants } from "../../../../components/ui/button";
 import { videoLinks } from "@/constants/services";
+import VideoPlayer from "./VideoPlayer";
 
 const Megatron = () => {
   return (
@@ -11,34 +11,35 @@ const Megatron = () => {
       <h1 className="main-heading">Megatron HMS</h1>
       <h1 className="main-desc">World class HMS</h1>
 
-      <div className="service-text-heading">
-        {/* Top */}
-        <div className="p-4 flex-[0.4] ">
-          <Image
-            src="/mega-logo.png"
-            width={200}
-            height={200}
-            alt="megatron logo"
-            className="object-contain object-center"
-          />
-        </div>
-
-        <div className="flex-1">
-          <p className={cn("p-text font-semibold lg:text-justify")}>
-            Welcome to MegatronHMS - Your Comprehensive Hospital Management
-            Solution At MegatronHMS, we understand the critical importance of an
-            efficient and streamlined healthcare management system. Our
-            cutting-edge Hospital Management System is designed to meet the
-            diverse needs of modern healthcare facilities, ensuring seamless
-            operations, enhanced patient care, and optimized resource
-            utilization. Explore the array of features that set MegatronHMS
-            apart as the ultimate solution for hospital management.
-          </p>
-        </div>
-      </div>
-
-      {/* Bottom */}
       <div className="service-text-content">
+        <div className="service-text-heading">
+          {/* Top */}
+          <div className="p-4 flex-[0.4] ">
+            <Image
+              src="/mega-logo.png"
+              width={200}
+              height={200}
+              alt="megatron logo"
+              className="object-contain object-center"
+            />
+          </div>
+
+          <div className="flex-1">
+            <p className={cn("p-text font-semibold lg:text-justify")}>
+              Welcome to MegatronHMS - Your Comprehensive Hospital Management
+              Solution At MegatronHMS, we understand the critical importance of
+              an efficient and streamlined healthcare management system. Our
+              cutting-edge Hospital Management System is designed to meet the
+              diverse needs of modern healthcare facilities, ensuring seamless
+              operations, enhanced patient care, and optimized resource
+              utilization. Explore the array of features that set MegatronHMS
+              apart as the ultimate solution for hospital management.
+            </p>
+          </div>
+        </div>
+
+        {/* Bottom */}
+
         <p className="p-text lg:text-justify">
           1. <strong className={cn("poppins")}>Customizable Casenotes: </strong>
           MegatronHMS empowers healthcare professionals with a robust system for
@@ -115,20 +116,21 @@ const Megatron = () => {
           and more efficient healthcare ecosystem.
         </p>
 
-        <div className="w-full mt-2">
+        <div className="w-full mt-2 flex items-center space-x-4">
           <VideoPlayer url={videoLinks.megatron} />
+
+          <Link
+            href="https://megatronhms.com/#!/home/aboutus"
+            target="_blank"
+            className={cn(
+              "hover:text-blue-900 font-bold text-3xl hover:no-underline",
+              buttonVariants({ variant: "link" })
+            )}
+          >
+            Check out MegatronHMS
+          </Link>
         </div>
       </div>
-      <Link
-        href="https://megatronhms.com/#!/home/aboutus"
-        target="_blank"
-        className={cn(
-          "p-text hover:text-blue-900",
-          buttonVariants({ variant: "link" })
-        )}
-      >
-        Check out MegatronHMS
-      </Link>
     </section>
   );
 };

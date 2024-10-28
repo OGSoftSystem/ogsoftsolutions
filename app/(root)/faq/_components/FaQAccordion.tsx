@@ -16,13 +16,14 @@ const FaQAccordion = () => {
   const [selected, setSelected] = useState<QA | null>(null);
 
   return (
-    <Accordion type="single" collapsible>
+    <Accordion type="single" collapsible className="bg-APP_BTN_BLUE/5 p-4">
       {QAndA.map((ques: QA) => (
         <AccordionItem key={ques.question} value={ques.answer}>
           <AccordionTrigger
             onClick={() => {
               setSelected(ques);
             }}
+            className="bg-APP_BTN_BLUE/10 p-4 rounded-md"
           >
             <p className={cn("text-[16px] font-[400]")}>{ques.question}</p>
           </AccordionTrigger>

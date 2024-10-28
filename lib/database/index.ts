@@ -26,6 +26,7 @@ const connectDb = async () => {
 
   // cached.conn is always what cached.promise returns
   cached.conn = await cached.promise;
+
   return cached.conn;
 };
 

@@ -18,7 +18,6 @@ import {
   EditItem,
   ToggleItemLive,
 } from "./_components/ClientActions";
-import { fetchClients } from "@/lib/actions/client.action";
 import Image from "next/image";
 import { cachedClientReview } from "@/lib/cache";
 
@@ -32,13 +31,7 @@ const ClientPage = () => {
       </Link>
 
       <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 mt-4 gap-4">
-        <Suspense
-          fallback={
-            <>
-              <IntroCardSkeleton />
-            </>
-          }
-        >
+        <Suspense fallback={<IntroCardSkeleton />}>
           <GetClients />
         </Suspense>
       </div>

@@ -7,7 +7,7 @@ const VideoPlayer = ({ url }: { url: string }) => {
       <Iframe
         url={url}
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-        width="400"
+        // width="400"
         allowFullScreen
         // height="300"
         display="block"

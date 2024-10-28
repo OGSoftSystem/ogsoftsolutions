@@ -10,38 +10,41 @@ import {
   FormMessage,
 } from "../ui/form";
 import { Input } from "../ui/input";
-import { Button } from "../ui/button";
 import { newsLetterSchema, EmailFormFieldType } from "@/lib/validation";
-import { useState } from "react";
-import Spinner from "./Spinner";
 import { addEmailAddress } from "@/lib/actions/news-letter.action";
 import { toast } from "react-toastify";
 import { MotionForm } from "./Motion";
+import Link from "next/link";
+import { Metadata } from "next";
+import CustomButton from "../shared/CustomButton";
+import { Checkbox } from "../ui/checkbox";
 
+export const metadata: Metadata = {
+  title: "Privacy Policy",
+};
 const NewsLetterForm = () => {
-  const [submitting, setSubmitting] = useState(false);
   const form = useForm<EmailFormFieldType>({
     resolver: zodResolver(newsLetterSchema),
-    defaultValues: { email: "" },
+    defaultValues: { email: "", hasAgreed: false },
   });
 
   const onSubmit = async (data: EmailFormFieldType) => {
-    // const {email} = data;
-    try {
-      setSubmitting(true);
-      await addEmailAddress(data);
-      toast.success("Sign up successful");
-      form.reset();
-      setSubmitting(false);
-    } catch (e) {
-      toast.error("Sign up unsuccessful");
+    if (!data.hasAgreed && !data.email) return;
 
-      setSubmitting(false);
+    try {
+      const success = await addEmailAddress(data);
+      if (success) {
+        toast.success("Sign up successful");
+        form.reset();
+      } else {
+        toast.error("Sign up unsuccessful");
+      }
+    } catch (e) {
       throw e;
     }
   };
   return (
-    <>
+    <div className="w-full flex flex-col items-center">
       <Form {...form}>
         <MotionForm
           onSubmit={form.handleSubmit(onSubmit)}
@@ -59,6 +62,7 @@ const NewsLetterForm = () => {
                 <FormControl>
                   <Input
                     {...field}
+                    disabled={form.formState.isSubmitting}
                     placeholder="youremail@email.com"
                     className="w-full p-4 py-5 focus:border-blue-500/50 md:w-[400px] border-[1px] border-zinc-300 bg-white shadow-md hover:bg-gray-100 cursor-pointer dark:bg-transparent"
                   />
@@ -68,17 +72,40 @@ const NewsLetterForm = () => {
             )}
           />
 
-          <Button
-            disabled={submitting}
-            variant="default"
-            type="submit"
-            className="bg-APP_BTN_BLUE  text-white hover:bg-APP_BTN_BLUE/90 w-full md:w-[200px] btn"
+          <FormField
+            control={form.control}
+            name="hasAgreed"
+            render={({ field }) => (
+              <FormItem className="w-full flex flex-col items-center justify-center ">
+                <FormControl>
+                  <div className="flex space-x-2 items-center">
+                    <Checkbox
+                      disabled={form.formState.isSubmitting}
+                      checked={field.value}
+                      onCheckedChange={field.onChange}
+                    />
+                    <p className="p-text">I agree to be emailed</p>
+                  </div>
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <Link
+            href={"/privacy"}
+            className="text-center w-full mt-4 hover:text-APP_BTN_BLUE hover:underline p-text"
           >
-            Sign up {submitting && <Spinner />}
-          </Button>
+            Privacy Policy
+          </Link>
+          <CustomButton
+            submitting={form.formState.isSubmitting}
+            showSpinner={true}
+            title="Subscribe"
+          />
         </MotionForm>
       </Form>
-    </>
+    </div>
   );
 };
 

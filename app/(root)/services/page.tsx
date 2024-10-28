@@ -1,26 +1,22 @@
-import Megatron from '@/components/atom/Megatron';
-import MegaCare from '@/components/atom/MegaCare';
-import Ogcoin from '@/components/atom/Ogcoin';
-import MaxWidthContainer from '@/components/MaxWidthContainer';
-import { Metadata } from 'next';
+import MaxWidthContainer from "@/components/MaxWidthContainer";
+import { Metadata } from "next";
+import Megatron from "./_components/Megatron";
+import MegaCare from "./_components/MegaCare";
+import Ogcoin from "./_components/Ogcoin";
 
-export const metadata:  Metadata ={
-  title: 'Services'
-}
+export const metadata: Metadata = {
+  title: "Services",
+};
 const page = () => {
-  
   return (
     <section>
       <MaxWidthContainer className="paddingY">
-        {/* Megatron */}
-       <Megatron />
-        {/* Mega care */}
+        <Megatron />
         <MegaCare />
-       {/* Ogcoin */}
-       <Ogcoin />
+        <Ogcoin />
       </MaxWidthContainer>
     </section>
   );
-}
+};
 
-export default page
+export default page;

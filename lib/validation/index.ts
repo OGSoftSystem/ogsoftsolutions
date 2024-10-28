@@ -1,7 +1,8 @@
 import { z } from "zod";
 
 export const newsLetterSchema = z.object({
-  email: z.string().email({ message: "Email string not correct" }),
+  email: z.string().email({ message: "Enter a valid email address" }),
+  hasAgreed: z.boolean().default(false),
 });
 
 export type EmailFormFieldType = z.infer<typeof newsLetterSchema>;
@@ -16,7 +17,7 @@ export const pricingSchema = z.object({
   contact: z.string().min(4, {
     message: "Contact address should be at least 4 characters long",
   }),
-  email: z.string().email({ message: "Format email properly" }),
+  email: z.string().email({ message: "Enter a valid email address" }),
   city: z
     .string()
     .min(4, { message: "City name should be at least 4 characters long" }),
@@ -119,6 +120,9 @@ export const TeamSchema = z.object({
   detail: z.string().min(30, {
     message: "detail text should not be less than 30 characters",
   }),
+  location: z.string().min(4, {
+    message: "detail text should not be less than 4 characters",
+  }),
 });
 export type TeamField = z.infer<typeof TeamSchema>;
 
@@ -170,3 +174,31 @@ export const careerPublicationSchema = z.object({
 });
 
 export type CareerPublicationProps = z.infer<typeof careerPublicationSchema>;
+
+// CONTACT FORM
+export const ContactFormSchema = z.object({
+  name: z
+    .string()
+    .min(4, { message: "Name should not be less than 4 characters" })
+    .max(20, { message: "Name should not be more than 20 characters" }),
+  email: z.string().email({ message: "provide a valid email address" }),
+
+  phone: z
+    .string()
+    .min(11, { message: "Phone should not be less than 11 numbers" })
+    .max(15, {
+      message: "Phone should not be more than 15 numbers ",
+    }),
+  title: z
+    .string()
+    .min(5, { message: "Title should not be less than 5 characters" })
+    .max(30, {
+      message: "Phone should not be more than 30 characters",
+    }),
+  message: z
+    .string()
+    .min(10, { message: "message should be at least 10 characters long" }),
+  // .max(300, {message: 'detail not more than 300 character'}),
+});
+
+export type ContactFormSchemaProps = z.infer<typeof ContactFormSchema>;

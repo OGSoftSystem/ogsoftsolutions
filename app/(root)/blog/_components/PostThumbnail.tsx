@@ -5,7 +5,7 @@ import { PostType } from "@/type/type";
 import Image from "next/image";
 import Link from "next/link";
 import moment from "moment";
-import EditTab from "./atom/EditTab";
+import EditTab from "@/components/atom/EditTab";
 import { useSession } from "next-auth/react";
 
 /**
@@ -28,9 +28,9 @@ const PostThumbnail = ({
   console.log(session);
 
   return (
-    <div className="w-full sm:w-[200px] md:w-[280px] p-4 group relative">
-      <div className="w-full h-28 relative mb-6">
-        <Image src={photo} fill alt="post-image" className="object-cover" />
+    <div className="w-full sm:w-[200px] md:w-[280px] lg:w-[320px] p-4 group relative">
+      <div className="w-full h-32 relative mb-6">
+        <Image src={photo} fill alt="post-image" className="md:object-cover" />
       </div>
 
       <div className="flex items-center space-x-2">

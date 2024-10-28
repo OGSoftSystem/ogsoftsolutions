@@ -22,6 +22,7 @@ import {
 } from "./ui/dropdown-menu";
 import { signOut, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import { Button, buttonVariants } from "./ui/button";
 
 const Header = () => {
   const { toggled, setToggled } = useDashboardContext();
@@ -83,36 +84,45 @@ const Header = () => {
         </div>
 
         {/* Right */}
-        <div className="flex item-center gap-4">
-          {status === "authenticated" &&
-            (session?.user.role === "admin" ||
-              session?.user.role === "super-admin") && (
-              <DropdownMenu>
-                <DropdownMenuTrigger className="size-10 flex items-center justify-center px-2 py-1 border rounded-full">
-                  A
-                </DropdownMenuTrigger>
-                <DropdownMenuContent>
-                  <DropdownMenuItem asChild>
-                    <Link
-                      href={"/dashboard"}
-                      className="font-normal text-gray-600 cursor-pointer"
-                    >
-                      Dashboard
-                    </Link>
-                  </DropdownMenuItem>
 
-                  <DropdownMenuItem
-                    className={cn("cursor-pointer font-normal text-gray-600")}
-                    onClick={() => {
-                      signOut();
-                      router.replace("/");
-                    }}
+        <div className="flex item-center gap-4">
+          <Link
+            href={"/contact-us"}
+            className={`${buttonVariants({
+              variant: "outline",
+              className: "poppins font-bold",
+            })}`}
+          >
+            Contact Us
+          </Link>
+
+          {status === "authenticated" && session?.user.role === "admin" && (
+            <DropdownMenu>
+              <DropdownMenuTrigger className="size-10 flex items-center justify-center px-2 py-1 border rounded-full">
+                A
+              </DropdownMenuTrigger>
+              <DropdownMenuContent>
+                <DropdownMenuItem asChild>
+                  <Link
+                    href={"/dashboard"}
+                    className="font-normal text-gray-600 cursor-pointer"
                   >
-                    sign-out
-                  </DropdownMenuItem>
-                </DropdownMenuContent>
-              </DropdownMenu>
-            )}
+                    Dashboard
+                  </Link>
+                </DropdownMenuItem>
+
+                <DropdownMenuItem
+                  className={cn("cursor-pointer font-normal text-gray-600")}
+                  onClick={() => {
+                    signOut();
+                    router.replace("/");
+                  }}
+                >
+                  sign-out
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          )}
 
           {/* Theme Button */}
           <ThemeSwitch />
@@ -152,9 +162,9 @@ const Header = () => {
         onClick={() => setShowForm((prev) => !prev)}
       >
         {showForm ? (
-          <XIcon className="w-6  text-white" />
+          <XIcon className="w-6 text-white" />
         ) : (
-          <Mail className="w-6  text-white" />
+          <Mail className="w-6 text-white" />
         )}
       </div>
 

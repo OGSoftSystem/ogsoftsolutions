@@ -3,16 +3,17 @@ import { NextRequest, NextResponse } from "next/server";
 
 export default withAuth(
   function middleware(req: NextRequest) {
-    // return NextResponse
-    return NextResponse.rewrite(new URL("/dashboard", req.url));
+    // Allow the request to proceed if authorized
+    return NextResponse.next();
   },
   {
     callbacks: {
       async authorized({ token }) {
-        return token?.role === "admin" || token?.role === "super-admin";
+        // Check if the user has the required role
+        return token?.role === "admin";
       },
     },
   }
 );
 
-export const config = { matcher: ["/dashboard"] };
+export const config = { matcher: ["/dashboard/:path*"] };

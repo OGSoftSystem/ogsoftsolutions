@@ -19,23 +19,28 @@ import { handleError } from "../utils";
 export const addEmailAddress = async (email: EmailFormFieldType) => {
   const validatedEmail = newsLetterSchema.safeParse(email);
   if (!validatedEmail.success) return new Error("Email already exists");
+
   try {
     await connectDb();
-    const exists = await NewsLetterEmail.findOne({
-      email: validatedEmail.data,
-    });
+    // const exists = await NewsLetterEmail.findOne({
+    //   email: validatedEmail.data,
+    // });
 
-    if (exists) {
-      throw new Error("Email already exits");
-    }
+    // if (exists) {
+    //   throw new Error("Email already exits");
+    // }
 
     const newEmail = await NewsLetterEmail.create({
-      email: validatedEmail.data,
+      email: validatedEmail.data.email,
+      hasAgreed: validatedEmail.data.hasAgreed,
     });
+
     if (newEmail) {
       revalidatePath("/dashboard/emails");
       revalidateTag("news-letter");
     }
+
+    return { success: true };
   } catch (error) {
     return { error: handleError(error) };
   }

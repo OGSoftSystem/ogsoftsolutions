@@ -33,7 +33,6 @@ import { Button } from "@/components/ui/button";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
 import { FormType, teamInitialValues } from "@/constants/defualtValues";
-import { ITeam } from "@/lib/database/model/Team.model";
 import { TeamMemberProps } from "@/type/type";
 import InputField from "@/components/atom/InputField";
 import Spinner from "@/components/atom/Spinner";
@@ -55,6 +54,7 @@ const TeamForm = ({ type, member }: TeamProps) => {
           photo: member.photo,
           position: member.position,
           detail: member.detail,
+          location: member.location,
           // live:member.live
         }
       : teamInitialValues,
@@ -102,6 +102,7 @@ const TeamForm = ({ type, member }: TeamProps) => {
             fullName: data.fullName,
             position: data.position,
             detail: data.detail,
+            location: data.location,
           });
 
           toast.success("Team member added successfully");
@@ -133,7 +134,7 @@ const TeamForm = ({ type, member }: TeamProps) => {
         fullName: data.fullName,
         position: data.position,
         detail: data.detail,
-        
+        location: data.location,
       });
 
       toast.success("Info updated");
@@ -213,6 +214,13 @@ const TeamForm = ({ type, member }: TeamProps) => {
               label="Position"
               control={form.control}
               placeholder="Enter position"
+              type="text"
+            />
+            <InputField
+              name="location"
+              label="Location"
+              control={form.control}
+              placeholder="Enter location"
               type="text"
             />
 

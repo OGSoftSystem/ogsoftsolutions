@@ -11,6 +11,7 @@ export const teamInitialValues = {
   fullName: "",
   position: "",
   detail: "",
+  location: "",
   // live: boolean,
 };
 

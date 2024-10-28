@@ -1,6 +1,7 @@
 "use client";
 
 import { deleteIntroText, toggleIntroText } from "@/lib/actions/intro.action";
+
 import { cn } from "@/lib/utils";
 import { Edit2Icon, PowerCircleIcon, Trash2Icon } from "lucide-react";
 import Link from "next/link";
