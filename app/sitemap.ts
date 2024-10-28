@@ -23,6 +23,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       url: `${siteConfig.baseUrl}/faq`,
     },
     {
+      url: `${siteConfig.baseUrl}/contact-us`,
+    },
+    {
       url: `${siteConfig.baseUrl}/pricing`,
     },
     ...postEntries,
