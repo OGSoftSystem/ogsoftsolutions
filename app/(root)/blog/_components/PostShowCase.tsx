@@ -122,14 +122,12 @@ const SelectComp = ({
 export function PostSkeleton() {
   return (
     <div className="animate-pulse">
-      <div className="flex items-center justify-between mt-12 mb-6 ">
-        <div className=" w-full bg-gray-300" />
-        <div className=" w-full bg-gray-300" />
+      <div className="flex flex-col items-center mt-12 mb-6 ">
+        <div className=" w-full bg-gray-100 h-20" />
+        <div className=" w-full bg-gray-200 h-6" />
       </div>
 
-      <div className="flex-1 w-full grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 md:gap-8 mb-6">
-        <div className="w-full h-full" />
-      </div>
+      <div className="flex-1 w-full h-20 grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 md:gap-8 mb-6 bg-gray-300" />
     </div>
   );
 }

@@ -27,7 +27,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { isBase64Image } from "@/lib/utils";
 import { useUploadThing } from "@/lib/uploadthing";
 import { Button } from "@/components/ui/button";
-import { toast } from "react-toastify";
+
 import { useRouter } from "next/navigation";
 import { FormType, initialPublication } from "@/constants/defualtValues";
 
@@ -38,6 +38,8 @@ import {
   deletePublication,
 } from "@/lib/actions/publication.actions";
 import { PublicationSchemaType } from "@/type/type";
+import { useToast } from "@/hooks/use-toast";
+import { ERROR_TOAST, SUCCESS_TOAST } from "@/constants/message";
 
 type Props = {
   type: FormType;
@@ -46,7 +48,7 @@ type Props = {
 
 const PublicationForm = ({ type, publication }: Props) => {
   const { startUpload } = useUploadThing("imageUploader");
-
+  const { toast } = useToast();
   const form = useForm<PublicationProps>({
     resolver: zodResolver(publicationSchema),
     defaultValues: publication
@@ -99,10 +101,18 @@ const PublicationForm = ({ type, publication }: Props) => {
             detail: data.detail,
           });
 
-          toast.success("Publication added successfully");
+          toast({
+            title: SUCCESS_TOAST,
+            description: "Publication added successfully",
+            variant: "default",
+          });
           router.push("/");
         } catch (error) {
-          toast.error("Failed to add publication");
+          toast({
+            title: ERROR_TOAST,
+            description: "Failed to add publication",
+            variant: "destructive",
+          });
           throw error;
         }
       }
@@ -126,7 +136,11 @@ const PublicationForm = ({ type, publication }: Props) => {
         detail: data.detail,
       });
 
-      toast.success("Publication updated");
+      toast({
+        title: SUCCESS_TOAST,
+        description: "Publication updated",
+        variant: "default",
+      });
       router.push("/");
     }
     return;
@@ -135,7 +149,11 @@ const PublicationForm = ({ type, publication }: Props) => {
   const handleDelete = async () => {
     if (type === "Create") {
       await deletePublication(publication?._id as string);
-      toast.success("Publication deleted");
+      toast({
+        title: SUCCESS_TOAST,
+        description: "Publication deleted",
+        variant: "default",
+      });
       router.push("/");
     }
     form.reset();

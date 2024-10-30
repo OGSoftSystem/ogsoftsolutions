@@ -16,24 +16,32 @@ import { CommentType, PostType } from "@/type/type";
 import moment from "moment";
 import Image from "next/image";
 import Link from "next/link";
-import { Suspense } from "react";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { findCommentsByPostId } from "@/lib/actions/comment.action";
 import { cache } from "@/lib/cache";
+import { Suspense } from "react";
+
+// export const dynamic = "force-dynamic"
 
 type ParamsType = {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 };
 
-const getPostById = cache(async (id: string): Promise<PostType> => {
-  return await findPostById(id);
-});
+const getPostById = cache(
+  async (id: string): Promise<PostType> => {
+    return await findPostById(id);
+  },
+
+  ["getPostById"],
+  { revalidate: 60 * 60 * 1 }
+);
 
 // Dynamic metadata
 export async function generateMetadata({
-  params: { id },
+  params,
 }: ParamsType): Promise<Metadata> {
+  const id = (await params).id;
   const post: PostType = await getPostById(id);
 
   return {
@@ -54,16 +62,18 @@ export const generateStaticParams = async () => {
 
 // Main container
 const PostPage = async ({ params }: ParamsType) => {
-  if (!/^[0-9a-fA-F]{24}$/.test(params.id)) {
+  const id = (await params).id;
+
+  if (!/^[0-9a-fA-F]{24}$/.test(id)) {
     return notFound(); // ID is not in the correct format
   }
 
-  const post: PostType = await getPostById(params.id);
+  const post: PostType = await findPostById(id);
   if (!post) return null;
 
   const authorsPost: PostType[] = await fetchPosts();
 
-  const comments: CommentType[] = await findCommentsByPostId(params.id);
+  const comments: CommentType[] = await findCommentsByPostId(id);
 
   const author = authorsPost.find((p) => p.author)?.author;
 
@@ -72,11 +82,11 @@ const PostPage = async ({ params }: ParamsType) => {
   return (
     <MaxWidthContainer>
       <BlogAdminBar />
-      
+
       <div className="w-full min-h-[calc(100vh-10vh)]">
         <div className="w-full h-[300px] lg:h-[500px] relative mb-6">
           <Image
-            src={post.photo}
+            src={post.photo ? post.photo : "/banner.png"}
             fill
             alt="post-image"
             priority
@@ -98,6 +108,7 @@ const PostPage = async ({ params }: ParamsType) => {
             {moment(post.date.toString(), "YYYYMMDD").fromNow()}
           </p>
         </div>
+
         <div className="md:flex flex-1 w-full">
           {/* Post body */}
           <div className="md:flex-1 py-4">
@@ -122,7 +133,7 @@ const PostPage = async ({ params }: ParamsType) => {
 
             {/* Comment Form */}
             <div className="py-4 pr-4">
-              <CommentForm postId={params.id} />
+              <CommentForm postId={id} />
             </div>
 
             {/* Other comments*/}
@@ -136,17 +147,15 @@ const PostPage = async ({ params }: ParamsType) => {
 
           {/* Author's profile  Right*/}
           <div className="hidden md:flex md:flex-col items-center border-l md:flex-[0.3] flex-col px-4 py-6 sticky top-[200px]">
-            <Suspense fallback={<SkeletonComp />}>
-              <AuthorProfile singlePost={post} />
-            </Suspense>
+            <AuthorProfile singlePost={post} />
 
-            <div className="my-6 w-full">
+            <div className="my-6 w-full ">
               {/* Replated post links */}
               <p className="poppins text-gray-700 dark:text-gray-400">
                 Other Posts from this author:
               </p>
 
-              <div className="flex flex-col">
+              <>
                 {relatedPosts.map((p: any) => {
                   const id = p._id.toString();
                   return (
@@ -154,15 +163,17 @@ const PostPage = async ({ params }: ParamsType) => {
                       href={`/blog/post/${id}`}
                       key={p.title}
                       className={cn(
-                        "text-sm leading-[0.5] capitalize text-left ",
+                        "text-sm leading-[0.5] capitalize",
                         buttonVariants({ variant: "link" })
                       )}
                     >
-                      <p className="leading-tight line-clamp-1">{p.title}</p>
+                      <p className="leading-tight line-clamp-1">
+                        {p.title.slice(0, 40) + "..."}
+                      </p>
                     </Link>
                   );
                 })}
-              </div>
+              </>
             </div>
           </div>
         </div>

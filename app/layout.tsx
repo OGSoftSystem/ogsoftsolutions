@@ -1,13 +1,12 @@
 import type { Metadata } from "next";
 // import { Poppins, Nunito_Sans } from "next/font/google";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
-import "react-toastify/dist/ReactToastify.css";
 import "./globals.css";
 import { ThemeProvider } from "@/components/NextThemeProvider";
 import AuthProvider from "@/components/AuthProvider";
 import { GoogleTagManager } from "@next/third-parties/google";
-import Toast from "@/components/shared/Toast";
 import { siteConfig } from "@/config/site";
+import { Toaster } from "@/components/ui/toaster";
 
 // const poppins = Poppins({
 //   subsets: ["latin"],
@@ -56,9 +55,9 @@ export default function RootLayout({
             </div>
             <div className="overflow-x-hidden relative">{children}</div>
           </ThemeProvider>
+          <Toaster />
         </body>
         <GoogleTagManager gtmId={process.env.NEXT_PUBLIC_GTM_ID as string} />
-        <Toast />
       </AuthProvider>
     </html>
   );

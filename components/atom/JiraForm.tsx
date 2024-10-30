@@ -1,10 +1,9 @@
 "use client";
 
-import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@/components/ui/button";
-import { toast } from "react-toastify";
+
 import {
   Card,
   CardContent,
@@ -27,9 +26,11 @@ import InputField from "./InputField";
 import { Textarea } from "../ui/textarea";
 import { createIssue } from "@/lib/actions/issue.action";
 import { useRouter } from "next/navigation";
+import { ERROR_TOAST, SUCCESS_TOAST } from "@/constants/message";
+import { useToast } from "@/hooks/use-toast";
 
 const JiraForm = () => {
-  const [submitting, setSubmitting] = useState(false);
+
   const router = useRouter();
   const form = useForm<IssueType>({
     resolver: zodResolver(issueSchema),
@@ -40,21 +41,24 @@ const JiraForm = () => {
       detail: "",
     },
   });
-
+  const { toast } = useToast();
   const submitForm = async (data: IssueType) => {
-    setSubmitting(true);
-
     try {
       await createIssue(data);
-      toast.success("Issue created successful");
-      router.push('/')
-      
-      form.reset();
-      setSubmitting(false);
-    } catch (error) {
-      toast.error("Failed to create issue");
+      toast({
+        title: SUCCESS_TOAST,
+        description: "Issue raised successful",
+        variant: "default",
+      });
+      router.push("/");
 
-      setSubmitting(false);
+      form.reset();
+    } catch (error) {
+      toast({
+        title: ERROR_TOAST,
+        description: "Failed to raise issue",
+        variant: "destructive",
+      });
       throw error;
     }
   };
@@ -119,13 +123,13 @@ const JiraForm = () => {
             <CardFooter className="flex justify-between">
               <Button
                 type="submit"
-                disabled={submitting}
+                disabled={form.formState.isSubmitting}
                 className="bg-APP_BTN_BLUE text-white"
               >
-                Submit {submitting && <Spinner />}
+                Submit {form.formState.isSubmitting && <Spinner />}
               </Button>
               <Button
-                disabled={submitting}
+                disabled={form.formState.isSubmitting}
                 type="reset"
                 onClick={() => form.reset()}
                 variant="ghost"

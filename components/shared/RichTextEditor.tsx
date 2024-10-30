@@ -1,17 +1,19 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import "react-quill/dist/quill.snow.css";
-const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
+import "react-quill-new/dist/quill.snow.css";
+const ReactQuill = dynamic(() => import("react-quill-new"), { ssr: false });
 
 const RichTextEditor = ({
   fieldValue,
   onChange,
   placeholder,
+  className,
 }: {
   fieldValue: any;
   onChange: () => void;
   placeholder: string;
+  className: string;
 }) => {
   return (
     <ReactQuill
@@ -19,7 +21,7 @@ const RichTextEditor = ({
       value={fieldValue}
       onChange={onChange}
       placeholder={placeholder}
-      className="h-[250px]"
+      className={className}
     />
   );
 };

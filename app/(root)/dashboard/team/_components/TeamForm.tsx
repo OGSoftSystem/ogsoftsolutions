@@ -30,12 +30,14 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { isBase64Image } from "@/lib/utils";
 import { useUploadThing } from "@/lib/uploadthing";
 import { Button } from "@/components/ui/button";
-import { toast } from "react-toastify";
+
 import { useRouter } from "next/navigation";
 import { FormType, teamInitialValues } from "@/constants/defualtValues";
 import { TeamMemberProps } from "@/type/type";
 import InputField from "@/components/atom/InputField";
 import Spinner from "@/components/atom/Spinner";
+import { useToast } from "@/hooks/use-toast";
+import { ERROR_TOAST, SUCCESS_TOAST } from "@/constants/message";
 
 type TeamProps = {
   type: FormType;
@@ -63,6 +65,7 @@ const TeamForm = ({ type, member }: TeamProps) => {
   const [files, setFiles] = useState<File[]>([]);
   const [submitting, setSubmitting] = useState(false);
   const router = useRouter();
+  const { toast } = useToast();
 
   const handleImage = (
     e: ChangeEvent<HTMLInputElement>,
@@ -105,11 +108,20 @@ const TeamForm = ({ type, member }: TeamProps) => {
             location: data.location,
           });
 
-          toast.success("Team member added successfully");
+          toast({
+            title: SUCCESS_TOAST,
+            description: "Team member added successfully",
+            variant: "default",
+          });
+
           setSubmitting(false);
           router.push("/about");
         } catch (error) {
-          toast.error("Failed to add Team member");
+          toast({
+            title: ERROR_TOAST,
+            description: "Failed to add Team member",
+            variant: "destructive",
+          });
           setSubmitting(false);
           throw error;
         }
@@ -137,7 +149,12 @@ const TeamForm = ({ type, member }: TeamProps) => {
         location: data.location,
       });
 
-      toast.success("Info updated");
+      toast({
+        title: SUCCESS_TOAST,
+        description: "Info updated",
+        variant: "default",
+      });
+
       router.push("/about");
     }
     return;
@@ -146,7 +163,11 @@ const TeamForm = ({ type, member }: TeamProps) => {
   const deleteMember = async () => {
     if (type === "Create") {
       await deleteTeamMember(member?._id as string);
-      toast.success("Member deleted");
+      toast({
+        title: SUCCESS_TOAST,
+        description: "Member deleted",
+        variant: "default",
+      });
       router.push("/about");
     }
     form.reset();

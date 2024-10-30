@@ -1,6 +1,7 @@
 import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 import parse from "html-react-parser";
+import { ERROR_TOAST } from "@/constants/message";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -29,7 +30,7 @@ export const handleError = (error: unknown): string => {
   } else if (typeof error === "string") {
     message = error;
   } else {
-    message = "Something went wrong, please try again";
+    message = `${ERROR_TOAST}, please try again`;
   }
 
   return message;

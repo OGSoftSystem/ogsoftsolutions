@@ -10,7 +10,7 @@ const TeamMember = ({
   detail,
 }: TeamMemberProps) => {
   return (
-    <div className="relative cursor-pointer group overflow-hidden rounded-md max-h-[280px] min-h-[280px] shadow-lg">
+    <div className="relative cursor-pointer group overflow-hidden rounded-md max-h-[280px] min-h-[280px] shadow-lg w-fit">
       <Image
         src={photo}
         width={300}

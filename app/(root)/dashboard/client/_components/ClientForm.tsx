@@ -24,7 +24,7 @@ import { AddClientSchema, ClientField } from "@/lib/validation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useUploadThing } from "@/lib/uploadthing";
 import { Button } from "@/components/ui/button";
-import { toast } from "react-toastify";
+
 import {
   addClient,
   deleteClient,
@@ -36,6 +36,8 @@ import { isBase64Image } from "@/lib/utils";
 import { ClientType } from "@/type/type";
 import InputField from "@/components/atom/InputField";
 import Spinner from "@/components/atom/Spinner";
+import { useToast } from "@/hooks/use-toast";
+import { ERROR_TOAST, SUCCESS_TOAST } from "@/constants/message";
 
 type ClientActionProps = {
   client?: ClientType;
@@ -44,7 +46,7 @@ type ClientActionProps = {
 
 const ClientForm = ({ client, type }: ClientActionProps) => {
   const { startUpload } = useUploadThing("imageUploader");
-
+  const { toast } = useToast();
   const form = useForm<ClientField>({
     resolver: zodResolver(AddClientSchema),
     defaultValues: client
@@ -102,12 +104,20 @@ const ClientForm = ({ client, type }: ClientActionProps) => {
           });
 
           if (newClient) {
-            toast.success("Client added successfully");
+            toast({
+              title: SUCCESS_TOAST,
+              description: "Client added successfully",
+              variant: "default",
+            });
             setSubmitting(false);
             router.replace("/");
           }
         } catch (error) {
-          toast.error("Failed to add Client");
+          toast({
+            title: ERROR_TOAST,
+            description: "Failed to add Client",
+            variant: "destructive",
+          });
           setSubmitting(false);
           throw error;
         }
@@ -135,7 +145,11 @@ const ClientForm = ({ client, type }: ClientActionProps) => {
           remark: data.remark,
         });
 
-        toast.success("Info updated");
+        toast({
+          title: "Successful",
+          description: "Info updated",
+          variant: "default",
+        });
         router.push("/");
       } catch (error) {
         throw error;
@@ -147,7 +161,11 @@ const ClientForm = ({ client, type }: ClientActionProps) => {
   const deleteHospital = async () => {
     if (type === "Update") {
       await deleteClient(client?._id as string);
-      toast.success("Client deleted");
+      toast({
+        title: "Successful",
+        description: "Client deleted",
+        variant: "default",
+      });
       router.push("/");
     }
     form.reset();

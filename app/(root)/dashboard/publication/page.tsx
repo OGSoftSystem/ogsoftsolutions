@@ -46,6 +46,7 @@ export default PublicationsPage;
 
 async function GetPublications() {
   const publications: PublicationSchemaType[] = await cachedPublication();
+  
   if (!publications.length) return "No publication.";
   return publications.map((item) => (
     <Card

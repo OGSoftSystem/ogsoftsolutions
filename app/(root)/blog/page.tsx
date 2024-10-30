@@ -5,15 +5,15 @@ import { cachedPosts } from "@/lib/cache";
 import BlogAdminBar from "@/components/atom/BlogAdminBar";
 import { Metadata } from "next";
 import { PostType } from "@/type/type";
-import PostShowCase from "./_components/PostShowCase";
-import React from 'react';
+import PostShowCase, { PostSkeleton } from "./_components/PostShowCase";
+import React, { Suspense } from "react";
+import { fetchPosts } from "@/lib/actions/post.action";
 
 export const metadata: Metadata = {
   title: "Blog",
 };
 
 const BlogPage = () => {
-
   return (
     <>
       <section className="bg-APP_ASH dark:bg-zinc-950 md:h-[250px] lg:h-[300px]">
@@ -41,13 +41,23 @@ const BlogPage = () => {
               />
             </div>
           </div>
-          
         </MaxWidthContainer>
       </section>
 
       <MaxWidthContainer>
         {/* All POSTS */}
-        <RenderBlogPost />
+        <Suspense
+          fallback={
+            <div className="flex-1 w-full grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 md:gap-8 mb-6">
+              <PostSkeleton />
+              <PostSkeleton />
+              <PostSkeleton />
+              <PostSkeleton />
+            </div>
+          }
+        >
+          <RenderBlogPost />
+        </Suspense>
       </MaxWidthContainer>
     </>
   );
@@ -56,7 +66,7 @@ const BlogPage = () => {
 export default BlogPage;
 
 async function RenderBlogPost() {
-  const blogPost: PostType[] = await cachedPosts();
+  const blogPost: PostType[] = await fetchPosts();
 
   return <PostShowCase blogPost={blogPost} />;
 }

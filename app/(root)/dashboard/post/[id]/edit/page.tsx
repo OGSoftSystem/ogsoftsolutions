@@ -9,7 +9,13 @@ export const metadata: Metadata = {
   title: "Edit Post",
 };
 
-const PostEditPage = async ({ params: { id } }: { params: { id: string } }) => {
+const PostEditPage = async ({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) => {
+  const id = (await params).id;
+
   const post: PostType = await findPostById(id);
 
   return (

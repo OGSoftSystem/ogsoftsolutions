@@ -11,9 +11,10 @@ import {
   CardTitle,
 } from "../ui/card";
 import { Button } from "../ui/button";
-import { toast } from "react-toastify";
 import Spinner from "./Spinner";
 import { useDashboardContext } from "@/context";
+import { useToast } from "@/hooks/use-toast";
+import { ERROR_TOAST, SUCCESS_TOAST } from "@/constants/message";
 
 // type Issue = {
 //   _id: string;
@@ -28,17 +29,25 @@ const OpenIssue = () => {
   const [openIssues, setOpenIssues] = useState<any[]>([]);
   const [completed, setCompleted] = useState(false);
   const wrapper = "flex space-x-2 items-center text-sm font-medium";
-
+  const {toast} = useToast()
   const handleDelete = async (id: string) => {
     setCompleted(true);
     try {
       await deleteIssue(id);
-      toast.success("Issue marked as completed");
+       toast({
+         title: SUCCESS_TOAST,
+         description: "Issue marked as completed",
+         variant: "default",
+       });
       setClosed(true);
       setCompleted(false);
       location.reload();
     } catch (error) {
-      toast.error("Failed to complete issue");
+       toast({
+         title: ERROR_TOAST,
+         description: "Failed to complete issue",
+         variant: "destructive",
+       });
       setClosed(false);
 
       setCompleted(false);

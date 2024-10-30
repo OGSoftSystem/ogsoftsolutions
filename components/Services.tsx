@@ -64,7 +64,7 @@ const Services = () => {
         <CustomLink
           title="Request A Demo"
           href="/contact-us"
-          variant="default"
+          variant="shine"
           className="bg-APP_BTN_BLUE flex self-center"
         />
       </div>

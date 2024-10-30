@@ -85,12 +85,12 @@ const Header = () => {
 
         {/* Right */}
 
-        <div className="flex item-center gap-4">
+        <div className="flex item-center gap-2 md:gap-4">
           <Link
             href={"/contact-us"}
             className={`${buttonVariants({
               variant: "outline",
-              className: "poppins font-bold",
+              className: "poppins font-bold text-[0.75rem] md:text-sm",
             })}`}
           >
             Contact Us

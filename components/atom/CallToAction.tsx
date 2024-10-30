@@ -10,14 +10,14 @@ const CallToAction = () => {
         href="https://megatronhms.com/#!/home/start"
         target="_blank"
         className="bg-APP_BTN_BLUE hover:bg-blue-700"
-        variant="default"
+        variant="gooeyLeft"
       />
 
       <CustomLink
         title="Contact Us &rarr;"
         href="#footer"
         className=" bg-blue-500 hover:bg-blue-400 "
-        variant="default"
+        variant="gooeyRight"
       />
     </div>
   );

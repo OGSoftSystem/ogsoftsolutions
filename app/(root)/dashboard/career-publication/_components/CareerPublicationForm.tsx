@@ -24,26 +24,27 @@ import { ChangeEvent, useState } from "react";
 import {
   CareerPublicationProps,
   careerPublicationSchema,
-  PublicationProps,
-  publicationSchema,
 } from "@/lib/validation";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { isBase64Image } from "@/lib/utils";
 import { useUploadThing } from "@/lib/uploadthing";
 import { Button } from "@/components/ui/button";
-import { toast } from "react-toastify";
+
 import { useRouter } from "next/navigation";
-import {
-  FormType,
-  initialCareerPublication,
-} from "@/constants/defualtValues";
+import { FormType, initialCareerPublication } from "@/constants/defualtValues";
 
 import Spinner from "@/components/atom/Spinner";
 
 import { CareerPublicationSchemaType } from "@/type/type";
 import RichTextEditor from "@/components/shared/RichTextEditor";
-import { createCareerPublication, deleteCareerPublication, updateCareerPublication } from "@/lib/actions/career.actions";
+import {
+  createCareerPublication,
+  deleteCareerPublication,
+  updateCareerPublication,
+} from "@/lib/actions/career.actions";
+import { useToast } from "@/hooks/use-toast";
+import { ERROR_TOAST, SUCCESS_TOAST } from "@/constants/message";
 
 type Props = {
   type: FormType;
@@ -52,7 +53,7 @@ type Props = {
 
 const CareerPublicationForm = ({ type, publication }: Props) => {
   const { startUpload } = useUploadThing("imageUploader");
-
+  const { toast } = useToast();
   const form = useForm<CareerPublicationProps>({
     resolver: zodResolver(careerPublicationSchema),
     defaultValues: publication
@@ -107,10 +108,18 @@ const CareerPublicationForm = ({ type, publication }: Props) => {
             link: data.link,
           });
 
-          toast.success("Publication added successfully");
+          toast({
+            title: SUCCESS_TOAST,
+            description: "Publication added successfully",
+            variant: "default",
+          });
           router.push("/");
         } catch (error) {
-          toast.error("Failed to add publication");
+          toast({
+            title: ERROR_TOAST,
+            description: "Failed to add publication",
+            variant: "destructive",
+          });
           throw error;
         }
       }
@@ -135,7 +144,11 @@ const CareerPublicationForm = ({ type, publication }: Props) => {
         link: data.link,
       });
 
-      toast.success("Career Publication updated");
+      toast({
+        title: "Successful",
+        description: "Career Publication updated",
+        variant: "default",
+      });
       router.push("/");
     }
     return;
@@ -212,6 +225,7 @@ const CareerPublicationForm = ({ type, publication }: Props) => {
                         fieldValue={field.value}
                         onChange={field.onChange}
                         placeholder="Write your publication."
+                        className="h-[250px]"
                       />
                     </div>
                   </FormControl>

@@ -91,6 +91,10 @@ module.exports = withUt({
           from: { opacity: "0", transform: "translateX(100%)" },
           to: { opacity: "1", transform: "translateX(0)" },
         },
+        shine: {
+          from: { backgroundPosition: "200% 0" },
+          to: { backgroundPosition: "-200% 0" },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
@@ -98,6 +102,7 @@ module.exports = withUt({
         slideDown: "slideDown 1s ease-in-out",
         slideLeft: "slideLeft 0.3s ease-in-out",
         slideRight: "slideRight 0.3s ease-in-out",
+        shine: "shine 8s ease-in-out infinite",
       },
     },
   },

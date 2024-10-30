@@ -8,7 +8,9 @@ import PageHeadingText from "@/components/shared/PageHeadingText";
 export const metadata: Metadata = {
   title: "Edit Team Members",
 };
-const TeamPage = async ({ params: { id } }: { params: { id: string } }) => {
+const TeamPage = async ({ params }: { params: Promise<{ id: string }> }) => {
+  
+  const id = (await params).id;
   const member: TeamMemberProps = await findTeamMember(id);
 
   return (

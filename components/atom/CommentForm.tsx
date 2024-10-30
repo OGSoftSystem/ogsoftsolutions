@@ -15,10 +15,10 @@ import { CommentType } from "@/type/type";
 import { CommentProps, PostCommentSchema } from "@/lib/validation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Spinner from "./Spinner";
-import { useState } from "react";
-import { toast } from "react-toastify";
-import dynamic from "next/dynamic";
-const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
+
+import { useToast } from "@/hooks/use-toast";
+import { ERROR_TOAST, SUCCESS_TOAST } from "@/constants/message";
+import RichTextEditor from "../shared/RichTextEditor";
 
 const CommentForm = ({ postId }: { postId: string }) => {
   const form = useForm<CommentProps>({
@@ -29,18 +29,25 @@ const CommentForm = ({ postId }: { postId: string }) => {
     },
   });
 
-  const [submitting, setSubmitting] = useState(false);
+  const { toast } = useToast();
 
   const onSubmit = async (data: Omit<CommentType, "id">) => {
-    setSubmitting(true);
     try {
       await addComment(data);
-      setSubmitting(false);
-      toast.success("Comment Added");
+      toast({
+        title: SUCCESS_TOAST,
+        description: "Comment added",
+        variant: "default",
+      });
+
       form.reset();
     } catch (error) {
-      setSubmitting(false);
-      toast.error("Failed to add comment");
+      toast({
+        title: ERROR_TOAST,
+        description: "Failed to add comment",
+        variant: "destructive",
+      });
+
       throw error;
     }
   };
@@ -58,24 +65,29 @@ const CommentForm = ({ postId }: { postId: string }) => {
             <FormItem>
               <FormLabel>Add comment</FormLabel>
               <FormControl>
-                <ReactQuill theme="snow" value={field.value} onChange={field.onChange} placeholder="Add comment."/>
+                <RichTextEditor
+                  fieldValue={field.value}
+                  onChange={field.onChange}
+                  placeholder="Write your post."
+                  className="h-[50px]"
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
           )}
         />
-        <div className="flex space-x-2 mt-8">
+        <div className="flex space-x-2 mt-16 mb-4">
           <Button
-            disabled={submitting}
+            disabled={form.formState.isSubmitting}
             type="submit"
             variant="secondary"
             className="bg-APP_BTN_BLUE hover:bg-blue-700 text-white"
           >
-            Comment {submitting ? <Spinner /> : null}
+            Comment {form.formState.isSubmitting ? <Spinner /> : null}
           </Button>
 
           <Button
-            disabled={submitting}
+            disabled={form.formState.isSubmitting}
             type="reset"
             variant="ghost"
             onClick={() => form.reset()}

@@ -9,7 +9,7 @@ export default withAuth(
   {
     callbacks: {
       async authorized({ token }) {
-        // Check if the user has the required role
+        // Check if the user is admin
         return token?.role === "admin";
       },
     },

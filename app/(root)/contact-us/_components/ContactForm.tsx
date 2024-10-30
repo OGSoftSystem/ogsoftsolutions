@@ -17,7 +17,8 @@ import { ContactFormSchema, ContactFormSchemaProps } from "@/lib/validation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import React from "react";
 import { useForm } from "react-hook-form";
-import { toast } from "react-toastify";
+import { useToast } from "@/hooks/use-toast";
+import { ERROR_TOAST, SUCCESS_TOAST } from "@/constants/message";
 
 const ContactForm = () => {
   const initialValue = {
@@ -33,13 +34,23 @@ const ContactForm = () => {
     resolver: zodResolver(ContactFormSchema),
   });
 
+  const { toast } = useToast();
+
   const onSubmitForm = async (data: ContactFormSchemaProps) => {
     try {
       const success = await sendEmailToContact(data);
       if (!success) {
-        toast.error("Could send message. Try again shortly. Thanks");
+        toast({
+          title: ERROR_TOAST,
+          description: "Could send message. Try again shortly. Thanks",
+          variant: "destructive",
+        });
       }
-      toast.success("Message sent. We will reach you shortly. Thanks");
+      toast({
+        title: SUCCESS_TOAST,
+        description: "Message sent. We will reach you shortly. Thanks",
+        variant: "default",
+      });
     } catch (error) {
       throw error;
     } finally {

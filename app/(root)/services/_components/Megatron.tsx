@@ -116,7 +116,7 @@ const Megatron = () => {
           and more efficient healthcare ecosystem.
         </p>
 
-        <div className="w-full mt-2 flex items-center space-x-4">
+        <div className="w-full mt-2 space-y-4 md:flex items-center md:space-x-4">
           <VideoPlayer url={videoLinks.megatron} />
 
           <Link

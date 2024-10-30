@@ -25,13 +25,15 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { isBase64Image } from "@/lib/utils";
 import { useUploadThing } from "@/lib/uploadthing";
 import { Button } from "@/components/ui/button";
-import { toast } from "react-toastify";
+
 import Spinner from "@/components/atom/Spinner";
 import { useRouter } from "next/navigation";
-import { createPost,updatePost } from "@/lib/actions/post.action";
+import { createPost, updatePost } from "@/lib/actions/post.action";
 import { FormType, postInitialValues } from "@/constants/defualtValues";
 import { PostType } from "@/type/type";
 import RichTextEditor from "@/components/shared/RichTextEditor";
+import { useToast } from "@/hooks/use-toast";
+import { ERROR_TOAST, SUCCESS_TOAST } from "@/constants/message";
 
 type PostFormProps = {
   type: FormType;
@@ -47,6 +49,7 @@ const PostForm = ({ type, post }: PostFormProps) => {
 
   const [files, setFiles] = useState<File[]>([]);
   const router = useRouter();
+  const { toast } = useToast();
 
   const handleImage = (
     e: ChangeEvent<HTMLInputElement>,
@@ -72,7 +75,6 @@ const PostForm = ({ type, post }: PostFormProps) => {
   };
 
   const onSubmit = async (data: PostProps) => {
-
     if (type === "Create") {
       const imgRes = await startUpload(files);
 
@@ -89,10 +91,19 @@ const PostForm = ({ type, post }: PostFormProps) => {
             body: data.body,
           });
 
-          toast.success("Post added successfully");
+          toast({
+            title: SUCCESS_TOAST,
+            description: "Post added successfully",
+            variant: "default",
+          });
+
           router.push("/blog");
         } catch (error) {
-          toast.error("Failed to add post");
+          toast({
+            title: ERROR_TOAST,
+            description: "Failed to add post",
+            variant: "destructive",
+          });
           throw error;
         }
       }
@@ -121,7 +132,11 @@ const PostForm = ({ type, post }: PostFormProps) => {
           body: data.body,
         });
 
-        toast.success("Post updated");
+        toast({
+          title: SUCCESS_TOAST,
+          description: "Post updated",
+          variant: "default",
+        });
         router.push("/blog");
       } catch (error) {
         throw error;
@@ -236,6 +251,7 @@ const PostForm = ({ type, post }: PostFormProps) => {
                         fieldValue={field.value}
                         onChange={field.onChange}
                         placeholder="Write your post."
+                        className="h-[250px]"
                       />
                     </div>
                   </FormControl>

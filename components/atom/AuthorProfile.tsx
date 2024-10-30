@@ -3,7 +3,6 @@
 import { fetchTeamMembers } from "@/lib/actions/team.action";
 import { cn } from "@/lib/utils";
 import { TeamMemberProps } from "@/type/type";
-import { useSession } from "next-auth/react";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 
@@ -36,7 +35,7 @@ const AuthorProfile = ({
       <div className="flex flex-col space-y-2 items-center">
         <div className="w-[150px] h-[150px] rounded-full overflow-hidden relative">
           <Image
-            src={currentUser?.photo as string}
+            src={currentUser?.photo ? currentUser.photo : "/logo.png"}
             alt="author_pic"
             fill
             // priority
@@ -44,7 +43,9 @@ const AuthorProfile = ({
             className="object-contain "
           />
         </div>
-        <p className="poppins text-gray-700 dark:text-gray-400">Author: {currentUser?.fullName}</p>
+        <p className="poppins text-gray-700 dark:text-gray-400">
+          Author: {currentUser?.fullName}
+        </p>
         <p
           className={cn(
             "text-base text-muted-foreground leading-tight -tracking-normal "

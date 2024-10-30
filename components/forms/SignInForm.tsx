@@ -8,16 +8,16 @@ import { cn } from "@/lib/utils";
 import { SignInType, userSignInSchema } from "@/lib/validation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
-import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
-import { toast } from "react-toastify";
+
 import { signIn } from "next-auth/react";
+import { useToast } from "@/hooks/use-toast";
+import { ERROR_TOAST, SUCCESS_TOAST } from "@/constants/message";
 
 const SignInForm = () => {
   const router = useRouter();
 
-  const [submitting, setSubmitting] = useState(false);
   const form = useForm<SignInType>({
     resolver: zodResolver(userSignInSchema),
     defaultValues: {
@@ -25,9 +25,8 @@ const SignInForm = () => {
       password: "",
     },
   });
-
+  const { toast } = useToast();
   const onSubmit = async (data: SignInType) => {
-    setSubmitting(true);
 
     const { email, password } = data;
 
@@ -41,17 +40,24 @@ const SignInForm = () => {
       });
 
       if (res?.error) {
-        toast.error(res.error);
-        setSubmitting(false);
+        toast({
+          title: ERROR_TOAST,
+          description: res.error,
+          variant: "destructive",
+        });
+
         return;
       }
 
-      toast.success("Signed in");
-      setSubmitting(false);
+      toast({
+        title: SUCCESS_TOAST,
+        description: "Signed In.",
+        variant: "default",
+      });
+
       form.reset();
       router.replace("/");
     } catch (e) {
-      setSubmitting(false);
 
       throw e;
     }
@@ -82,25 +88,26 @@ const SignInForm = () => {
           />
 
           <Button
-            disabled={submitting}
+            disabled={form.formState.isSubmitting}
             type="submit"
             variant="default"
             className="bg-APP_BTN_BLUE w-full text-white"
           >
-            Sign in with credentials {submitting && <Spinner />}
+            Sign in with credentials{" "}
+            {form.formState.isSubmitting && <Spinner />}
           </Button>
 
           <Link
             className={cn(
               "w-full",
-              { "cursor-not-allowed": submitting },
+              { "cursor-not-allowed": form.formState.isSubmitting },
               buttonVariants({ variant: "ghost" })
             )}
             href="/auth/sign-up"
           >
             <p
               className={cn("text-zinc-950 dark:text-white", {
-                "cursor-not-allowed": submitting,
+                "cursor-not-allowed": form.formState.isSubmitting,
               })}
             >
               Sign up

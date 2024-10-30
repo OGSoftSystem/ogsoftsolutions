@@ -9,7 +9,9 @@ export const metadata: Metadata = {
   title: "Edit Client",
 };
 
-const ClientPage = async ({ params: { id } }: { params: { id: string } }) => {
+const ClientPage = async ({ params }: { params: Promise<{ id: string }> }) => {
+  const id = (await params).id;
+
   const client: ClientType = await findClient(id);
 
   return (

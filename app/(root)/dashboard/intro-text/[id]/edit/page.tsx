@@ -4,7 +4,9 @@ import { IntoTextSchemaType } from "@/type/type";
 import { findIntroTextById } from "@/lib/actions/intro.action";
 import IntroForm from "@/app/(root)/dashboard/intro-text/_components/IntroForm";
 
-const EditPage = async ({ params: { id } }: { params: { id: string } }) => {
+const EditPage = async ({ params }: { params: Promise<{ id: string }> }) => {
+  const id = (await params).id;
+
   const text: IntoTextSchemaType = await findIntroTextById(id);
 
   return (

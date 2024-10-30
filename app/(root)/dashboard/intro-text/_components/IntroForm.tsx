@@ -13,7 +13,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 
 import "easymde/dist/easymde.min.css";
 import { createIntroText, updateIntroText } from "@/lib/actions/intro.action";
-import { toast } from "react-toastify";
+
 import { IntroTextField, IntroTextSchema } from "@/lib/validation";
 import Spinner from "@/components/atom/Spinner";
 import { Textarea } from "@/components/ui/textarea";
@@ -26,6 +26,8 @@ import {
 } from "@/components/ui/card";
 import { IntoTextSchemaType } from "@/type/type";
 import { useRouter } from "next/navigation";
+import { useToast } from "@/hooks/use-toast";
+import { ERROR_TOAST, SUCCESS_TOAST } from "@/constants/message";
 
 type FormType = {
   type: "Create" | "Update";
@@ -40,7 +42,7 @@ const IntroForm = ({ type, introText }: FormType) => {
       : { text: "" },
   });
   const router = useRouter();
-
+  const { toast } = useToast();
   /**
    * Function to create introduction text
    * @param text string
@@ -50,27 +52,37 @@ const IntroForm = ({ type, introText }: FormType) => {
       if (type === "Create") {
         const newText = await createIntroText(text);
         if (newText) {
-          toast.success("Created text successfully");
+          toast({
+            title: SUCCESS_TOAST,
+            description: "Created text successfully",
+            variant: "default",
+          });
           router.replace("/dashboard/intro-text");
         } else {
-          toast.error("Error creating text");
+          toast({
+            title: ERROR_TOAST,
+            description: "Error creating text",
+            variant: "destructive",
+          });
           return;
         }
       }
 
       if (type === "Update") {
-
         console.log("Calling update");
-        
+
         let updatedText;
 
         if (introText) {
           updatedText = await updateIntroText(introText._id, text);
           console.log(updatedText);
-          
         }
         if (updatedText) {
-          toast.success("updated text successfully");
+          toast({
+            title: SUCCESS_TOAST,
+            description: "updated text successfully",
+            variant: "default",
+          });
           router.push("/dashboard/intro-text");
         }
       }

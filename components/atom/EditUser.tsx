@@ -4,7 +4,8 @@ import { useState, useEffect } from "react";
 import { Checkbox } from "../ui/checkbox";
 import { getUsers, makeAdmin } from "@/lib/actions/user.action";
 import { useSession } from "next-auth/react";
-import { toast } from "react-toastify";
+import { useToast } from "@/hooks/use-toast";
+import { ERROR_TOAST, SUCCESS_TOAST } from "@/constants/message";
 
 type UserProps = {
   id?: string;
@@ -43,6 +44,7 @@ const EditUser = () => {
   const [admin, setAdmin] = useState(false);
   const { data: session } = useSession();
   const isSuperAdmin = session?.user.role === "super-admin";
+  const { toast } = useToast();
 
   useEffect(() => {
     async function fetchUsers() {
@@ -72,9 +74,17 @@ const EditUser = () => {
 
               try {
                 await makeAdmin(user._id);
-                toast.success("Role changed successfully");
+                toast({
+                  title: SUCCESS_TOAST,
+                  description: "Role changed successfully",
+                  variant: "default",
+                });
               } catch (error) {
-                toast.error("Failed to change role ");
+                toast({
+                  title: ERROR_TOAST,
+                  description: "Failed to change role",
+                  variant: "destructive",
+                });
 
                 throw error;
               }

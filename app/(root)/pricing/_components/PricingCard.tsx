@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@/components/ui/button";
-import { toast } from "react-toastify";
+
 import {
   Card,
   CardContent,
@@ -16,9 +16,11 @@ import {
 import { PricingType, pricingSchema } from "@/lib/validation";
 import { Form } from "@/components/ui/form";
 import { createPricingQuotation } from "@/lib/actions/pricing.action";
-import { Countries, CountryProps } from "@/type/type";
+// import { Countries, CountryProps } from "@/type/type";
 import InputField from "@/components/atom/InputField";
 import Spinner from "@/components/atom/Spinner";
+import { useToast } from "@/hooks/use-toast";
+import { SUCCESS_TOAST } from "@/constants/message";
 
 const PricingCard = () => {
   const form = useForm<PricingType>({
@@ -33,16 +35,25 @@ const PricingCard = () => {
     },
   });
 
+  const { toast } = useToast();
   const submitForm = async (data: PricingType) => {
     try {
       const err = await createPricingQuotation(data);
       if (!err) {
-        toast.success("Request successful");
+        toast({
+          title: SUCCESS_TOAST,
+          description: "Request successful",
+          variant: "default",
+        });
       }
 
       form.reset();
     } catch (error) {
-      toast.error("Request unsuccessful");
+      toast({
+        title: SUCCESS_TOAST,
+        description: "Request failed",
+        variant: "destructive",
+      });
 
       throw error;
     }

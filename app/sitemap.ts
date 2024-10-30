@@ -3,6 +3,8 @@ import { fetchPosts } from "@/lib/actions/post.action";
 import { PostType } from "@/type/type";
 import { MetadataRoute } from "next";
 
+export const dynamic = "force-dynamic";
+
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const posts: PostType[] = await fetchPosts();
 
@@ -24,6 +26,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     },
     {
       url: `${siteConfig.baseUrl}/contact-us`,
+    },
+    {
+      url: `${siteConfig.baseUrl}/zimbabwe`,
     },
     {
       url: `${siteConfig.baseUrl}/pricing`,

@@ -11,13 +11,15 @@ import Link from "next/link";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
-import { toast } from "react-toastify";
+
 import { createUser } from "@/lib/actions/user.action";
+import { useToast } from "@/hooks/use-toast";
+import { ERROR_TOAST, SUCCESS_TOAST } from "@/constants/message";
 
 const SignUpForm = () => {
   const router = useRouter();
 
-  const [submitting, setSubmitting] = useState(false);
+  const { toast } = useToast();
   const form = useForm<UserType>({
     resolver: zodResolver(userSchema),
     defaultValues: {
@@ -28,21 +30,25 @@ const SignUpForm = () => {
   });
 
   const onSubmit = async (data: UserType) => {
-    setSubmitting(true);
-
     try {
       const newUser = await createUser(data);
-      
+
       if (newUser) {
-        toast.success("User successfully created");
-        setSubmitting(false);
+        toast({
+          title: SUCCESS_TOAST,
+          description: "User successfully created.",
+          variant: "default",
+        });
+
         form.reset();
         router.replace("/auth/sign-in");
       }
     } catch (e) {
-      toast.error("creating user unsuccessful");
-
-      setSubmitting(false);
+      toast({
+        title: ERROR_TOAST,
+        description: "Creating user unsuccessful.",
+        variant: "destructive",
+      });
 
       throw e;
     }
@@ -81,19 +87,20 @@ const SignUpForm = () => {
           />
 
           <Button
-            disabled={submitting}
+            disabled={form.formState.isSubmitting}
             type="submit"
             variant="default"
-            // disable={submitting}
+            // disable={form.formState.isSubmitting}
             className="bg-APP_BTN_BLUE w-full text-white"
           >
-            Sign up with credentials {submitting && <Spinner />}
+            Sign up with credentials{" "}
+            {form.formState.isSubmitting && <Spinner />}
           </Button>
 
           <Link
             className={cn(
               "w-full",
-              { "cursor-not-allowed": submitting },
+              { "cursor-not-allowed": form.formState.isSubmitting },
               buttonVariants({ variant: "ghost" })
             )}
             href="/auth/sign-in"
