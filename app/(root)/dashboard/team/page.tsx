@@ -55,6 +55,7 @@ async function GetPublications() {
       <CardTitle className="mb-4 text-center">{item.fullName}</CardTitle>
       <CardContent className="min-h-[150px]">
         <Image
+          priority
           src={item.photo}
           alt={item.fullName}
           width={100}

@@ -12,6 +12,7 @@ const TeamMember = ({
   return (
     <div className="relative cursor-pointer group overflow-hidden rounded-md max-h-[280px] min-h-[280px] shadow-lg w-fit">
       <Image
+        priority
         src={photo}
         width={300}
         height={300}
@@ -73,6 +74,7 @@ export const ZimTeamMember = async ({
   return (
     <div className="relative cursor-pointer group overflow-hidden rounded-md max-h-[280px] min-h-[280px] shadow-lg">
       <Image
+        priority
         src={photo}
         width={250}
         height={300}

@@ -31,22 +31,32 @@ const NewsLetterForm = () => {
   });
 
   const { toast } = useToast();
+
   const onSubmit = async (data: EmailFormFieldType) => {
-    if (!data.hasAgreed && !data.email) return;
+    if (!data.hasAgreed || !data.email) return;
 
     try {
-      const success = await addEmailAddress(data);
-      if (success) {
+      const res: { success: boolean; isExist: boolean } = await addEmailAddress(
+        data
+      );
+
+      if (res.isExist) {
+        toast({
+          title: ERROR_TOAST,
+          description: "Email already exists.",
+          variant: "destructive",
+        });
+      } else if (res.success) {
         toast({
           title: SUCCESS_TOAST,
-          description: "Sign up successful",
+          description: "Subscribed successfully",
           variant: "default",
         });
         form.reset();
       } else {
         toast({
           title: ERROR_TOAST,
-          description: "Sign up unsuccessful",
+          description: "Failed to subscribe.",
           variant: "destructive",
         });
       }

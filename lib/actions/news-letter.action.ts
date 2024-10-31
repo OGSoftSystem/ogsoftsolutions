@@ -16,22 +16,25 @@ import { handleError } from "../utils";
 // }
 // type ExpectedReturn = Success | Failure;
 
-export const addEmailAddress = async (email: EmailFormFieldType) => {
-  const validatedEmail = newsLetterSchema.safeParse(email);
-  if (!validatedEmail.success) return new Error("Email already exists");
+export const addEmailAddress = async (
+  data: EmailFormFieldType
+): Promise<{ success: boolean; isExist: boolean }> => {
+  const validatedEmail = newsLetterSchema.safeParse(data);
+
+  if (!validatedEmail.success) return { success: false, isExist: false };
 
   try {
     await connectDb();
-    // const exists = await NewsLetterEmail.findOne({
-    //   email: validatedEmail.data,
-    // });
+    const exists = await NewsLetterEmail.findOne({
+      email: validatedEmail.data.email.toLowerCase(),
+    });
 
-    // if (exists) {
-    //   throw new Error("Email already exits");
-    // }
+    if (exists) {
+      return { success: false, isExist: true };
+    }
 
     const newEmail = await NewsLetterEmail.create({
-      email: validatedEmail.data.email,
+      email: validatedEmail.data.email.toLowerCase(),
       hasAgreed: validatedEmail.data.hasAgreed,
     });
 
@@ -40,9 +43,9 @@ export const addEmailAddress = async (email: EmailFormFieldType) => {
       revalidateTag("news-letter");
     }
 
-    return { success: true };
+    return { success: true, isExist: false };
   } catch (error) {
-    return { error: handleError(error) };
+    return { success: false, isExist: false };
   }
 };
 
