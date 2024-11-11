@@ -3,7 +3,7 @@ export const customerReview = [
     logo: "/ash.jpg",
     info: "Afrimed Specialist Hosp., Lagos.",
     remark:
-      "Implemented OGSoft Solutions HMS for my healthcare facility; robust system, streamlined operations. Highly recommend!",
+      "Implemented OGSoft Solutions HMS for our healthcare facility; robust system, streamlined operations. Highly recommend!",
   },
   {
     logo: "/logo.png",

@@ -1,7 +1,6 @@
 import MaxWidthContainer from "@/components/MaxWidthContainer";
 import { Countries, CountryProps } from "@/type/type";
 import { Metadata } from "next";
-import { notFound } from "next/navigation";
 import React from "react";
 import PricingCard from "./_components/PricingCard";
 
@@ -25,8 +24,7 @@ export const metadata: Metadata = {
 //   return res
 // };
 
-const PricingPage = async() => {
-
+const PricingPage = () => {
   // const { data } = await getCountries();
   // Pace data to pricing component as prop to use it
 
@@ -34,7 +32,7 @@ const PricingPage = async() => {
     <MaxWidthContainer className="paddingY flex flex-col items-center pricing">
       <h1 className="main-heading">Get A Quotation.</h1>
       <h3 className="main-desc">
-        {" "}
+
         Kindly fill the form below to get a befitting offer.
       </h3>
       <PricingCard />

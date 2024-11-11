@@ -18,6 +18,7 @@ const ZimPage = () => {
           fill
           alt="bg-pattern"
           className="object-cover -z-10"
+          sizes="(max-width: 1280px) 100vw"
           priority
         />
 

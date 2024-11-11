@@ -74,7 +74,7 @@ export const ZimTeamMember = async ({
   return (
     <div className="relative cursor-pointer group overflow-hidden rounded-md max-h-[280px] min-h-[280px] shadow-lg">
       <Image
-        priority
+        // priority
         src={photo}
         width={250}
         height={300}

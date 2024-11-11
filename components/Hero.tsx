@@ -72,7 +72,7 @@ const Hero = () => {
           fill
           alt="ogsoft-logo"
           priority
-          sizes="(min-width: 1360px) 1280px, calc(94.23vw + 17px)"
+          sizes="(min-width: 1280px) 50vw, 100vw"
           className="object-contain object-right absolute"
         />
       </MaxWidthContainer>

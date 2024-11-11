@@ -12,7 +12,7 @@ export const sendEmailToContact = async (data: ContactFormSchemaProps) => {
       from: parsedData.data.email,
       subject: parsedData.data.title,
       text: `
-      ${parsedData.data.name} with phone: ${parsedData.data.phone} dropped a message:
+      ${parsedData.data.name} with phone: ${parsedData.data.phone} and email: ${parsedData.data.email} dropped a message:
       ${parsedData.data.message}`,
     });
 
