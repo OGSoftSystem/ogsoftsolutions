@@ -9,7 +9,6 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import Image from "next/image";
-import { LuMoreVertical } from "react-icons/lu";
 import { MdOutlineVerified } from "react-icons/md";
 import { GoUnverified } from "react-icons/go";
 import {
@@ -26,6 +25,7 @@ import {
 } from "./UserActions";
 import { useSession } from "next-auth/react";
 import { UserSchemaType } from "@/type/type";
+import { LucideMoreVertical } from "lucide-react";
 
 const UsersTable = ({ users }: { users: UserSchemaType[] }) => {
   const { data: session } = useSession();
@@ -78,7 +78,7 @@ const UsersTable = ({ users }: { users: UserSchemaType[] }) => {
                 <DropdownMenu>
                   <DropdownMenuTrigger>
                     <>
-                      <LuMoreVertical />
+                      <LucideMoreVertical />
                       <span className="sr-only">Action</span>
                     </>
                   </DropdownMenuTrigger>
