@@ -44,8 +44,8 @@ const Hero = () => {
         <div className="w-full flex flex-col md:items-start gap-8 md:pr-8 z-10">
           <div className="w-full lg:-mt-24">
             <Link href="/zimbabwe" className="cursor-pointer">
-              <span className="text-blue-500 font-light">visit </span>
-              <span className="text-APP_BTN_BLUE font-[600]">ZIMBABWE</span>
+              <span className="text-blue-500 font-poppins-regular">visit </span>
+              <span className="text-APP_BTN_BLUE font-poppins-mid">ZIMBABWE</span>
             </Link>
             <DynamicText />
           </div>

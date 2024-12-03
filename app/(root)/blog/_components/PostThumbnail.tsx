@@ -34,25 +34,25 @@ const PostThumbnail = ({
       </div>
 
       <div className="flex items-center space-x-2">
-        <p className={cn("poppins text-[12px] font-light text-gray-400")}>
+        <p className={cn("font-poppins-regular text-[12px] font-light text-gray-400")}>
           {sliceText(author, 16)}
         </p>
         <p className="text-[12px] font-light text-gray-400">|</p>
-        <p className={cn("poppins text-[12px] font-light text-gray-400")}>
+        <p className={cn("font-poppins-regular text-[12px] text-gray-400")}>
           {moment(date.toString(), "YYYYMMDD").fromNow()}
         </p>
       </div>
 
-      <p className="poppins uppercase leading-tight font-semibold text-gray-700 min-h-[50px] dark:text-gray-500">
+      <p className="font-poppins-mid uppercase leading-tight text-gray-700 min-h-[50px] dark:text-gray-500">
         {sliceText(title, 55)}
       </p>
 
       <div className="flex items-center justify-between ">
-        <p className="text-base font-light text-muted-foreground">{category}</p>
+        <p className="text-base font-nunito-300 text-muted-foreground">{category}</p>
         <Link
           href={`/blog/post/${_id}`}
           className={cn(
-            "poppins text-base leading-tight font-light text-gray-500 cursor-pointer group-hover:text-blue-800 z-10"
+            "font-nunito-300 text-base leading-tight text-gray-500 cursor-pointer group-hover:text-blue-800 z-10"
           )}
         >
           read &rarr;

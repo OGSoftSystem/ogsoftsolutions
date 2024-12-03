@@ -26,7 +26,7 @@ const NavItems = () => {
             <li
               key={link.id}
               className={cn(
-                "capitalize font-normal p-[0.75rem] rounded-md relative no-underline duration-300 ease-in",
+                "capitalize font-poppins-regular p-[0.75rem] rounded-md relative no-underline duration-300 ease-in",
                 {
                   "text-blue-700 font-bold dark:text-zinc-300":
                     pathname === link.path,

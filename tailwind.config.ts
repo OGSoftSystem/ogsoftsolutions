@@ -1,5 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 import { withUt } from "uploadthing/tw";
+import { fontFamily } from "tailwindcss/defaultTheme";
 
 module.exports = withUt({
   darkMode: ["class"],
@@ -18,6 +19,13 @@ module.exports = withUt({
       },
     },
     extend: {
+      fontFamily: {
+        'poppins': ["poppins", "sans-serif"],
+        'poppins-regular': ["poppins-regular", "sans-serif"],
+        'poppins-mid': ["poppins-mid", "sans-serif"],
+        "nunito-regular": ["nunito-sans-regular", "sans-serif"],
+        "nunito-300": ["nunito-sans-300", "sans-serif"],
+      },
       screens: {
         xxs: "530px",
         mmd: "1077px",

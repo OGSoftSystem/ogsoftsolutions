@@ -25,13 +25,17 @@ const FaQAccordion = () => {
             }}
             className="bg-APP_BTN_BLUE/10 p-4 rounded-md my-1"
           >
-            <p className={cn("text-[16px] font-[400]")}>{ques.question}</p>
+            <p className={cn("text-[16px] font-nunito-regular")}>
+              {ques.question}
+            </p>
           </AccordionTrigger>
           {/* If the current question is selected, show its answer */}
           {selected === ques && (
             <AccordionContent>
               <p
-                className={cn("font-cambay text-blue-600 font-[400] leading-8")}
+                className={cn(
+                  "text-blue-600 text-[1rem] font-nunito-regular leading-8"
+                )}
               >
                 {ques.answer}
               </p>

@@ -25,7 +25,7 @@ const CustomerRemark = ({ logo, info, remark }: CustomReviewSchemaType) => {
       <p className="text-xl font-bold text-muted-foreground leading-tight">“</p>
       <p
         className={cn(
-          "nunito-font text-muted-foreground leading-tight tracking-tight text-left text-[0.9rem] self-start"
+          "font-nunito-300 text-muted-foreground leading-tight tracking-tight text-left text-[0.9rem] self-start"
         )}
       >
         {remark}

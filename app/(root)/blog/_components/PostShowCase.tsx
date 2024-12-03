@@ -110,7 +110,7 @@ const SelectComp = ({
                   : null
               )}
             >
-              <span>{opt.title}</span>
+              <span className="font-poppins-regular ">{opt.title}</span>
             </div>
           );
         })}

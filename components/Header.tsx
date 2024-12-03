@@ -22,7 +22,7 @@ import {
 } from "./ui/dropdown-menu";
 import { signOut, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import { Button, buttonVariants } from "./ui/button";
+import { buttonVariants } from "./ui/button";
 
 const Header = () => {
   const { toggled, setToggled } = useDashboardContext();
@@ -74,7 +74,7 @@ const Header = () => {
         {/* Left */}
         <Link href="/" className="flex gap-2 items-center">
           <Image src="/logo.png" width={32} height={32} alt="company-logo" />
-          <span className="gradient-text poppins-heading hidden lg:block">
+          <span className="gradient-text font-poppins hidden lg:block">
             OGSoft Solutions
           </span>
         </Link>
@@ -90,7 +90,7 @@ const Header = () => {
             href={"/contact-us"}
             className={`${buttonVariants({
               variant: "outline",
-              className: "poppins font-bold text-[0.75rem] md:text-sm",
+              className: "font-poppins-regular font-bold text-[0.75rem] md:text-sm",
             })}`}
           >
             Contact Us

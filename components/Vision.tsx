@@ -64,7 +64,7 @@ const MissionComp = ({ imgPath, title, desc }: MissionProps) => {
       </div>
 
       <div className="space-y-4 text-center">
-        <p className="poppins gradient-text font-semibold text-2xl">
+        <p className="font-poppins gradient-text font-semibold text-2xl">
           -{title}-
         </p>
         <p className="p-text">{desc}</p>

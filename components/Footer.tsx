@@ -132,7 +132,7 @@ const Footer = () => {
         <MaxWidthContainer className="py-10">
           <p
             className={cn(
-              "text-center dark:text-muted-foreground text-white text-base py-2"
+              "text-center dark:text-muted-foreground text-white text-base py-2 font-nunito-300"
             )}
           >
             Copyright &copy;{year} Ogsoft solutions limited. All rights

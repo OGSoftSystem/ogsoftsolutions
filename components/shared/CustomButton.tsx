@@ -78,7 +78,7 @@ export const CustomLink = ({
         buttonVariants({
           variant: variant,
           size: "lg",
-          className: `btn dark:text-white ${className}`,
+          className: `btn dark:text-white font-poppins-regular ${className}`,
         })
       )}
       href={href}
