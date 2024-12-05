@@ -42,10 +42,12 @@ const Hero = () => {
 
       <MaxWidthContainer className="flex flex-col md:flex-row xxs:h-[calc(100vh-80px)] md:mt-[60px] md:mb-[40px] lg:mt-0 w-full lg:items-center relative paddingY xxs:mb-5 2xl:h-[calc(100vh-55vh)]">
         <div className="w-full flex flex-col md:items-start gap-8 md:pr-8 z-10">
-          <div className="w-full lg:-mt-24">
+          <div className="w-full md:w-[70%] lg:-mt-24 rounded-md p-4">
             <Link href="/zimbabwe" className="cursor-pointer">
               <span className="text-blue-500 font-poppins-regular">visit </span>
-              <span className="text-APP_BTN_BLUE font-poppins-mid">ZIMBABWE</span>
+              <span className="text-APP_BTN_BLUE font-poppins-mid">
+                ZIMBABWE
+              </span>
             </Link>
             <DynamicText />
           </div>
@@ -57,7 +59,7 @@ const Hero = () => {
           <CallToAction />
 
           <div className="xxs:absolute xxs:right-5 xxs:bottom-5 xxs:mt-10 md:mt-0">
-            <div className="rounded-md w-full xxs:self-end xxs:w-[300px] md:w-[250px] flex-col space-x-2 p-2 bg-gradient-to-tr from-zinc-200 via-blue-50/80 to-zinc-100 dark:bg-gradient-to-tr dark:from-[#020817] dark:via-blue-900/80 dark:to-zinc-900">
+            <div className="rounded-md w-full xxs:self-end xxs:w-[300px] md:w-[250px] flex-col space-x-2 p-2 intro-text-bg">
               <Suspense fallback={<ReviewSkeleton />}>
                 <CustomCarousel>
                   <FetchAnimatedReviews />
@@ -68,12 +70,20 @@ const Hero = () => {
         </div>
 
         <Image
+          src="/xmas3.png"
+          fill
+          alt="xmas-flower"
+          priority
+          // sizes="(min-width: 1280px) 50vw, 100vw"
+          className="object-contain object-right"
+        />
+        <Image
           src="/logo.png"
           fill
           alt="ogsoft-logo"
           priority
           sizes="(min-width: 1280px) 50vw, 100vw"
-          className="object-contain object-right absolute"
+          className="object-contain object-right hidden sm:block"
         />
       </MaxWidthContainer>
     </section>

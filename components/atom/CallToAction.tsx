@@ -4,7 +4,7 @@ import { CustomLink } from "../shared/CustomButton";
 
 const CallToAction = () => {
   return (
-    <div className="flex flex-col xxs:flex-row gap-4 items-center xxs:self-start">
+    <div className="flex gap-4 items-center xxs:self-start">
       <CustomLink
         title="Megatron for free"
         href="https://megatronhms.com/#!/home/start"

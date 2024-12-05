@@ -27,6 +27,7 @@ module.exports = withUt({
         "nunito-300": ["nunito-sans-300", "sans-serif"],
       },
       screens: {
+        '3xs': "413px",
         xxs: "530px",
         mmd: "1077px",
         xlg: "1281px",

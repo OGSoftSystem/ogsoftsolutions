@@ -23,15 +23,15 @@ const DynamicText = () => {
   }, []);
 
   return (
-      <h1 className="text-[1.80rem] xxs:text-4xl sm:text-5xl md:text-6xl lg:text-6xl lg:leading-[4rem] font-poppins leading-[2.5rem] gradient-text">
-        Meet Africa&apos;s finest in <br />
-        <TextTransition
-          springConfig={presets.wobbly}
-          className={cn("text-blue-800")}
-        >
-          {TEXTS[index % TEXTS.length]}
-        </TextTransition>
-      </h1>
+    <h1 className="text-4xl 3xs:text-5xl xxs:text-[3.5rem] xxs:leading-[2.9rem] sm:text-6xl sm:leading-[3.5rem] md:text-6xl md:leading-[3.5rem] lg:text-7xl lg:leading-[4rem] font-poppins leading-[2.5rem] gradient-text md:mb-10 lg:mb-2">
+      Meet Africa&apos;s finest in <br />
+      <TextTransition
+        springConfig={presets.wobbly}
+        className={cn("text-blue-800")}
+      >
+        {TEXTS[index % TEXTS.length]}
+      </TextTransition>
+    </h1>
   );
 };
 
